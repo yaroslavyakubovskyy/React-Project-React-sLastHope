@@ -2,8 +2,27 @@
     border: 1px solid rgba(250, 250, 250, 0.2);
     border-radius: 12px;
     padding-left: 18px;
-    width: 335px;
+    width: 100%;
     height: 42px;
+}
+
+@media screen and (min-width: 768px){
+    .input{
+        height: 48px;
+    }
+}
+
+.input::placeholder{
+    font-family: var(--font-family);
+    font-size: 14px;
+    line-height: 129%;
+    color: rgba(250, 250, 250, 0.4);
+}
+@media screen and (min-width: 768px){
+    .input::placeholder{
+        font-size: 16px;
+        line-height: 150%;
+    }
 }
 
 .formWrapper{
@@ -13,9 +32,17 @@
     margin-bottom: 80px;
  }
 
+@media screen and (min-width: 768px){
+    .formWrapper{
+        gap: 24px;
+        margin-bottom: 60px;
+    }
+}
+
 .form{
     margin-bottom: 20px;
 }
+
 
 .button{
      border-radius: 40px;
@@ -32,6 +59,14 @@
     box-sizing: border-box;
     display: flex;
  }
+
+@media screen and (min-width: 768px){
+    .button{
+        width: 145px;
+        height: 47px;
+        font-size: 16px;
+    }
+}
 
 .text{
     font-family: var(--font-family);

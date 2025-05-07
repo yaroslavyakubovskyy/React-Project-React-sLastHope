@@ -22,13 +22,13 @@
      padding: 14px 44px;
      width: 139px;
      height: 44px;
-    background: #0ef387;
+    background: var(--accet-green);
 
     font-family: var(--font-family);
     font-weight: 400;
     font-size: 14px;
     letter-spacing: -0.02em;
-    color: #0c0d0d;
+    color: var(--black);
     box-sizing: border-box;
     display: flex;
  }
@@ -44,5 +44,9 @@
 .link{
      text-decoration: underline;
      text-decoration-skip-ink: none;
-     color: #fafafa;
+     color: var(--white);
  }
+
+.error{
+    color: var(--error)
+}

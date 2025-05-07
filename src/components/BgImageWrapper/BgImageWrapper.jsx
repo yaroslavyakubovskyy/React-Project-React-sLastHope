@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Icon } from "../Icon/Icon";
 import {
   randomNumber,
@@ -8,19 +8,34 @@ import s from "./BgImageWrapper.module.scss";
 
 export const BgImageWrapper = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [animationDuration] = useState(15);
-  const [randomSum, setRandomSum] = useState(0);
-  const [randomPercent, setRandomPercent] = useState(0);
+  const [randomSum, setRandomSum] = useState(randomNumber());
+  const [randomPercent, setRandomPercent] = useState(randomPercentage());
+  const animationDuration = 15;
+
   const animationRef = useRef(null);
   const startTimeRef = useRef(null);
   const viewportWidthRef = useRef(window.innerWidth);
 
-  useEffect(() => {
-    setRandomSum(randomNumber());
-    setRandomPercent(randomPercentage());
+  const updateAnimationProgress = useCallback(() => {
+    const elapsedTime = performance.now() - startTimeRef.current;
+    const percentage = (elapsedTime / (animationDuration * 1000)) * 100;
+    const newStep = Math.ceil(percentage / (100 / 8));
+
+    if (newStep !== currentStep) {
+      setCurrentStep(newStep);
+      setRandomSum(randomNumber());
+      setRandomPercent(randomPercentage());
+    }
+
+    if (elapsedTime < animationDuration * 1000) {
+      animationRef.current = requestAnimationFrame(updateAnimationProgress);
+    } else {
+      setRandomSum(randomNumber());
+      setRandomPercent(randomPercentage());
+    }
   }, [currentStep]);
 
-  const handleAnimationStart = () => {
+  const handleAnimationStart = useCallback(() => {
     const viewportWidth = window.innerWidth;
     viewportWidthRef.current = viewportWidth;
 
@@ -30,30 +45,33 @@ export const BgImageWrapper = () => {
 
     startTimeRef.current = performance.now();
     animationRef.current = requestAnimationFrame(updateAnimationProgress);
-  };
+  }, [updateAnimationProgress]);
 
-  const updateAnimationProgress = () => {
-    const elapsedTime = performance.now() - startTimeRef.current;
-    const percentage = (elapsedTime / (animationDuration * 1000)) * 100;
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+          animationRef.current = null;
+        }
+      } else {
+        if (!animationRef.current) {
+          handleAnimationStart();
+        }
+      }
+      viewportWidthRef.current = window.innerWidth;
+    };
 
-    if (
-      viewportWidthRef.current !== window.innerWidth &&
-      window.innerWidth < 768
-    ) {
-      return;
-    }
+    window.addEventListener("resize", handleResize);
+    handleAnimationStart();
 
-    updateCurrentStep(percentage);
-
-    animationRef.current = requestAnimationFrame(updateAnimationProgress);
-  };
-
-  const updateCurrentStep = (percentage) => {
-    setCurrentStep((prevStep) => {
-      const newStep = Math.ceil(percentage / 12.5);
-      return newStep !== prevStep ? newStep : prevStep;
-    });
-  };
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [handleAnimationStart]);
 
   return (
     <div className={s.bgImageWrapper}>

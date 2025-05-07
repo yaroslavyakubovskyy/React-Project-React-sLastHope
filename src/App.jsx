@@ -12,19 +12,39 @@ import RestrictedRoute from "./routes/RestrictedRoute.jsx";
 
 function App() {
   return (
-      <div className="container">
-        <Routes>
-            <Route path='/' element={<SharedLayout/>}>
-                <Route index element={<WelcomePage />}/>
-                <Route path='register' element={<RestrictedRoute component={<RegisterPage/>} />}/>
-                <Route path='login' element={<RestrictedRoute component={<LoginPage/>} />}/>
-                <Route path='transactions/:transactionType' element={<PrivateRoute><MainTransactionsPage/></PrivateRoute>}/>
-                <Route path='transactions/history/:transactionsType' element={<PrivateRoute><TransactionsHistoryPage/></PrivateRoute>}/>
-                <Route path="*" element={<NotFoundPage />} />
-            </Route>
-        </Routes>
-      </div>
-  )
+    <div className="container">
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<WelcomePage />} />
+          <Route
+            path="register"
+            element={<RestrictedRoute component={<RegisterPage />} />}
+          />
+          <Route
+            path="login"
+            element={<RestrictedRoute component={<LoginPage />} />}
+          />
+          <Route
+            path="transactions/:transactionType"
+            element={
+              <PrivateRoute>
+                <MainTransactionsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="transactions/history/:transactionsType"
+            element={
+              <PrivateRoute>
+                <TransactionsHistoryPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

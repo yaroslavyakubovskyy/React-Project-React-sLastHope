@@ -1,19 +1,23 @@
 import AuthForm from "../../components/AuthForm/AuthForm.jsx";
-import {useDispatch} from "react-redux";
-import {singUp} from "../../redux/auth/operations.js";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../redux/auth/operations.js";
+import s from "./RegisterPage.module.css";
 
 const RegisterPage = () => {
-    const dispatch = useDispatch()
-    const onSubmit = (values)=>{
-        dispatch(singUp(values))
-    }
-    return (
-        <div>
-            <p>Sign Up</p>
-            <p>Step into a world of hassle-free expense management! Your journey towards financial mastery begins here.</p>
-            <AuthForm onSubmit={onSubmit}/>
-        </div>
-    );
+  const dispatch = useDispatch();
+  const onSubmit = (values) => {
+    dispatch(signUp(values));
+  };
+  return (
+    <div className={s.wrapper}>
+      <p className={s.header}>Sign Up</p>
+      <p className={s.text}>
+        Step into a world of hassle-free expense management! Your journey
+        towards financial mastery begins here.
+      </p>
+      <AuthForm onSubmit={onSubmit} />
+    </div>
+  );
 };
 
 export default RegisterPage;

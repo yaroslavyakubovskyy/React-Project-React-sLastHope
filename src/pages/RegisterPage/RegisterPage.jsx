@@ -9,13 +9,15 @@ const RegisterPage = () => {
     dispatch(signUp(values));
   };
   return (
-    <div className={s.wrapper}>
-      <p className={s.header}>Sign Up</p>
-      <p className={s.text}>
-        Step into a world of hassle-free expense management! Your journey
-        towards financial mastery begins here.
-      </p>
-      <AuthForm onSubmit={onSubmit} />
+    <div className={s.extra} s>
+      <div className={s.wrapper}>
+        <p className={s.header}>Sign Up</p>
+        <p className={s.text}>
+          Step into a world of hassle-free expense management! Your journey
+          towards financial mastery begins here.
+        </p>
+        <AuthForm onSubmit={onSubmit} />
+      </div>
     </div>
   );
 };

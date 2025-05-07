@@ -1,0 +1,6 @@
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* или 100% в зависимости от контекста */
+}

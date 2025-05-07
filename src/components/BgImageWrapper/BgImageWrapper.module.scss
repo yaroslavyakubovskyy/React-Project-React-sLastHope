@@ -1,0 +1,214 @@
+.bgImageWrapper {
+  position: relative;
+  display: flex;
+  width: 335px;
+  height: 381px;
+  margin-bottom: 20px;
+  background-image: url("../../images/hero/hero-mob.avif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    background-image: url("../../images/hero/hero-mob@2x.avif");
+  }
+
+  @media (min-width: 768px) {
+    width: 704px;
+    height: 482px;
+    margin-bottom: 32px;
+    background-image: url("../../images/hero/hero-tab.avif");
+
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: url("../../images/hero/hero-tab@2x.avif");
+    }
+  }
+
+  @media (min-width: 1440px) {
+    width: 611px;
+    height: 568px;
+    margin-bottom: 0;
+    margin-right: 54px;
+    background-image: url("../../images/hero/hero-desk.avif");
+
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: url("../../images/hero/hero-desk@2x.avif");
+    }
+  }
+
+  @media (max-width: 374.99px) {
+    width: 280px;
+    background-image: url("../../assets/images/hero/hero_mobile_@1x.jpg");
+
+    @media (min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (min-resolution: 2dppx) {
+      background-image: url("../../images/hero/hero-mob@2x.avif");
+    }
+  }
+}
+
+.bgImageWrapper__text {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 248px;
+  height: 81px;
+  background-color: #fafafa;
+  border-radius: 20px;
+
+  @media only screen and (max-width: 767px) {
+    top: 240px;
+    left: -10px;
+  }
+
+  @media only screen and (min-width: 768px) {
+    animation: moveBox 15s linear infinite;
+  }
+}
+
+.bgImageWrapper__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+  background-color: #0ef387;
+  border-radius: 10px;
+}
+
+.bgImageWrapper__iconItem {
+  fill: #0c0d0d;
+}
+
+.bgImageWrapper__balance {
+  margin-right: 12px;
+}
+
+.bgImageWrapper__balanceText {
+  font-weight: 400;
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #11101c80;
+}
+
+.bgImageWrapper__balanceAmount {
+  font-weight: 700;
+  font-size: 18px;
+  color: #11101c;
+}
+
+.bgImageWrapper__percent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 58px;
+  height: 22px;
+  background-color: #02b15a26;
+  border-radius: 13px;
+}
+
+.bgImageWrapper__percentText {
+  text-align: center;
+  font-weight: 400;
+  font-size: 12px;
+  color: #02b15a;
+}
+
+@media only screen and (min-width: 768px) {
+  .bgImageWrapper__text {
+    width: 303px;
+    height: 121px;
+  }
+
+  .bgImageWrapper__balance {
+    margin-right: 14px;
+  }
+
+  .bgImageWrapper__balanceText {
+    font-size: 16px;
+    margin-bottom: 7px;
+  }
+
+  .bgImageWrapper__balanceAmount {
+    font-size: 24px;
+  }
+
+  .bgImageWrapper__icon {
+    width: 43px;
+    height: 43px;
+    margin-right: 22px;
+    border-radius: 13px;
+  }
+}
+
+@keyframes moveBox {
+  0% {
+    transform: translate(200px, 0);
+  }
+  12.5% {
+    transform: translate(400px, 159px);
+  }
+  25% {
+    transform: translate(200px, 361px);
+  }
+  37.5% {
+    transform: translate(0, 168px);
+  }
+  50% {
+    transform: translate(280px, 0);
+  }
+  62.5% {
+    transform: translate(400px, 180px);
+  }
+  75% {
+    transform: translate(200px, 361px);
+  }
+  87.5% {
+    transform: translate(0, 120px);
+  }
+  100% {
+    transform: translate(200px, 0);
+  }
+}
+
+@media (min-width: 1440px) {
+  @keyframes moveBox {
+    0% {
+      transform: translate(150px, 0);
+    }
+    12.5% {
+      transform: translate(308px, 200px);
+    }
+    25% {
+      transform: translate(150px, 447px);
+    }
+    37.5% {
+      transform: translate(0, 300px);
+    }
+    50% {
+      transform: translate(200px, 0);
+    }
+    62.5% {
+      transform: translate(308px, 250px);
+    }
+    75% {
+      transform: translate(150px, 447px);
+    }
+    87.5% {
+      transform: translate(0, 200px);
+    }
+    100% {
+      transform: translate(150px, 0);
+    }
+  }
+}

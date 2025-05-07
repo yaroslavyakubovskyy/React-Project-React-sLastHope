@@ -1,0 +1,202 @@
+.welcomePage {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding: 0 20px;
+
+  &__home {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__text {
+    width: 335px;
+  }
+
+  &__image {
+    display: none;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(250, 250, 250, 0.4);
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: #fafafa;
+    margin-bottom: 14px;
+
+    &Highlight {
+      text-decoration: underline;
+      color: #0ef387;
+    }
+  }
+
+  &__description {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: rgba(250, 250, 250, 0.4);
+    width: 335px;
+    margin-bottom: 30px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  &__button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    letter-spacing: -0.02em;
+    text-align: center;
+    transition: all 350ms ease;
+
+    &_signup {
+      display: inline-flex;
+      width: 138px;
+      height: 44px;
+      padding: 14px 44px;
+      color: #0c0d0d;
+      background-color: #0ef387;
+      border-radius: 40px;
+
+      &:hover {
+        background-color: #0ebb69;
+      }
+    }
+
+    &_signin {
+      display: inline-flex;
+      width: 138px;
+      height: 44px;
+      padding: 14px 40px;
+      color: #fafafa;
+      background-color: transparent;
+      border: 1px solid rgba(250, 250, 250, 0.4);
+      border-radius: 40px;
+
+      &:hover {
+        border: 1px solid #0ef387;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 374.99px) {
+    &__text {
+      width: 270px;
+    }
+
+    &__description {
+      width: 270px;
+    }
+
+    &__button {
+      &_signup,
+      &_signin {
+        padding: 14px 35px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    padding: 0 32px;
+
+    &__text {
+      width: 704px;
+    }
+
+    &__subtitle {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    &__title {
+      font-size: 56px;
+      margin-bottom: 20px;
+    }
+
+    &__description {
+      font-size: 16px;
+      width: 533px;
+      margin-bottom: 40px;
+    }
+
+    &__buttons {
+      margin-bottom: 36px;
+    }
+
+    &__button {
+      &_signup {
+        width: 145px;
+        height: 47px;
+        font-size: 16px;
+      }
+
+      &_signin {
+        width: 137px;
+        height: 47px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 1440px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    &__text {
+      width: 575px;
+    }
+
+    &__image {
+      display: flex;
+      gap: 32px;
+    }
+
+    &__imageMain {
+      width: 125px;
+      height: 48px;
+    }
+
+    &__users {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      &Title {
+        font-size: 28px;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: #fafafa;
+        margin-bottom: 12px;
+      }
+
+      &Text {
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        color: rgba(250, 250, 250, 0.4);
+        width: 210px;
+      }
+    }
+
+    &__buttons {
+      margin-bottom: 166px;
+    }
+  }
+}

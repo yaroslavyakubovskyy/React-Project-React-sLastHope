@@ -14,7 +14,7 @@ import RestrictedRoute from "./routes/RestrictedRoute.jsx";
 function App() {
 
   return (
-      <>
+      <div className="container">
         <Routes>
             <Route path='/' element={<SharedLayout/>}>
                 <Route index element={<WelcomePage />}/>
@@ -25,7 +25,7 @@ function App() {
                 <Route path="*" element={<NotFoundPage />} />
             </Route>
         </Routes>
-      </>
+      </div>
   )
 }
 

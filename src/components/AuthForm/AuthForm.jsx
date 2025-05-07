@@ -14,8 +14,8 @@ const AuthForm = ({onSubmit}) => {
     return (
         <div>
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-            <Form>
-                    <div className={s.form}>
+            <Form className={s.form}>
+                    <div className={s.formWrapper}>
                     <Field className={s.input} type='text' name='name' placeholder='Name' />
 
                     <Field className={s.input} type='email' name='email' placeholder='Email'/>
@@ -26,7 +26,7 @@ const AuthForm = ({onSubmit}) => {
                 <button className={s.button} type='submit'>Sign Up</button>
             </Form>
         </Formik>
-            <p>Already have account?<Link to='/login'>Sign In</Link></p>
+            <p className={s.text}>Already have account? <Link to='/login' className={s.link}>Sign In</Link></p>
         </div>
     );
 };

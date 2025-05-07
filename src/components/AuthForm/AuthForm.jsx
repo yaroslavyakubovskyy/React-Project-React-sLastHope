@@ -1,5 +1,6 @@
 import {Field, Form, Formik} from "formik";
-
+import s from './AuthForm.module.css'
+import {Link} from "react-router-dom";
 const AuthForm = ({onSubmit}) => {
     const initialValues = {
         name: '',
@@ -11,24 +12,22 @@ const AuthForm = ({onSubmit}) => {
         onSubmit(values)
     }
     return (
+        <div>
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             <Form>
-                <label>
-                    Name
-                    <Field type='text' name='name'/>
-                </label>
-                <label>
-                    Email
-                    <Field type='email' name='email'/>
-                </label>
-                <label>
-                    Password
-                    <Field type='password' name='password'/>
-                </label>
+                    <div className={s.form}>
+                    <Field className={s.input} type='text' name='name' placeholder='Name' />
 
-                <button type='submit'>Sign Up</button>
+                    <Field className={s.input} type='email' name='email' placeholder='Email'/>
+
+                    <Field className={s.input} type='password' name='password' placeholder='Password'/>
+
+                    </div>
+                <button className={s.button} type='submit'>Sign Up</button>
             </Form>
         </Formik>
+            <p>Already have account?<Link to='/login'>Sign In</Link></p>
+        </div>
     );
 };
 

@@ -1,7 +1,6 @@
-
-import './App.css'
+import "./App.css";
 import SharedLayout from "./pages/SharedLayout/SharedLayout.jsx";
-import {Routes, Route} from 'react-router-dom'
+import { Routes, Route } from "react-router-dom";
 import WelcomePage from "./pages/WelcomePage/WelcomePage.jsx";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
@@ -12,7 +11,6 @@ import PrivateRoute from "./routes/PrivateRoute.jsx";
 import RestrictedRoute from "./routes/RestrictedRoute.jsx";
 
 function App() {
-
   return (
       <div className="container">
         <Routes>
@@ -29,4 +27,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

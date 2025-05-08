@@ -1,17 +1,28 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import s from "./AuthForm.module.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
 
 const AuthForm = ({ onSubmit, isRegister }) => {
-  const initialValues = {
-    name: "",
-    email: "",
-    password: "",
-  };
+  const initialValues = isRegister
+    ? {
+        name: "",
+        email: "",
+        password: "",
+      }
+    : {
+        email: "",
+        password: "",
+      };
   const handleSubmit = (values, actions) => {
     actions.resetForm();
-    onSubmit(values);
+    const submitValues = isRegister
+      ? values
+      : {
+          email: values.email,
+          password: values.password,
+        };
+    onSubmit(submitValues);
   };
   const validationSchema = Yup.object({
     ...(isRegister && {
@@ -25,7 +36,7 @@ const AuthForm = ({ onSubmit, isRegister }) => {
       .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
       .matches(
         /[!@#$%^&*(),.?":{}|<>]/,
-        "Password must contain at least one symbol",
+        "Password must contain at least one symbol"
       )
       .required("Password is required"),
   });
@@ -68,15 +79,26 @@ const AuthForm = ({ onSubmit, isRegister }) => {
             <ErrorMessage className={s.error} component="p" name="password" />
           </div>
           <button className={s.button} type="submit">
-            Sign Up
+            {isRegister ? "Sign Up" : "Sign In"}
           </button>
         </Form>
       </Formik>
       <p className={s.text}>
-        Already have account?{" "}
-        <Link to="/login" className={s.link}>
-          Sign In
-        </Link>
+        {isRegister ? (
+          <>
+            Already have account?{" "}
+            <Link to="/login" className={s.link}>
+              Sign In
+            </Link>
+          </>
+        ) : (
+          <>
+            Don't have an account?{" "}
+            <Link to="/register" className={s.link}>
+              Sing Up
+            </Link>
+          </>
+        )}
       </p>
     </div>
   );

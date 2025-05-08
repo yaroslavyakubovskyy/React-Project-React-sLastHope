@@ -13,3 +13,16 @@ export const signUp = createAsyncThunk("signUp", async (userData, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.message);
   }
 });
+
+export const loginThunk = createAsyncThunk(
+  "login",
+  async (userData, thunkAPI) => {
+    try {
+      const { data } = await instance.post("auth/login", userData);
+      addToken(data.token);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

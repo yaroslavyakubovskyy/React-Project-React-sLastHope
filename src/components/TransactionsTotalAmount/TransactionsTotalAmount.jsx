@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/user/slice";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
-import { s } from "./TransactionsTotalAmount.module.css";
+import s from "./TransactionsTotalAmount.module.css";
+import { Icon } from "../Icon/Icon";
 
 export const TransactionsTotalAmount = () => {
   const { totalIncomes, totalExpenses, currency } = useSelector(selectUser);
@@ -12,7 +13,7 @@ export const TransactionsTotalAmount = () => {
       <ul className={s.list}>
         <li className={s.listItem}>
           <div className={s.iconContainer}>
-            <Icon />
+            <Icon className={s.icon} name="arrow-up" size="18" />
           </div>
           <div>
             <h3 className={s.amountTitle}>Total Income</h3>
@@ -24,7 +25,7 @@ export const TransactionsTotalAmount = () => {
         </li>
         <li className={s.listItem}>
           <div className={s.iconContainer}>
-            <Icon />
+            <Icon className={s.icon} name="arrow-down" size="18" />
           </div>
           <div>
             <h3 className={s.amountTitle}>Total Expense</h3>

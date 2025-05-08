@@ -2,10 +2,12 @@ import AuthForm from "../../components/AuthForm/AuthForm.jsx";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../redux/auth/operations.js";
 import s from "./RegisterPage.module.css";
+import { setItem } from "../../utils/sessionStorage.js";
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const onSubmit = (values) => {
+    setItem(values.password);
     dispatch(signUp(values));
   };
   return (

@@ -1,9 +1,11 @@
-const MainTransactionsPage = () => {
-    return (
-        <div>
+import TransactionForm from "../../components/TransactionForm/TransactionForm";
 
-        </div>
-    );
+const MainTransactionsPage = () => {
+  return (
+    <div>
+      <TransactionForm />
+    </div>
+  );
 };
 
 export default MainTransactionsPage;

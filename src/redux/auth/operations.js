@@ -1,15 +1,15 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
-import {instance} from '../../api/api.js'
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { instance } from "../../api/api.js";
 
-const addToken = (token)=>{
-    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
-}
+const addToken = (token) => {
+  instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
 
-export const singUp = createAsyncThunk('signUp', async (data, thunkAPI)=>{
-    try{
-        const {data} = await instance.post('auth/register', data)
-        return data
-    }catch(error){
-        return thunkAPI.rejectWithValue(error.message)
-    }
-})
+export const signUp = createAsyncThunk("signUp", async (userData, thunkAPI) => {
+  try {
+    const { data } = await instance.post("auth/register", userData);
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});

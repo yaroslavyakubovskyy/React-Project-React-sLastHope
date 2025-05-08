@@ -10,15 +10,20 @@ import NotFoundPage from "./routes/NotFoundPage/NotFoundPage.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import RestrictedRoute from "./routes/RestrictedRoute.jsx";
 import { Toaster } from "react-hot-toast";
-import { selectisRegistered, selectUser } from "./redux/auth/selectors.js";
+import {
+  selectIsRefreshing,
+  selectisRegistered,
+  selectUser,
+} from "./redux/auth/selectors.js";
 import { useDispatch, useSelector } from "react-redux";
-import { loginThunk } from "./redux/auth/operations.js";
+import { loginThunk, refreshToken } from "./redux/auth/operations.js";
 import { getPassword } from "./utils/sessionStorage.js";
 import { useEffect } from "react";
 
 function App() {
   const { email } = useSelector(selectUser);
   const isRegistered = useSelector(selectisRegistered);
+  const isRefreshing = useSelector(selectIsRefreshing);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +34,11 @@ function App() {
     }
   }, [isRegistered, dispatch]);
 
-  return (
+  useEffect(() => {
+    dispatch(refreshToken());
+  }, [dispatch]);
+
+  return isRefreshing ? null : (
     <div className="container">
       <Routes>
         <Route path="/" element={<SharedLayout />}>

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, signUp } from "./operations.js";
+import { loginThunk, refreshToken, signUp } from "./operations.js";
 import toast from "react-hot-toast";
 
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
     email: "",
   },
   token: null,
+  sid: null,
   refreshToken: null,
   error: null,
   isLoading: false,
@@ -42,15 +43,28 @@ const slice = createSlice({
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.error = null;
         state.user = action.payload.user;
         state.token = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
+        state.sid = action.payload.sid;
         state.isLoggedIn = true;
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(refreshToken.fulfilled, (state, action) => {
+        state.isRefreshing = false;
+        state.error = null;
+        state.sid = action.payload.sid;
+        state.token = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+      })
+      .addCase(refreshToken.pending, (state) => {
+        state.isRefreshing = true;
+      })
+      .addCase(refreshToken.rejected, (state) => initialState);
   },
 });
 

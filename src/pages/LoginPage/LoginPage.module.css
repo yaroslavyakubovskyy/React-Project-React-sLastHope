@@ -13,6 +13,12 @@
     max-width: 400px;
   }
 }
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    margin-top: 59px;
+    max-width: 530px;
+  }
+}
 
 .header {
   font-family: var(--font-family);

@@ -1,6 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import clsx from "clsx";
 import * as Yup from "yup";
 
 import s from "./AuthForm.module.css";
@@ -34,7 +35,9 @@ const AuthForm = ({ onSubmit, isRegister }) => {
     ...(isRegister && {
       name: Yup.string().required("Name is required"),
     }),
-    email: Yup.string().required("Email is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
     password: Yup.string()
       .min(7, "Password must be at least 7 characters long")
       .matches(/[0-9]/, "Password must contain at least one number")
@@ -55,7 +58,11 @@ const AuthForm = ({ onSubmit, isRegister }) => {
         validationSchema={validationSchema}
       >
         <Form className={s.form}>
-          <div className={s.formWrapper}>
+          <div
+            className={clsx(s.formWrapper, {
+              [s.formWrapperLogin]: !isRegister,
+            })}
+          >
             {isRegister && (
               <>
                 <Field

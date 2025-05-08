@@ -6,6 +6,7 @@ const initialState = {
     name: "",
     email: "",
   },
+  token: null,
   error: null,
   isLoading: false,
   isLoggedIn: false,
@@ -28,6 +29,7 @@ const slice = createSlice({
       })
       .addCase(signUp.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(loginThunk.pending, (state) => {
         state.isLoading = true;
@@ -35,10 +37,12 @@ const slice = createSlice({
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user;
+        state.token = action.payload.token;
         state.isLoggedIn = true;
       })
-      .addCase(loginThunk.rejected, (state) => {
+      .addCase(loginThunk.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

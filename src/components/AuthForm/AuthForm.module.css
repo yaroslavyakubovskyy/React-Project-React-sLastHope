@@ -10,6 +10,7 @@
 .input:focus {
   border-color: var(--accet-green);
   color: var(--white);
+}
 
 
 .input{

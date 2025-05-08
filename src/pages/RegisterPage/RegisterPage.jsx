@@ -16,7 +16,7 @@ const RegisterPage = () => {
           Step into a world of hassle-free expense management! Your journey
           towards financial mastery begins here.
         </p>
-        <AuthForm onSubmit={onSubmit} />
+        <AuthForm onSubmit={onSubmit} isRegister />
       </div>
     </div>
   );

@@ -3,10 +3,7 @@ import s from "./AuthForm.module.css";
 import { Link, useLocation } from "react-router-dom";
 import * as Yup from "yup";
 
-const AuthForm = ({ onSubmit }) => {
-  const location = useLocation();
-  const formType = location.pathname;
-
+const AuthForm = ({ onSubmit, isRegister }) => {
   const initialValues = {
     name: "",
     email: "",
@@ -17,7 +14,7 @@ const AuthForm = ({ onSubmit }) => {
     onSubmit(values);
   };
   const validationSchema = Yup.object({
-    ...(formType === "/register" && {
+    ...(isRegister && {
       name: Yup.string().required("Name is required"),
     }),
     email: Yup.string().required("Email is required"),
@@ -42,15 +39,17 @@ const AuthForm = ({ onSubmit }) => {
       >
         <Form className={s.form}>
           <div className={s.formWrapper}>
-            {formType === "/register" && (
-              <Field
-                className={s.input}
-                type="text"
-                name="name"
-                placeholder="Name"
-              />
+            {isRegister && (
+              <>
+                <Field
+                  className={s.input}
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                />
+                <ErrorMessage className={s.error} component="p" name="name" />
+              </>
             )}
-            <ErrorMessage className={s.error} component="p" name="name" />
 
             <Field
               className={s.input}

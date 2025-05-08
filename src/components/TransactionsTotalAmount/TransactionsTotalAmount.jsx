@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/user/slice";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
-import { s } from "./TransactionsTotalAmount.module.css";
+import s from "./TransactionsTotalAmount.module.css";
 
 export const TransactionsTotalAmount = () => {
   const { totalIncomes, totalExpenses, currency } = useSelector(selectUser);

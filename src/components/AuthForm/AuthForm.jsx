@@ -1,9 +1,15 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import s from "./AuthForm.module.css";
 import { Link } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import * as Yup from "yup";
 
+import s from "./AuthForm.module.css";
+import { useState } from "react";
+
 const AuthForm = ({ onSubmit, isRegister }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePassword = () => setShowPassword((prev) => !prev);
+
   const initialValues = isRegister
     ? {
         name: "",
@@ -70,12 +76,20 @@ const AuthForm = ({ onSubmit, isRegister }) => {
             />
             <ErrorMessage className={s.error} component="p" name="email" />
 
-            <Field
-              className={s.input}
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
+            <div className={s.wrapperIcon}>
+              <Field
+                className={s.input}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+              />
+              {showPassword ? (
+                <FiEye className={s.icon} onClick={togglePassword} />
+              ) : (
+                <FiEyeOff className={s.icon} onClick={togglePassword} />
+              )}
+            </div>
+
             <ErrorMessage className={s.error} component="p" name="password" />
           </div>
           <button className={s.button} type="submit">

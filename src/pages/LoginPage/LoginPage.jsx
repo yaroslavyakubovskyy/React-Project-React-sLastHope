@@ -5,12 +5,8 @@ import AuthForm from "../../components/AuthForm/AuthForm";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const onSubmit = async (values) => {
-    try {
-      await dispatch(loginThunk(values)).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
+  const onSubmit = (values) => {
+    dispatch(loginThunk(values)).unwrap();
   };
 
   return (

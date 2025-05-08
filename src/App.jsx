@@ -45,14 +45,24 @@ function App() {
           <Route index element={<WelcomePage />} />
           <Route
             path="register"
-            element={<RestrictedRoute component={<RegisterPage />} />}
+            element={
+              <RestrictedRoute
+                component={<RegisterPage />}
+                redirect="transactions/:transactionsType"
+              />
+            }
           />
           <Route
             path="login"
-            element={<RestrictedRoute component={<LoginPage />} />}
+            element={
+              <RestrictedRoute
+                component={<LoginPage />}
+                redirect="transactions/:transactionsType"
+              />
+            }
           />
           <Route
-            path="transactions/:transactionType"
+            path="transactions/incomes"
             element={
               <PrivateRoute>
                 <MainTransactionsPage />

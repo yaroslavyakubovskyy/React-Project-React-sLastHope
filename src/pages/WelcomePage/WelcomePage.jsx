@@ -28,10 +28,10 @@ const WelcomePage = () => {
               over your financial world.
             </p>
             <div className={s.welcomePage__buttons}>
-              <NavLink to="/" className={s.welcomePage__button_signup}>
+              <NavLink to="/register" className={s.welcomePage__button_signup}>
                 Sign Up
               </NavLink>
-              <NavLink to="/" className={s.welcomePage__button_signin}>
+              <NavLink to="/login" className={s.welcomePage__button_signin}>
                 Sign In
               </NavLink>
             </div>

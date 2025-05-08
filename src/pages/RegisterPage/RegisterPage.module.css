@@ -20,13 +20,22 @@
   }
 }
 
-.header {
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 56px;
-  letter-spacing: -0.02em;
-  color: #fafafa;
-  margin-bottom: 20px;
+
+@media screen and (min-width: 1440px){
+    .wrapper{
+        margin-top: 59px;
+        max-width: 533px;
+    }
+}
+
+.header{
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 56px;
+    letter-spacing: -0.02em;
+    color: #fafafa;
+    margin-bottom: 20px;
+
 }
 
 .text {

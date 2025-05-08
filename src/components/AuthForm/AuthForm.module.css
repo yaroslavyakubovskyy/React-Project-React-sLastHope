@@ -1,21 +1,32 @@
+
 .wrapperIcon {
   position: relative;
   width: 100%;
 }
 
-.input {
-  border: 1px solid rgba(250, 250, 250, 0.2);
-  border-radius: 12px;
-  padding-left: 18px;
-  width: 100%;
-  height: 42px;
-  color: var(--white);
-}
+
 
 .input:hover,
 .input:focus {
   border-color: var(--accet-green);
   color: var(--white);
+
+
+.input{
+    border: 1px solid rgba(250, 250, 250, 0.2);
+    border-radius: 12px;
+    padding-left: 18px;
+    width: 335px;
+    height: 42px;ʼ
+  color: var(--white);
+}
+
+@media screen and (min-width: 768px){
+    .input{
+        width: 399px;
+        height: 48px;
+    }
+
 }
 
 .icon {

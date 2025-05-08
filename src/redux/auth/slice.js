@@ -60,6 +60,7 @@ const slice = createSlice({
         state.sid = action.payload.sid;
         state.token = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
+        state.isLoggedIn = true;
       })
       .addCase(refreshToken.pending, (state) => {
         state.isRefreshing = true;

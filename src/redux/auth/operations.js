@@ -36,12 +36,13 @@ export const loginThunk = createAsyncThunk(
 
 export const refreshToken = createAsyncThunk("refresh", async (_, thunkAPI) => {
   const sid = thunkAPI.getState().auth.sid;
-  console.log(sid);
+
   if (!sid) return thunkAPI.rejectWithValue("No sid");
 
   addToken(thunkAPI.getState().auth.refreshToken);
   try {
     const { data } = await instance.post("auth/refresh", { sid });
+    addToken(data.accessToken);
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message);

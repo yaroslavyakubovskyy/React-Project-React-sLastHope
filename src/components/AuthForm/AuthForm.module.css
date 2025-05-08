@@ -17,8 +17,8 @@
     border-radius: 12px;
     padding-left: 18px;
     width: 335px;
-    height: 42px;ʼ
-  color: var(--white);
+    height: 42px;
+    color: var(--white);
 }
 
 @media screen and (min-width: 768px){

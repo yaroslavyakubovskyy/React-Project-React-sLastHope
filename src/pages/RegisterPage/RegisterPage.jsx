@@ -9,7 +9,7 @@ const RegisterPage = () => {
     dispatch(signUp(values));
   };
   return (
-    <div className={s.extra} s>
+    <div className={s.extra}>
       <div className={s.wrapper}>
         <p className={s.header}>Sign Up</p>
         <p className={s.text}>

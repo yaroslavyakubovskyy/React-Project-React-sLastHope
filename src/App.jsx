@@ -9,8 +9,26 @@ import TransactionsHistoryPage from "./pages/TransactionsHistoryPage/Transaction
 import NotFoundPage from "./routes/NotFoundPage/NotFoundPage.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import RestrictedRoute from "./routes/RestrictedRoute.jsx";
+import { Toaster } from "react-hot-toast";
+import { selectisRegistered, selectUser } from "./redux/auth/selectors.js";
+import { useDispatch, useSelector } from "react-redux";
+import { loginThunk } from "./redux/auth/operations.js";
+import { getPassword } from "./utils/sessionStorage.js";
+import { useEffect } from "react";
 
 function App() {
+  const { email } = useSelector(selectUser);
+  const isRegistered = useSelector(selectisRegistered);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isRegistered) {
+      const password = getPassword();
+      const userData = { email, password };
+      dispatch(loginThunk(userData));
+    }
+  }, [isRegistered, dispatch]);
+
   return (
     <div className="container">
       <Routes>
@@ -43,6 +61,8 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
+
+      <Toaster />
     </div>
   );
 }

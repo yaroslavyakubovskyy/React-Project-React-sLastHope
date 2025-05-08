@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginThunk, signUp } from "./operations.js";
+import toast from "react-hot-toast";
 
 const initialState = {
   user: {
@@ -7,10 +8,12 @@ const initialState = {
     email: "",
   },
   token: null,
+  refreshToken: null,
   error: null,
   isLoading: false,
   isLoggedIn: false,
   isRefreshing: false,
+  isRegistered: false,
 };
 
 const slice = createSlice({
@@ -22,10 +25,13 @@ const slice = createSlice({
         state.user = action.payload;
         state.isLoading = false;
         state.error = null;
+        state.isRegistered = true;
       })
       .addCase(signUp.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        toast.error(state.error);
+        state.isRegistered = false;
       })
       .addCase(signUp.pending, (state) => {
         state.isLoading = true;
@@ -37,7 +43,8 @@ const slice = createSlice({
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.token = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
         state.isLoggedIn = true;
       })
       .addCase(loginThunk.rejected, (state, action) => {

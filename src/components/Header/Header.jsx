@@ -31,12 +31,11 @@ const Header = () => {
   }, []);
   const toggleBurger = () => setIsBurgerOpen(!isBurgerOpen);
   const closeBurger = () => setIsBurgerOpen(false);
-  //   const handleNavigate = (path) => {
-  //     Navigate(path);
-  //     };
 
   const toggleModal = () => {
-    console.log("TOGGLE MODAL");
+    if (isBurgerOpen) {
+      closeBurger();
+    }
     setIsModalOpen((prev) => !prev);
   };
   return (

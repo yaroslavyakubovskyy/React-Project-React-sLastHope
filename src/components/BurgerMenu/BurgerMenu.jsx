@@ -1,11 +1,17 @@
 import TransactionsHistoryNav from "../TransactionsHistoryNav/TransactionsHistoryNav";
 import UserBarBtn from "../UserBarBtn/UserBarBtn";
 
-const BurgerMenu = () => {
+const BurgerMenu = ({ onClose }) => {
+  const handleClose = () => {
+    onClose();
+  };
   return (
-    <div className="burger-menu">
-      <UserBarBtn />
-      <TransactionsHistoryNav />
+    <div>
+      <div className="burger-menu">
+        <button onClick={handleClose}>Close</button>
+        <UserBarBtn />
+        <TransactionsHistoryNav />
+      </div>
     </div>
   );
 };

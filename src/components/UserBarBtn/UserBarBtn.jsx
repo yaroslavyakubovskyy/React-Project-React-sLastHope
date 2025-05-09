@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UserPanel from "../UserPanel/UserPanel";
 import { Icon } from "../../components/Icon/Icon";
-
+import s from "./UserBarBtn.module.css";
 const UserBarBtn = ({ user, onOpenModal }) => {
   const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
 
@@ -11,17 +11,22 @@ const UserBarBtn = ({ user, onOpenModal }) => {
 
   return (
     <div className="user-bar-btn" onClick={toggleUserPanel}>
-      <span className="avatar">
-        {user?.avatar ? (
-          <img src={user.avatar} alt="user avatar" />
+      <button>
+        {user?.avatarUrl ? (
+          <img
+            className={s.userAvatar}
+            src={user.avatarUrl}
+            alt="user avatar"
+          />
         ) : (
-          user?.name[0]
+          user?.name?.[0]
         )}
-      </span>
-      <span>{user?.name}</span>
-      <span>
-        <Icon name="up" size="28" />
-      </span>
+        <span>{user?.name}</span>
+        <span>
+          <Icon className={s.userBarBtnIcon} name="up" size="45" />
+        </span>
+      </button>
+
       {isUserPanelOpen && <UserPanel onOpenModal={onOpenModal} />}
     </div>
   );

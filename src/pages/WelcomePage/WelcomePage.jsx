@@ -4,15 +4,18 @@ import { Icon } from "../../components/Icon/Icon";
 import { BgImageWrapper } from "../../components/BgImageWrapper/BgImageWrapper";
 import users from "../../images/users.avif";
 import users2x from "../../images/users@2x.avif";
-
 import s from "./WelcomePage.module.scss";
+import Media from "react-media";
+import React from "react";
 
 const WelcomePage = () => {
   return (
     // ТИМЧАСОВА СЕКЦІЯ ВИДАЛИТИ НА ФІНІШІ!!!
     <section>
       <div className={s.welcomePage}>
-        <BgImageWrapper />
+        <Media query="(max-width: 1439px)">
+          {(matches) => matches && <BgImageWrapper />}
+        </Media>
         <div className={s.welcomePage__home}>
           <div className={s.welcomePage__text}>
             <p className={s.welcomePage__subtitle}>Expense log</p>

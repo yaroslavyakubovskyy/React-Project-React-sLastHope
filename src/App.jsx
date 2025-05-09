@@ -48,7 +48,7 @@ function App() {
             element={
               <RestrictedRoute
                 component={<RegisterPage />}
-                redirect="transactions/:transactionsType"
+                // redirect="transactions/expenses"
               />
             }
           />
@@ -57,12 +57,12 @@ function App() {
             element={
               <RestrictedRoute
                 component={<LoginPage />}
-                redirect="transactions/:transactionsType"
+                // redirect="transactions/expenses"
               />
             }
           />
           <Route
-            path="transactions/incomes"
+            path="transactions/expenses"
             element={
               <PrivateRoute>
                 <MainTransactionsPage />

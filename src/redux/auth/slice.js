@@ -20,6 +20,20 @@ const initialState = {
 const slice = createSlice({
   name: "auth",
   initialState,
+  //
+  reducers: {
+    logOut: (state) => {
+      delete state.token;
+      delete state.refreshToken;
+      delete state.sid;
+      state.user = { name: "", email: "" };
+      state.isLoggedIn = false;
+      state.isRegistered = false;
+      state.error = null;
+      state.isLoading = false;
+    },
+  },
+  //
   extraReducers: (builder) => {
     builder
       .addCase(signUp.fulfilled, (state, action) => {
@@ -68,5 +82,5 @@ const slice = createSlice({
       .addCase(refreshToken.rejected, (state) => initialState);
   },
 });
-
+export const { logOut } = slice.actions;
 export const authReducer = slice.reducer;

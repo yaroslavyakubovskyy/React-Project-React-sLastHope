@@ -31,7 +31,7 @@ export const loginThunk = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  },
+  }
 );
 
 export const refreshToken = createAsyncThunk("refresh", async (_, thunkAPI) => {

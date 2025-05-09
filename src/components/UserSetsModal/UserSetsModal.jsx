@@ -84,6 +84,7 @@ const UserSetsModal = ({ user, onClose }) => {
             onChange={(e) => setCurrency(e.target.value)}
             disabled={loading}
           >
+            <option value="UAH">UAH</option>
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
           </select>

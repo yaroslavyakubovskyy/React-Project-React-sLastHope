@@ -16,12 +16,6 @@ const UserPanel = ({ onOpenModal }) => {
     navigate("/");
   };
 
-  // const handleOpenModal = () => {
-  //   console.log("Opening modal...");
-  //   setIsModalOpen(true);
-  // };
-  // const handleCloseModal = () => setIsModalOpen(false);
-  // console.log("Modal open?", isModalOpen);
   return (
     <div className="user-panel">
       <button onClick={onOpenModal}>Profile settings</button>

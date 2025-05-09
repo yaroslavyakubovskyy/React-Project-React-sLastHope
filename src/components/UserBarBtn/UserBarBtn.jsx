@@ -9,30 +9,30 @@ const UserBarBtn = ({ user, onOpenModal }) => {
   };
 
   return (
-    // <div className="user-bar-btn" onClick={toggleUserPanel}>
-    //   <span className="avatar">
-    //     {user?.avatar ? (
-    //       <img src={user.avatar} alt="user avatar" />
-    //     ) : (
-    //       user?.name[0].toUpperCase()
-    //     )}
-    //   </span>
-    //   <span>{user?.name}</span>
-    //   <span>{isUserPanelOpen ? "↑" : "↓"}</span>
-    //   {isUserPanelOpen && <UserPanel onOpenModal={onOpenModal} />}
-    // </div>
     <div className="user-bar-btn" onClick={toggleUserPanel}>
       <span className="avatar">
-        {
-          user?.name
-            ? user.name[0].toUpperCase() // Перевірка, що name є, перед викликом toUpperCase
-            : "?" // або якийсь інший запасний символ, якщо name відсутнє
-        }
+        {user?.avatar ? (
+          <img src={user.avatar} alt="user avatar" />
+        ) : (
+          user?.name[0]
+        )}
       </span>
-      <span>{user?.name || "Anonymous"}</span> {/* Теж перевірка для name */}
+      <span>{user?.name}</span>
       <span>{isUserPanelOpen ? "↑" : "↓"}</span>
       {isUserPanelOpen && <UserPanel onOpenModal={onOpenModal} />}
     </div>
+    // <div className="user-bar-btn" onClick={toggleUserPanel}>
+    //   <span className="avatar">
+    //     {
+    //       user?.name
+    //         ? user.name[0].toUpperCase() // Перевірка, що name є, перед викликом toUpperCase
+    //         : "?" // або якийсь інший запасний символ, якщо name відсутнє
+    //     }
+    //   </span>
+    //   <span>{user?.name || "Anonymous"}</span> {/* Теж перевірка для name */}
+    //   <span>{isUserPanelOpen ? "↑" : "↓"}</span>
+    //   {isUserPanelOpen && <UserPanel onOpenModal={onOpenModal} />}
+    // </div>
   );
 };
 

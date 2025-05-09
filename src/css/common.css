@@ -1,24 +1,23 @@
-@import url('modern-normalize/modern-normalize.css');
+@import url("modern-normalize/modern-normalize.css");
 
 :root {
-    /* Fonts */
+  /* Fonts */
 
     --font-family: 'Inter', sans-serif;
 
 
-    /* colors */
+  /* colors */
 
-    --black: #0C0D0D;
-    --accet-green: #0EF387;
-    --white: #FAFAFA;
-    --grey: #29292B;
-    --hover-green: #0EBB69;
-    --error: #E74A3B;
-
+  --black: #0c0d0d;
+  --accet-green: #0ef387;
+  --white: #fafafa;
+  --grey: #29292b;
+  --hover-green: #0ebb69;
+  --error: #e74a3b;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -28,57 +27,57 @@ h4,
 h5,
 h6,
 p {
-    margin-top: 0;
-    margin-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 p:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 ul,
 ol {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style-type: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style-type: none;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
-    outline: none;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
 }
 
 button {
-    cursor: pointer;
-    all: unset;
-    cursor: pointer;
-    color: currentColor;
+  cursor: pointer;
+  all: unset;
+  cursor: pointer;
+  color: currentColor;
 }
 
 img {
-    display: block;
-    max-width: 100%;
-    height: auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 input,
 textarea,
 select {
-    font: inherit;
-    border: none;
-    outline: none;
-    background: none;
+  font: inherit;
+  border: none;
+  outline: none;
+  background: none;
 }
 
 body {
-    font-family: var(--font-family), sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    letter-spacing: -0.02em;
-    background-color: var(--grey);
-    color: var(--white)
+  font-family: var(--font-family), sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  background-color: var(--grey);
+  color: var(--white);
 }
 /*.section {*/
 /*    padding-top: 20px;*/
@@ -86,19 +85,15 @@ body {
 /*}*/
 
 .section-title {
-    font-family: var(--font-family), sans-serif;
-    color: var(--white);
-    font-weight: 400;
-    font-size: 32px;
-    letter-spacing: -0.02em;
+  font-family: var(--font-family), sans-serif;
+  color: var(--white);
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: -0.02em;
 }
 
 @media screen and (min-width: 768px) {
-
-    .section-title {
-        font-size: 56px;
-    }
+  .section-title {
+    font-size: 56px;
+  }
 }
-
-
-

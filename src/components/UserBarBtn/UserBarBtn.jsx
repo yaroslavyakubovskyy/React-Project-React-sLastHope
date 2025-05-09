@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UserPanel from "../UserPanel/UserPanel";
+import { Icon } from "../../components/Icon/Icon";
 
 const UserBarBtn = ({ user, onOpenModal }) => {
   const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
@@ -18,7 +19,9 @@ const UserBarBtn = ({ user, onOpenModal }) => {
         )}
       </span>
       <span>{user?.name}</span>
-      <span>{isUserPanelOpen ? "↑" : "↓"}</span>
+      <span>
+        <Icon name="up" size="28" />
+      </span>
       {isUserPanelOpen && <UserPanel onOpenModal={onOpenModal} />}
     </div>
   );

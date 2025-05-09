@@ -21,18 +21,6 @@ const UserBarBtn = ({ user, onOpenModal }) => {
       <span>{isUserPanelOpen ? "↑" : "↓"}</span>
       {isUserPanelOpen && <UserPanel onOpenModal={onOpenModal} />}
     </div>
-    // <div className="user-bar-btn" onClick={toggleUserPanel}>
-    //   <span className="avatar">
-    //     {
-    //       user?.name
-    //         ? user.name[0].toUpperCase() // Перевірка, що name є, перед викликом toUpperCase
-    //         : "?" // або якийсь інший запасний символ, якщо name відсутнє
-    //     }
-    //   </span>
-    //   <span>{user?.name || "Anonymous"}</span> {/* Теж перевірка для name */}
-    //   <span>{isUserPanelOpen ? "↑" : "↓"}</span>
-    //   {isUserPanelOpen && <UserPanel onOpenModal={onOpenModal} />}
-    // </div>
   );
 };
 

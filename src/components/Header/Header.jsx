@@ -35,7 +35,10 @@ const Header = () => {
   //     Navigate(path);
   //     };
 
-  const toggleModal = () => setIsModalOpen((prev) => !prev);
+  const toggleModal = () => {
+    console.log("TOGGLE MODAL");
+    setIsModalOpen((prev) => !prev);
+  };
   return (
     <header>
       <Logo />

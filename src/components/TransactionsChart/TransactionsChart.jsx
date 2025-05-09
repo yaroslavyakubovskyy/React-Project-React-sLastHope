@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 
 import { Chart } from "../PieChart/PieChart";
 import { countCategories } from "../../utils/countCategories";
-import { selectTransactions } from "../../redux/transactions/slice";
-import { selectUser } from "../../redux/user/slice";
+import { selectTransactions } from "../../redux/transactions/selectors.js";
+import { selectUser } from "../../redux/user/selectors.js";
 import { fetchCurrentUser } from "../../redux/user/operations";
 
 import warningImg from "../../assets/no_data.jpeg";
@@ -24,7 +24,7 @@ export const TransactionsChart = () => {
       .unwrap()
       .then(() => {
         const expenses = transactions.filter(
-          (transaction) => transaction.type === "expenses"
+          (transaction) => transaction.type === "expenses",
         );
         setCategoriesData(countCategories(expenses, totalExpenses));
       })

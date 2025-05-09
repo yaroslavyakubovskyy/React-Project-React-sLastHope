@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/user/slice";
+import { selectUser } from "../../redux/user/selectors.js";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import s from "./TransactionsTotalAmount.module.css";
 import { Icon } from "../Icon/Icon";

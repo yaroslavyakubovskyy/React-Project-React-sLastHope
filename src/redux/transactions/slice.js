@@ -13,7 +13,7 @@ const transactionSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getTransactions.fulfilled, (state, { payload }) => {
-        state.transactions = payload;
+        state.items = payload;
       })
       .addCase(addTransaction.pending, (state) => {
         state.isLoading = true;
@@ -28,11 +28,6 @@ const transactionSlice = createSlice({
         state.error = action.payload;
       });
   },
-  selectors: {
-    selectTransactions: (state) => state.transactions,
-  },
 });
 
 export default transactionSlice.reducer;
-
-export const { selectTransactions } = transactionSlice.selectors;

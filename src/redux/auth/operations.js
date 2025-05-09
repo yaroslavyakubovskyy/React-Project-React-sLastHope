@@ -2,12 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../api/api.js";
 
 const addToken = (token) => {
+  console.log(token);
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 
 export const signUp = createAsyncThunk("signUp", async (userData, thunkAPI) => {
   try {
-    const { data } = await instance.post("auth/register", userData);
+    const { data } = await instance.post("/auth/register", userData);
     const { email, name } = data;
     return { email, name };
   } catch (error) {
@@ -19,7 +20,7 @@ export const loginThunk = createAsyncThunk(
   "login",
   async (userData, thunkAPI) => {
     try {
-      const { data } = await instance.post("auth/login", userData);
+      const { data } = await instance.post("/auth/login", userData);
       addToken(data.token);
       const {
         user: { email, name },
@@ -39,10 +40,19 @@ export const refreshToken = createAsyncThunk("refresh", async (_, thunkAPI) => {
 
   if (!sid) return thunkAPI.rejectWithValue("No sid");
 
-  addToken(thunkAPI.getState().auth.refreshToken);
   try {
-    const { data } = await instance.post("auth/refresh", { sid });
+    const { data } = await instance.post(
+      "/auth/refresh",
+      { sid },
+      {
+        headers: {
+          Authorization: `Bearer ${thunkAPI.getState().auth.refreshToken}`,
+        },
+      },
+    );
+
     addToken(data.accessToken);
+
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message);

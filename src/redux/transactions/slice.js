@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addTransaction } from "./operations";
+import { addTransaction, updateTransaction } from "./operations";
 
 const initialState = {
   items: [],
@@ -16,13 +16,28 @@ const transactionSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(addTransaction.fulfilled, (state, action) => {
+      .addCase(addTransaction.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.items.push(action.payload);
+        state.items.push(payload);
       })
-      .addCase(addTransaction.rejected, (state, action) => {
+      .addCase(addTransaction.rejected, (state, { payload }) => {
         state.isLoading = false;
-        state.error = action.payload;
+        state.error = payload;
+      })
+      .addCase(updateTransaction.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateTransaction.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        const index = state.items.findIndex((item) => item._id === payload._id);
+        if (index !== -1) {
+          state.items[index] = payload;
+        }
+      })
+      .addCase(updateTransaction.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
       });
   },
 });

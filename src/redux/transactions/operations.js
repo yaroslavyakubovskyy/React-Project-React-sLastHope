@@ -17,3 +17,18 @@ export const addTransaction = createAsyncThunk(
     }
   }
 );
+
+export const updateTransaction = createAsyncThunk(
+  "transactions/updateTransaction",
+  async ({ type, id, data }, thunkAPI) => {
+    try {
+      const { data: updatedTransaction } = await instance.patch(
+        `/transactions/${type}/${id}`,
+        data
+      );
+      return updatedTransaction;
+    } catch (error) {
+      return handleError(error, thunkAPI);
+    }
+  }
+);

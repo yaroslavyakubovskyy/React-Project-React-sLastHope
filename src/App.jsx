@@ -9,6 +9,7 @@ import TransactionsHistoryPage from "./pages/TransactionsHistoryPage/Transaction
 import NotFoundPage from "./routes/NotFoundPage/NotFoundPage.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import RestrictedRoute from "./routes/RestrictedRoute.jsx";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
+      <Toaster />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import TransactionForm from "../../components/TransactionForm/TransactionForm";
 const MainTransactionsPage = () => {
   return (
     <div>
-      <TransactionForm />
+      <TransactionForm transaction={null} isModal={false} />
     </div>
   );
 };

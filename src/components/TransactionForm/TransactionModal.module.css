@@ -1,0 +1,18 @@
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 24px;
+  position: relative;
+  outline: none;
+}

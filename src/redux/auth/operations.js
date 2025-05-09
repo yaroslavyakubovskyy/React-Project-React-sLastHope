@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../api/api.js";
 
-export const addToken = (token) => {
+const addToken = (token) => {
   console.log(token);
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
@@ -52,7 +52,7 @@ export const refreshToken = createAsyncThunk("refresh", async (_, thunkAPI) => {
     );
 
     addToken(data.accessToken);
-
+    console.log(data);
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message);

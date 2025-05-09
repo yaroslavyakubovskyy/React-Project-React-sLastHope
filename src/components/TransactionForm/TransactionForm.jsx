@@ -12,6 +12,8 @@ import { FiCalendar } from "react-icons/fi";
 import { FaRegClock } from "react-icons/fa6";
 import s from "./TransactionForm.module.css";
 import CustomInput from "./CustomInput";
+import { useState } from "react";
+import { CategoriesModal } from "../CategoriesModal/CategoriesModal";
 
 const validationSchema = Yup.object({
   type: Yup.string()
@@ -24,11 +26,15 @@ const validationSchema = Yup.object({
     .required("Sum is required")
     .moreThan(0, "Sum must be greater than zero")
     .max(1000000, "Sum must be less than or equal to 1,000,000"),
-  comment: Yup.string().max(300, "Max 300 characters").trim(),
+  comment: Yup.string()
+    .required("Comment is required")
+    .max(300, "Max 300 characters")
+    .trim(),
 });
 
 const TransactionForm = ({ transaction, onClose, isModal = false }) => {
   const dispatch = useDispatch();
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
 
   const initialValues = transaction
     ? {
@@ -92,124 +98,141 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
       onSubmit={handleSubmit}
     >
       {({ values, setFieldValue, isSubmitting }) => (
-        <Form className={isModal ? s["edit-form"] : s["add-form"]}>
-          <div className={s["t-radio-group"]}>
-            <label className={s["t-radio-label"]}>
-              <Field
-                type="radio"
-                name="type"
-                value="expenses"
-                checked={values.type === "expenses"}
-                disabled={!!transaction}
-                className={s["t-radio-btn"]}
-              />
-              Expense
-            </label>
-            <label className={s["t-radio-label"]}>
-              <Field
-                type="radio"
-                name="type"
-                value="incomes"
-                checked={values.type === "incomes"}
-                disabled={!!transaction}
-                className={s["t-radio-btn"]}
-              />
-              Income
-            </label>
-            {!transaction && (
-              <ErrorMessage name="type" component="div" className={s.error} />
-            )}
-          </div>
-          <div className={s["date-section"]}>
-            <div>
-              <label className={s["t-label"]}>Date</label>
-              <DatePicker
-                selected={values.date}
-                onChange={(date) => setFieldValue("date", date)}
-                dateFormat="yyyy-MM-dd"
-                placeholderText="0000-00-00"
-                customInput={<CustomInput icon={FiCalendar} />}
-              />
-              <ErrorMessage
-                name="date"
-                component="div"
-                className={s["t-error"]}
-              />
+        <>
+          <Form className={isModal ? s["edit-form"] : s["add-form"]}>
+            <div className={s["t-radio-group"]}>
+              <label className={s["t-radio-label"]}>
+                <Field
+                  type="radio"
+                  name="type"
+                  value="expenses"
+                  checked={values.type === "expenses"}
+                  disabled={!!transaction}
+                  className={s["t-radio-btn"]}
+                />
+                Expense
+              </label>
+              <label className={s["t-radio-label"]}>
+                <Field
+                  type="radio"
+                  name="type"
+                  value="incomes"
+                  checked={values.type === "incomes"}
+                  disabled={!!transaction}
+                  className={s["t-radio-btn"]}
+                />
+                Income
+              </label>
+              {!transaction && (
+                <ErrorMessage name="type" component="div" className={s.error} />
+              )}
+            </div>
+            <div className={s["date-section"]}>
+              <div>
+                <label className={s["t-label"]}>Date</label>
+                <DatePicker
+                  selected={values.date}
+                  onChange={(date) => setFieldValue("date", date)}
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="0000-00-00"
+                  customInput={<CustomInput icon={FiCalendar} />}
+                />
+                <ErrorMessage
+                  name="date"
+                  component="div"
+                  className={s["t-error"]}
+                />
+              </div>
+
+              <div>
+                <label className={s["t-label"]}>Time</label>
+                <DatePicker
+                  selected={values.time}
+                  onChange={(time) => setFieldValue("time", time)}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeIntervals={15}
+                  timeCaption="Time"
+                  dateFormat="HH:mm"
+                  placeholderText="00:00"
+                  customInput={<CustomInput icon={FaRegClock} />}
+                />
+                <ErrorMessage
+                  name="time"
+                  component="div"
+                  className={s["t-error"]}
+                />
+              </div>
             </div>
 
-            <div>
-              <label className={s["t-label"]}>Time</label>
-              <DatePicker
-                selected={values.time}
-                onChange={(time) => setFieldValue("time", time)}
-                showTimeSelect
-                showTimeSelectOnly
-                timeIntervals={15}
-                timeCaption="Time"
-                dateFormat="HH:mm"
-                placeholderText="00:00"
-                customInput={<CustomInput icon={FaRegClock} />}
-              />
-              <ErrorMessage
-                name="time"
-                component="div"
-                className={s["t-error"]}
-              />
-            </div>
-          </div>
-
-          <div className={s["t-input-group"]}>
-            <label className={s["t-label"]}>Category</label>
-            <Field
-              type="text"
-              name="category"
-              placeholder="Different"
-              className={s["t-input"]}
-            ></Field>
-            <ErrorMessage
-              name="category"
-              component="div"
-              className={s["t-error"]}
-            />
-          </div>
-
-          <div className={s["t-input-group"]}>
-            <label className={s["t-label"]}>Sum</label>
-            <div className={s["t-input-wrapper"]}>
+            <div className={s["t-input-group"]}>
+              <label className={s["t-label"]}>Category</label>
               <Field
-                type="number"
-                name="sum"
-                placeholder="Enter the sum"
+                name="category"
+                readOnly
+                placeholder="Select category"
                 className={s["t-input"]}
+                onClick={() => setIsCategoryModalOpen(true)}
+              ></Field>
+              <ErrorMessage
+                name="category"
+                component="div"
+                className={s["t-error"]}
               />
-              <span className={s["t-currency"]}>UAH</span>
             </div>
-            <ErrorMessage name="sum" component="div" className={s["t-error"]} />
-          </div>
 
-          <div className={s["t-input-group"]}>
-            <label className={s["t-label"]}>Comment</label>
-            <Field
-              as="textarea"
-              name="comment"
-              placeholder="Enter the text"
-              className={s["t-textarea"]}
-            />
-            <ErrorMessage
-              name="comment"
-              component="div"
-              className={s["t-error"]}
-            />
-          </div>
+            <div className={s["t-input-group"]}>
+              <label className={s["t-label"]}>Sum</label>
+              <div className={s["t-input-wrapper"]}>
+                <Field
+                  type="number"
+                  name="sum"
+                  placeholder="Enter the sum"
+                  className={s["t-input"]}
+                />
+                <span className={s["t-currency"]}>UAH</span>
+              </div>
+              <ErrorMessage
+                name="sum"
+                component="div"
+                className={s["t-error"]}
+              />
+            </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className={s["t-send-btn"]}
-          >
-            {transaction ? "Save" : "Add"}
-          </button>
-        </Form>
+            <div className={s["t-input-group"]}>
+              <label className={s["t-label"]}>Comment</label>
+              <Field
+                as="textarea"
+                name="comment"
+                placeholder="Enter the text"
+                className={s["t-textarea"]}
+              />
+              <ErrorMessage
+                name="comment"
+                component="div"
+                className={s["t-error"]}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={s["t-send-btn"]}
+            >
+              {transaction ? "Save" : "Add"}
+            </button>
+          </Form>
+          {isCategoryModalOpen && (
+            <CategoriesModal
+              type={values.type}
+              onClose={() => setIsCategoryModalOpen(false)}
+              onSelectCategory={(category) => {
+                setFieldValue("category", category._id);
+                setIsCategoryModalOpen(false);
+              }}
+            />
+          )}
+        </>
       )}
     </Formik>
   );

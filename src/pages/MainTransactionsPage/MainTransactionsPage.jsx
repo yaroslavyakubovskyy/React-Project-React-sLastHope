@@ -4,11 +4,11 @@ import { TransactionsChart } from "../../components/TransactionsChart/Transactio
 
 const MainTransactionsPage = () => {
   return (
-    <div>
+    <>
       <TransactionsTotalAmount />
       <TransactionsChart />
       <TransactionForm />
-    </div>
+    </>
   );
 };
 

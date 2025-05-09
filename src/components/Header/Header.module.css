@@ -1,0 +1,27 @@
+.headerContainer {
+  /* padding-top: 24px;
+  padding-bottom: 24px; */
+}
+.guest {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+.header {
+}
+.barsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.authDesktop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.barsContainer {
+}

@@ -8,22 +8,24 @@ const UserBarBtn = ({ user, onOpenModal }) => {
   const toggleUserPanel = () => {
     setIsUserPanelOpen((prevState) => !prevState);
   };
+  console.log(user.avatarUrl);
 
   return (
-    <div className="user-bar-btn" onClick={toggleUserPanel}>
-      <button>
-        {user?.avatarUrl ? (
-          <img
-            className={s.userAvatar}
-            src={user.avatarUrl}
-            alt="user avatar"
-          />
-        ) : (
-          user?.name?.[0]
-        )}
-        <span>{user?.name}</span>
+    <div className={s.userBarBtnContainer} onClick={toggleUserPanel}>
+      <button className={s.userBarBtn}>
+        <div
+          className={s.userAvatar}
+          style={{
+            backgroundImage: user?.avatarUrl
+              ? `url(${user.avatarUrl})`
+              : undefined,
+          }}
+        >
+          {!user?.avatarUrl && user?.name?.[0]}
+        </div>
+        <span className={s.userBarBtnName}>{user?.name}</span>
         <span>
-          <Icon className={s.userBarBtnIcon} name="up" size="45" />
+          <Icon className={s.userBarBtnIcon} name="up" size="20" />
         </span>
       </button>
 

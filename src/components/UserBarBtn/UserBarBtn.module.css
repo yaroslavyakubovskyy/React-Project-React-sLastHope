@@ -1,7 +1,29 @@
+.userBarBtnContainer {
+}
+.userBarBtn {
+  background-color: #171719;
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  padding: 6px 16px;
+  width: 217px;
+  height: 56px;
+  gap: 8px;
+}
 .userAvatar {
-  width: 40px;
+  border-radius: 40px;
+  width: 44px;
+  height: 44px;
+}
+.userBarBtnName {
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: rgba(250, 250, 250, 0.4);
 }
 .userBarBtnIcon {
   fill: #0ef387;
   stroke: transparent;
+  outline: transparent;
+  overflow: hidden;
 }

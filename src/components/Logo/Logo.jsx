@@ -6,15 +6,15 @@ import { Icon } from "../Icon/Icon";
 const Logo = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   return (
-    <Link to={isLoggedIn ? "/transactions/expenses" : "/"} className="logo">
-      <span>
+    <Link to={isLoggedIn ? "/transactions/expenses" : "/"} className={s.logo}>
+      <span className={s.logoWrap}>
         <Icon
           name="default"
           className={s.bgImageWrapper__iconItem0}
-          size="28"
+          size="27"
         />
       </span>
-      <p>ExpenseTracker</p>
+      ExpenseTracker
     </Link>
   );
 };

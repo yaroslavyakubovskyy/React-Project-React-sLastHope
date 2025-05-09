@@ -18,7 +18,7 @@ const userSlice = createSlice({
       fetchCurrentUser.fulfilled,
       (
         state,
-        { payload: { name, email, currency, avatarUrl, transactionsTotal } }
+        { payload: { name, email, currency, avatarUrl, transactionsTotal } },
       ) => {
         state.name = name;
         state.email = email;
@@ -26,13 +26,9 @@ const userSlice = createSlice({
         state.avatarUrl = avatarUrl;
         state.totalIncomes = transactionsTotal.incomes;
         state.totalExpenses = transactionsTotal.expenses;
-      }
+      },
     );
-  },
-  selectors: {
-    selectUser: (state) => state,
   },
 });
 
 export const userReducer = userSlice.reducer;
-export const { selectUser } = userSlice.selectors;

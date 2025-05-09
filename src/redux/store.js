@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { userReducer } from "./user/slice.js";
 
 const persistConfig = {
   key: "root",
@@ -28,6 +29,7 @@ const store = configureStore({
     auth: persistedReducer,
     categories: categoryReducer,
     transactions: transactionReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

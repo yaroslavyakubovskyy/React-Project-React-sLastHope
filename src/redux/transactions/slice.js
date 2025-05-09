@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addTransaction, updateTransaction } from "./operations";
+import { addTransaction, updateTransaction, getTransactions} from "./operations";
+
 
 const initialState = {
   items: [],
@@ -12,6 +13,9 @@ const transactionSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
+      .addCase(getTransactions.fulfilled, (state, { payload }) => {
+        state.items = payload;
+      })
       .addCase(addTransaction.pending, (state) => {
         state.isLoading = true;
         state.error = null;

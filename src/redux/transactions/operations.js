@@ -18,6 +18,7 @@ export const addTransaction = createAsyncThunk(
   }
 );
 
+
 export const updateTransaction = createAsyncThunk(
   "transactions/updateTransaction",
   async ({ type, id, data }, thunkAPI) => {
@@ -31,4 +32,19 @@ export const updateTransaction = createAsyncThunk(
       return handleError(error, thunkAPI);
     }
   }
+);
+
+export const getTransactions = createAsyncThunk(
+  "transactions/getTransactions",
+  async ({ type, date }, thunkAPI) => {
+    try {
+      const params = date ? { date } : {};
+
+      const { data } = await instance.get(`/transactions/${type}`, { params });
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 );

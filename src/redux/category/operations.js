@@ -8,9 +8,9 @@ const handleError = (error, thunkAPI) => {
 
 export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
-  async (type = "expenses", thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const { data } = await instance.get(`/categories?type=${type}`);
+      const { data } = await instance.get("/categories");
       return data;
     } catch (error) {
       return handleError(error, thunkAPI);
@@ -20,9 +20,9 @@ export const fetchCategories = createAsyncThunk(
 
 export const addCategory = createAsyncThunk(
   "categories/addCategory",
-  async (newCategory, thunkAPI) => {
+  async (category, thunkAPI) => {
     try {
-      const { data } = await instance.post("/categories", newCategory);
+      const { data } = await instance.post("/categories", category);
       return data;
     } catch (error) {
       return handleError(error, thunkAPI);
@@ -32,12 +32,11 @@ export const addCategory = createAsyncThunk(
 
 export const updateCategory = createAsyncThunk(
   "categories/updateCategory",
-  async ({ id, updatedCategory }, thunkAPI) => {
+  async ({ categoryName, categoryId }, thunkAPI) => {
     try {
-      const { data } = await instance.patch(
-        `/categories/${id}`,
-        updatedCategory
-      );
+      const { data } = await instance.patch(`/categories/${categoryId}`, {
+        categoryName,
+      });
       return data;
     } catch (error) {
       return handleError(error, thunkAPI);
@@ -47,10 +46,10 @@ export const updateCategory = createAsyncThunk(
 
 export const deleteCategory = createAsyncThunk(
   "categories/deleteCategory",
-  async (id, thunkAPI) => {
+  async ({ id, type }, thunkAPI) => {
     try {
       await instance.delete(`/categories/${id}`);
-      return id;
+      return { id, type };
     } catch (error) {
       return handleError(error, thunkAPI);
     }

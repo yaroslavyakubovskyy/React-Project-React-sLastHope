@@ -1,26 +1,43 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import s from "./AuthForm.module.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import clsx from "clsx";
 import * as Yup from "yup";
 
-const AuthForm = ({ onSubmit }) => {
-  const location = useLocation();
-  const formType = location.pathname;
+import s from "./AuthForm.module.css";
+import { useState } from "react";
 
-  const initialValues = {
-    name: "",
-    email: "",
-    password: "",
-  };
+const AuthForm = ({ onSubmit, isRegister }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePassword = () => setShowPassword((prev) => !prev);
+
+  const initialValues = isRegister
+    ? {
+        name: "",
+        email: "",
+        password: "",
+      }
+    : {
+        email: "",
+        password: "",
+      };
   const handleSubmit = (values, actions) => {
     actions.resetForm();
-    onSubmit(values);
+    const submitValues = isRegister
+      ? values
+      : {
+          email: values.email,
+          password: values.password,
+        };
+    onSubmit(submitValues);
   };
   const validationSchema = Yup.object({
-    ...(formType === "/register" && {
+    ...(isRegister && {
       name: Yup.string().required("Name is required"),
     }),
-    email: Yup.string().required("Email is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
     password: Yup.string()
       .min(7, "Password must be at least 7 characters long")
       .matches(/[0-9]/, "Password must contain at least one number")
@@ -28,7 +45,7 @@ const AuthForm = ({ onSubmit }) => {
       .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
       .matches(
         /[!@#$%^&*(),.?":{}|<>]/,
-        "Password must contain at least one symbol",
+        "Password must contain at least one symbol"
       )
       .required("Password is required"),
   });
@@ -41,16 +58,22 @@ const AuthForm = ({ onSubmit }) => {
         validationSchema={validationSchema}
       >
         <Form className={s.form}>
-          <div className={s.formWrapper}>
-            {formType === "/register" && (
-              <Field
-                className={s.input}
-                type="text"
-                name="name"
-                placeholder="Name"
-              />
+          <div
+            className={clsx(s.formWrapper, {
+              [s.formWrapperLogin]: !isRegister,
+            })}
+          >
+            {isRegister && (
+              <>
+                <Field
+                  className={s.input}
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                />
+                <ErrorMessage className={s.error} component="p" name="name" />
+              </>
             )}
-            <ErrorMessage className={s.error} component="p" name="name" />
 
             <Field
               className={s.input}
@@ -60,24 +83,43 @@ const AuthForm = ({ onSubmit }) => {
             />
             <ErrorMessage className={s.error} component="p" name="email" />
 
-            <Field
-              className={s.input}
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
+            <div className={s.wrapperIcon}>
+              <Field
+                className={s.input}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+              />
+              {showPassword ? (
+                <FiEye className={s.icon} onClick={togglePassword} />
+              ) : (
+                <FiEyeOff className={s.icon} onClick={togglePassword} />
+              )}
+            </div>
+
             <ErrorMessage className={s.error} component="p" name="password" />
           </div>
           <button className={s.button} type="submit">
-            Sign Up
+            {isRegister ? "Sign Up" : "Sign In"}
           </button>
         </Form>
       </Formik>
       <p className={s.text}>
-        Already have account?{" "}
-        <Link to="/login" className={s.link}>
-          Sign In
-        </Link>
+        {isRegister ? (
+          <>
+            Already have account?{" "}
+            <Link to="/login" className={s.link}>
+              Sign In
+            </Link>
+          </>
+        ) : (
+          <>
+            Don't have an account?{" "}
+            <Link to="/register" className={s.link}>
+              Sing Up
+            </Link>
+          </>
+        )}
       </p>
     </div>
   );

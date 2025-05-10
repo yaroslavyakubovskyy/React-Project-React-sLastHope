@@ -43,14 +43,7 @@ function App() {
     <div className="container">
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route
-            index
-            element={
-              <RestrictedRoute>
-                <WelcomePage />
-              </RestrictedRoute>
-            }
-          />
+          <Route index element={<WelcomePage />} />
           <Route
             path="register"
             element={

@@ -11,7 +11,6 @@ import PrivateRoute from "./routes/PrivateRoute.jsx";
 import RestrictedRoute from "./routes/RestrictedRoute.jsx";
 import { Toaster } from "react-hot-toast";
 
-
 import {
   selectIsRefreshing,
   selectisRegistered,
@@ -21,7 +20,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginThunk, refreshToken } from "./redux/auth/operations.js";
 import { getPassword } from "./utils/sessionStorage.js";
 import { useEffect } from "react";
-
 
 function App() {
   const { email } = useSelector(selectUser);
@@ -65,7 +63,7 @@ function App() {
             }
           />
           <Route
-            path="transactions/expenses"
+            path="transactions/:transactionType"
             element={
               <PrivateRoute>
                 <MainTransactionsPage />

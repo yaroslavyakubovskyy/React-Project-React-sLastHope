@@ -1,16 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addTransaction, updateTransaction, getTransactions} from "./operations";
-
+import {
+  addTransaction,
+  updateTransaction,
+  getTransactions,
+} from "./operations";
 
 const initialState = {
   items: [],
   isLoading: false,
   error: null,
+  selectedType: "expenses",
 };
 
 const transactionSlice = createSlice({
   name: "transactions",
   initialState,
+  reducers: {
+    setSelectedType(state, action) {
+      state.selectedType = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getTransactions.fulfilled, (state, { payload }) => {
@@ -46,4 +55,5 @@ const transactionSlice = createSlice({
   },
 });
 
+export const { setSelectedType } = transactionSlice.actions;
 export default transactionSlice.reducer;

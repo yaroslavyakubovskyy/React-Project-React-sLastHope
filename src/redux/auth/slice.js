@@ -67,6 +67,7 @@ const slice = createSlice({
       .addCase(loginThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        toast.error(state.error);
       })
       .addCase(refreshToken.fulfilled, (state, action) => {
         state.isRefreshing = false;

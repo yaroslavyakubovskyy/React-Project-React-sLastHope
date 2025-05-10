@@ -30,7 +30,7 @@ export const loginThunk = createAsyncThunk(
       } = data;
       return { user: { email, name }, accessToken, refreshToken, sid };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
 );

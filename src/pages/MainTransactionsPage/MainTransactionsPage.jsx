@@ -4,10 +4,11 @@ import { TransactionsChart } from "../../components/TransactionsChart/Transactio
 
 const MainTransactionsPage = () => {
   return (
+
     <>
       <TransactionsTotalAmount />
       <TransactionsChart />
-      <TransactionForm />
+      <TransactionForm transaction={null} isModal={false} />
     </>
   );
 };

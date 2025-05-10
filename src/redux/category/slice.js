@@ -7,7 +7,10 @@ import {
 } from "./operations";
 
 const initialState = {
-  items: [],
+  items: {
+    expenses: [],
+    incomes: [],
+  },
   isLoading: false,
   error: null,
 };
@@ -18,19 +21,24 @@ const categorySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCategories.fulfilled, (state, action) => {
-        state.items = action.payload;
+        state.items.expenses = action.payload.expenses || [];
+        state.items.incomes = action.payload.incomes || [];
       })
       .addCase(addCategory.fulfilled, (state, action) => {
-        state.items.push(action.payload);
+        const { type } = action.payload;
+        state.items[type].push(action.payload);
       })
-      .addCase(updateCategory.fulfilled, (state, action) => {
-        state.items = state.items.map((category) =>
-          category.id === action.payload.id ? action.payload : category
+      .addCase(updateCategory.fulfilled, (state, { payload }) => {
+        state.items.expenses = state.items.expenses.map((item) =>
+          item._id === payload._id ? payload : item
+        );
+        state.items.incomes = state.items.incomes.map((item) =>
+          item._id === payload._id ? payload : item
         );
       })
-      .addCase(deleteCategory.fulfilled, (state, action) => {
-        state.items = state.items.filter(
-          (category) => category.id !== action.payload
+      .addCase(deleteCategory.fulfilled, (state, { payload }) => {
+        state.items[payload.type] = state.items[payload.type].filter(
+          (item) => item._id !== payload.id
         );
       })
       .addMatcher(

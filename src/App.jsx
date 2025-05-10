@@ -10,6 +10,7 @@ import NotFoundPage from "./routes/NotFoundPage/NotFoundPage.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import RestrictedRoute from "./routes/RestrictedRoute.jsx";
 import { Toaster } from "react-hot-toast";
+
 import {
   selectIsRefreshing,
   selectisRegistered,
@@ -42,7 +43,10 @@ function App() {
     <div className="container">
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route index element={<WelcomePage />} />
+          <Route
+            index
+            element={<RestrictedRoute component={<WelcomePage />} />}
+          />
           <Route
             path="register"
             element={
@@ -80,7 +84,6 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
-
       <Toaster />
     </div>
   );

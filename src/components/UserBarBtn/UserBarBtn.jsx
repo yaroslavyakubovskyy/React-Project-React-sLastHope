@@ -2,28 +2,24 @@ import React, { useState } from "react";
 import UserPanel from "../UserPanel/UserPanel";
 import { Icon } from "../../components/Icon/Icon";
 import s from "./UserBarBtn.module.css";
+import { useSelector } from "react-redux";
+import { selectAvatarUrl, selectUser } from "../../redux/user/selectors";
 const UserBarBtn = ({ user, onOpenModal }) => {
   const [isUserPanelOpen, setIsUserPanelOpen] = useState(false);
-
+  const avatarUrl = useSelector(selectAvatarUrl);
+  const userSelectInfo = useSelector(selectUser);
   const toggleUserPanel = () => {
     setIsUserPanelOpen((prevState) => !prevState);
   };
-  console.log(user.avatarUrl);
-
   return (
     <div className={s.userBarBtnContainer} onClick={toggleUserPanel}>
       <button className={s.userBarBtn}>
-        <div
-          className={s.userAvatar}
-          style={{
-            backgroundImage: user?.avatarUrl
-              ? `url(${user.avatarUrl})`
-              : undefined,
-          }}
-        >
-          {!user?.avatarUrl && user?.name?.[0]}
-        </div>
-        <span className={s.userBarBtnName}>{user?.name}</span>
+        {user.avatarUrl ? (
+          <img src={`${avatarUrl}`} alt="" />
+        ) : (
+          <span>{userSelectInfo.name[0]}</span>
+        )}
+        <span className={s.userBarBtnName}>{userSelectInfo.name}</span>
         <span>
           <Icon className={s.userBarBtnIcon} name="up" size="20" />
         </span>

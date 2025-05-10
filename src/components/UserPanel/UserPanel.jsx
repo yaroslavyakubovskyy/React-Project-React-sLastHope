@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "../../redux/auth/slice";
 import UserSetsModal from "../UserSetsModal/UserSetsModal";
@@ -6,8 +6,6 @@ import s from "./UserPanel.module.css";
 const UserPanel = ({ onOpenModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
-  console.log("User:", user);
   const handleLogout = () => {
     dispatch(logOut());
     navigate("/");

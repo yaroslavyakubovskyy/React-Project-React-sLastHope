@@ -40,7 +40,7 @@ const userSlice = createSlice({
       })
 
       .addCase(updateUserAvatar.fulfilled, (state, { payload }) => {
-        state.avatarUrl = payload.avatarUrl;
+        state.avatarUrl = payload;
       })
 
       .addCase(deleteUserAvatar.fulfilled, (state) => {

@@ -10,19 +10,19 @@ import { Navigate } from "react-router-dom";
 import UserSetsModal from "../UserSetsModal/UserSetsModal";
 import s from "./Header.module.css";
 import clsx from "clsx";
+import { selectUser } from "../../redux/user/selectors";
 const Header = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector(selectUser);
   // const user = useSelector((state) => ({
   //   name: state.auth.name,
   //   avatarUrl: state.auth.avatarUrl,
   // }));
   //
 
-  console.log("user from state:", user);
   const isMobile = windowWidth < 768;
   const isTablet = windowWidth >= 768 && windowWidth < 1440;
   const isDesktop = windowWidth >= 1440;

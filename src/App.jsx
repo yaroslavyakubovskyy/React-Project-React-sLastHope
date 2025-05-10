@@ -44,12 +44,8 @@ function App() {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route
-            path="/"
-            element={
-              <RestrictedRoute>
-                <WelcomePage />
-              </RestrictedRoute>
-            }
+            index
+            element={<RestrictedRoute component={<WelcomePage />} />}
           />
           <Route
             path="register"

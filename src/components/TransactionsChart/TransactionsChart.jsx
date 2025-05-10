@@ -34,7 +34,7 @@ export const TransactionsChart = () => {
     setCategoriesData(categories);
   }, [transactions, totalExpenses]);
 
-  if (transactions === null || categoriesData === null) return null;
+  if (transactions === null || categoriesData === null) return;
 
   if (!categoriesData.length && transactions.length > 0) {
     return (

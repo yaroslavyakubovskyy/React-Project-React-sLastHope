@@ -4,10 +4,7 @@ import DatePicker from "react-datepicker";
 import "../../css/react-datepicker.css";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-  fetchExpensesByDate,
-  fetchIncomesByDate,
-} from "../../redux/transactions/operations";
+import { getTransactions } from "../../redux/transactions/operations";
 import { LuCalendar } from "react-icons/lu";
 import { format } from "date-fns";
 
@@ -18,9 +15,7 @@ const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
 
   const handleDateSelect = (date) => {
     const formattedDate = format(date, "yyyy-MM-dd");
-    if (transactionsType === "incomes") {
-      dispatch(fetchIncomesByDate(formattedDate));
-    } else dispatch(fetchExpensesByDate(formattedDate));
+    dispatch(getTransactions({ type: transactionsType, date: formattedDate }));
     setSelectedDate(date);
     console.log(formattedDate);
   };

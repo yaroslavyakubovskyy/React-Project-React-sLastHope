@@ -6,10 +6,15 @@ import {
 } from "../../redux/transactions/selectors";
 import clsx from "clsx";
 import EditTransactionButtons from "../EditTransactionButtons/EditTransactionButtons";
+import { useState } from "react";
+import TransactionModal from "../TransactionForm/TransactionModal";
 
 const TransactionsList = () => {
   const transactions = useSelector(selectFilteredTransactions);
   const currency = useSelector(selectUserCurrecy);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+
   return (
     <div className={s.tableWrapper}>
       {/* <div className={s.tableHeader}>
@@ -44,13 +49,24 @@ const TransactionsList = () => {
                   {transaction.sum}/{currency}
                 </td>
                 <td className={s.colActions}>
-                  <EditTransactionButtons transaction={transaction} />
+                  <EditTransactionButtons
+                    transaction={transaction}
+                    onEditClick={(t) => {
+                      setSelectedTransaction(t);
+                      setIsModalOpen(true);
+                    }}
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <TransactionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        transaction={selectedTransaction}
+      />
     </div>
   );
 };

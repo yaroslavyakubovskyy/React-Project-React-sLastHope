@@ -8,6 +8,7 @@ import {
   addTransaction,
   updateTransaction,
 } from "../../redux/transactions/operations";
+import { setSelectedType } from "../../redux/transactions/slice";
 import { FiCalendar } from "react-icons/fi";
 import { FaRegClock } from "react-icons/fa6";
 import s from "./TransactionForm.module.css";
@@ -108,6 +109,10 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   value="expenses"
                   checked={values.type === "expenses"}
                   disabled={!!transaction}
+                  onChange={(event) => {
+                    setFieldValue("type", event.target.value);
+                    dispatch(setSelectedType(event.target.value));
+                  }}
                   className={s["t-radio-btn"]}
                 />
                 Expense
@@ -119,6 +124,10 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   value="incomes"
                   checked={values.type === "incomes"}
                   disabled={!!transaction}
+                  onChange={(event) => {
+                    setFieldValue("type", event.target.value);
+                    dispatch(setSelectedType(event.target.value));
+                  }}
                   className={s["t-radio-btn"]}
                 />
                 Income
@@ -135,7 +144,16 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   onChange={(date) => setFieldValue("date", date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="0000-00-00"
-                  customInput={<CustomInput icon={FiCalendar} />}
+                  customInput={
+                    <CustomInput
+                      icon={FiCalendar}
+                      classNames={{
+                        wrapper: s["t-input-wrapper"],
+                        input: s["t-input"],
+                        icon: s["t-icon"],
+                      }}
+                    />
+                  }
                 />
                 <ErrorMessage
                   name="date"
@@ -155,7 +173,16 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   timeCaption="Time"
                   dateFormat="HH:mm"
                   placeholderText="00:00"
-                  customInput={<CustomInput icon={FaRegClock} />}
+                  customInput={
+                    <CustomInput
+                      icon={FaRegClock}
+                      classNames={{
+                        wrapper: s["t-input-wrapper"],
+                        input: s["t-input"],
+                        icon: s["t-icon"],
+                      }}
+                    />
+                  }
                 />
                 <ErrorMessage
                   name="time"
@@ -169,6 +196,7 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
               <label className={s["t-label"]}>Category</label>
               <Field
                 name="category"
+                value={values.categoryName || ""}
                 readOnly
                 placeholder="Select category"
                 className={s["t-input"]}
@@ -228,6 +256,7 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
               onClose={() => setIsCategoryModalOpen(false)}
               onSelectCategory={(category) => {
                 setFieldValue("category", category._id);
+                setFieldValue("categoryName", category.categoryName);
                 setIsCategoryModalOpen(false);
               }}
             />

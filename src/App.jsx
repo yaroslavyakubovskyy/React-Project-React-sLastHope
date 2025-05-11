@@ -39,7 +39,8 @@ function App() {
     dispatch(refreshToken());
   }, [dispatch]);
 
-  return isRefreshing ? null : (
+  if (isRefreshing) return null;
+  return (
     <div className="container">
       <Routes>
         <Route path="/" element={<SharedLayout />}>
@@ -49,24 +50,14 @@ function App() {
           />
           <Route
             path="register"
-            element={
-              <RestrictedRoute
-                component={<RegisterPage />}
-                // redirect="transactions/expenses"
-              />
-            }
+            element={<RestrictedRoute component={<RegisterPage />} />}
           />
           <Route
             path="login"
-            element={
-              <RestrictedRoute
-                component={<LoginPage />}
-                // redirect="transactions/expenses"
-              />
-            }
+            element={<RestrictedRoute component={<LoginPage />} />}
           />
           <Route
-            path="transactions/expenses"
+            path="transactions/:transactionType"
             element={
               <PrivateRoute>
                 <MainTransactionsPage />

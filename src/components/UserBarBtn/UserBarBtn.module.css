@@ -1,4 +1,7 @@
 .userBarBtnContainer {
+  position: relative;
+  width: 217px;
+  height: 56px;
 }
 .userBarBtn {
   background-color: #171719;
@@ -6,8 +9,6 @@
   align-items: center;
   border-radius: 30px;
   padding: 6px 16px;
-  width: 217px;
-  height: 56px;
   gap: 8px;
 }
 .userAvatar {
@@ -15,14 +16,33 @@
   width: 44px;
   height: 44px;
 }
+
+.userBarDefAvatar {
+  font-weight: 700;
+  font-size: 20px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  background-color: #0ef387;
+  border-radius: 50%;
+}
 .userBarBtnName {
+  width: 105px;
   font-weight: 400;
   font-size: 16px;
   letter-spacing: -0.02em;
   color: rgba(250, 250, 250, 0.4);
+  overflow: hidden;
+}
+.userBarBtnIconWrap {
+  margin-left: auto;
 }
 .userBarBtnIcon {
-  fill: #0ef387;
+  color: #0ef387;
+  fill: transparent;
   stroke: transparent;
   outline: transparent;
   overflow: hidden;

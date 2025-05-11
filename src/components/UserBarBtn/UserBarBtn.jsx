@@ -17,10 +17,10 @@ const UserBarBtn = ({ user, onOpenModal }) => {
         {user.avatarUrl ? (
           <img src={`${avatarUrl}`} alt="user avatar" width={44} />
         ) : (
-          <span>{userSelectInfo.name[0].toUpperCase()}</span>
+          <span className={s.userBarDefAvatar}>{userSelectInfo.name[0]}</span>
         )}
         <span className={s.userBarBtnName}>{userSelectInfo.name}</span>
-        <span>
+        <span className={s.userBarBtnIconWrap}>
           <Icon className={s.userBarBtnIcon} name="up" size="20" />
         </span>
       </button>

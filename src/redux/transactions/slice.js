@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 import {
   addTransaction,
   updateTransaction,
@@ -100,6 +101,7 @@ const transactionSlice = createSlice({
       .addCase(deleteTransaction.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        toast.error(action.payload);
       })
       .addCase(deleteTransaction.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -110,6 +112,7 @@ const transactionSlice = createSlice({
           (transaction) => transaction._id !== action.payload
         );
         state.deleteModal = false;
+        toast.success("Delete transaction successfully!");
       })
       .addCase(logOut.fulfilled, (state) => initialState);
   },

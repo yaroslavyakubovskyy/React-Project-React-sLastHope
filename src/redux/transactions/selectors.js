@@ -13,6 +13,5 @@ export const selectIsToken = (state) => Boolean(state.auth.token);
 export const selectFilteredTransactions = (state) =>
   state.transactions.filteredItems;
 export const selectUserCurrecy = (state) => state.user.currency;
-export const selectIsEditModalOpen = (state) => state.transactions.editModal;
 export const selectIsDeleteModalOpen = (state) =>
   state.transactions.deleteModal;

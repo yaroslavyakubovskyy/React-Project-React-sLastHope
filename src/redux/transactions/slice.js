@@ -37,9 +37,9 @@ const transactionSlice = createSlice({
                   Object.values(value).some(
                     (item) =>
                       typeof item === "string" &&
-                      item.toLowerCase().includes(filterValue.toLowerCase()),
-                  )),
-            ),
+                      item.toLowerCase().includes(filterValue.toLowerCase())
+                  ))
+            )
           ) ?? [],
       };
     },
@@ -47,12 +47,10 @@ const transactionSlice = createSlice({
     openDeleteModal: (state, action) => {
       state.deleteModal = action.payload;
     },
-    openEditModal: (state, action) => {},
+
     closeDeleteModal: (state, action) => {
       state.deleteModal = false;
-    },
-    closeEditModal: (state, action) => {
-      state.editModal = false;
+      console.log(state.deleteModal);
     },
     setSelectedType(state, action) {
       state.selectedType = action.payload;
@@ -114,11 +112,12 @@ const transactionSlice = createSlice({
       .addCase(deleteTransaction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.items = state.items.filter(
-          (transaction) => transaction._id !== action.payload,
+          (transaction) => transaction._id !== action.payload
         );
         state.filteredItems = state.filteredItems.filter(
-          (transaction) => transaction._id !== action.payload,
+          (transaction) => transaction._id !== action.payload
         );
+        state.deleteModal = false;
       })
       .addCase(logOut.fulfilled, (state) => initialState);
   },
@@ -126,10 +125,5 @@ const transactionSlice = createSlice({
 
 export const { setSelectedType } = transactionSlice.actions;
 export default transactionSlice.reducer;
-export const {
-  filterTransactions,
-  openEditModal,
-  openDeleteModal,
-  closeDeleteModal,
-  closeEditModal,
-} = transactionSlice.actions;
+export const { filterTransactions, openDeleteModal, closeDeleteModal } =
+  transactionSlice.actions;

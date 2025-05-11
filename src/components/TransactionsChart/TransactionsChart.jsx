@@ -12,7 +12,7 @@ import warningImg from "../../assets/no_data.jpeg";
 import s from "./TransactionsChart.module.css";
 
 export const TransactionsChart = () => {
-  const [categoriesData, setCategoriesData] = useState(null);
+  const [categoriesData, setCategoriesData] = useState([]);
   const dispatch = useDispatch();
 
   const transactions = useSelector(selectTransactions);
@@ -34,9 +34,13 @@ export const TransactionsChart = () => {
     setCategoriesData(categories);
   }, [transactions, totalExpenses]);
 
+  console.log(transactions);
+  console.log(totalExpenses);
+  console.log(categoriesData);
+
   if (transactions === null || categoriesData === null) return;
 
-  if (!categoriesData.length && transactions.length > 0) {
+  if (!categoriesData.length) {
     return (
       <div className={s.warningWrapper}>
         <h2 className={s.warningTitle}>

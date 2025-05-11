@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logOut } from "../../redux/auth/slice";
-import UserSetsModal from "../UserSetsModal/UserSetsModal";
+
 import s from "./UserPanel.module.css";
+import { logOut } from "../../redux/auth/operations.js";
 const UserPanel = ({ onOpenModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

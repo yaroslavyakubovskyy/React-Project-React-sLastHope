@@ -31,7 +31,7 @@ export const loginThunk = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
-  }
+  },
 );
 
 export const refreshToken = createAsyncThunk("refresh", async (_, thunkAPI) => {
@@ -47,11 +47,20 @@ export const refreshToken = createAsyncThunk("refresh", async (_, thunkAPI) => {
         headers: {
           Authorization: `Bearer ${thunkAPI.getState().auth.refreshToken}`,
         },
-      }
+      },
     );
 
     addToken(data.accessToken);
     return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+});
+
+export const logOut = createAsyncThunk("logout", async (_, thunkAPI) => {
+  try {
+    await instance.get("/auth/logout");
+    addToken("");
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message);
   }

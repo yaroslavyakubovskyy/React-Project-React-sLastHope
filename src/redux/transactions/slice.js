@@ -5,6 +5,7 @@ import {
   getTransactions,
   deleteTransaction,
 } from "./operations";
+import { logOut } from "../auth/operations.js";
 
 const initialState = {
   items: [],
@@ -36,12 +37,13 @@ const transactionSlice = createSlice({
                   Object.values(value).some(
                     (item) =>
                       typeof item === "string" &&
-                      item.toLowerCase().includes(filterValue.toLowerCase())
-                  ))
-            )
+                      item.toLowerCase().includes(filterValue.toLowerCase()),
+                  )),
+            ),
           ) ?? [],
       };
     },
+
     openDeleteModal: (state, action) => {
       state.deleteModal = action.payload;
     },
@@ -104,12 +106,13 @@ const transactionSlice = createSlice({
       .addCase(deleteTransaction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.items = state.items.filter(
-          (transaction) => transaction._id !== action.payload
+          (transaction) => transaction._id !== action.payload,
         );
         state.filteredItems = state.filteredItems.filter(
-          (transaction) => transaction._id !== action.payload
+          (transaction) => transaction._id !== action.payload,
         );
-      });
+      })
+      .addCase(logOut.fulfilled, (state) => initialState);
   },
 });
 

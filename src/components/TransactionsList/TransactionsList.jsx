@@ -11,6 +11,9 @@ import EditTransactionButtons from "../EditTransactionButtons/EditTransactionBut
 import Modal from "react-modal";
 import { useCallback } from "react";
 
+import { useState } from "react";
+import TransactionModal from "../TransactionForm/TransactionModal";
+
 const customStyles = {
   content: {
     top: "50%",
@@ -27,12 +30,17 @@ const TransactionsList = () => {
   const transactions = useSelector(selectFilteredTransactions);
   const currency = useSelector(selectUserCurrecy);
 
+
   let isDeleteModalOpen = useSelector(selectIsDeleteModalOpen);
   let isEditModalOpen = useSelector(selectIsEditModalOpen);
 
   const closeDeleteModal = useCallback(() => {
     dispatch(closeDeleteModal());
   }, [dispatch]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+
   return (
     <div className={s.tableWrapper}>
       {/* <div className={s.tableHeader}>
@@ -67,13 +75,20 @@ const TransactionsList = () => {
                   {transaction.sum}/{currency}
                 </td>
                 <td className={s.colActions}>
-                  <EditTransactionButtons transaction={transaction} />
+                  <EditTransactionButtons
+                    transaction={transaction}
+                    onEditClick={(t) => {
+                      setSelectedTransaction(t);
+                      setIsModalOpen(true);
+                    }}
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
       <Modal
         isOpen={Boolean(isDeleteModalOpen)}
         onRequestClose={closeDeleteModal}
@@ -82,7 +97,13 @@ const TransactionsList = () => {
       >
         <button type="button">Delete</button>
         <button type="button">Cancel</button>
-      </Modal>
+
+      <TransactionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        transaction={selectedTransaction}
+      />
+
     </div>
   );
 };

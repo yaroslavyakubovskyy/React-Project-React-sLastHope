@@ -42,7 +42,8 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
         type: transaction.type,
         date: new Date(transaction.date),
         time: new Date(`1970-01-01T${transaction.time}:00`),
-        category: transaction.category,
+        category: transaction.category._id,
+        categoryName: transaction.category.categoryName,
         sum: transaction.sum,
         comment: transaction.comment,
       }
@@ -51,13 +52,13 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
         date: null,
         time: null,
         category: "",
+        categoryName: "",
         sum: "",
         comment: "",
       };
 
   const handleSubmit = async (values, { resetForm }) => {
     const transactionData = {
-      type: values.type,
       date: values.date.toISOString().split("T")[0],
       time: values.time.toTimeString().slice(0, 5),
       category: values.category,
@@ -65,7 +66,14 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
       comment: values.comment.trim(),
     };
 
-    if (transaction) {
+    if (!transaction) {
+      transactionData.type = values.type;
+      await toast.promise(dispatch(addTransaction(transactionData)).unwrap(), {
+        loading: "Adding transaction...",
+        success: "Transaction successfully added!",
+        error: (error) => error?.message || "Error adding transaction",
+      });
+    } else {
       await toast.promise(
         dispatch(
           updateTransaction({
@@ -80,12 +88,6 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
           error: (error) => error?.message || "Error updating transaction",
         }
       );
-    } else {
-      await toast.promise(dispatch(addTransaction(transactionData)).unwrap(), {
-        loading: "Adding transaction...",
-        success: "Transaction successfully added!",
-        error: (error) => error?.message || "Error adding transaction",
-      });
     }
 
     resetForm();
@@ -144,7 +146,16 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   onChange={(date) => setFieldValue("date", date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="0000-00-00"
-                  customInput={<CustomInput icon={FiCalendar} />}
+                  customInput={
+                    <CustomInput
+                      icon={FiCalendar}
+                      classNames={{
+                        wrapper: s["t-input-wrapper"],
+                        input: s["t-input"],
+                        icon: s["t-icon"],
+                      }}
+                    />
+                  }
                 />
                 <ErrorMessage
                   name="date"
@@ -164,7 +175,16 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   timeCaption="Time"
                   dateFormat="HH:mm"
                   placeholderText="00:00"
-                  customInput={<CustomInput icon={FaRegClock} />}
+                  customInput={
+                    <CustomInput
+                      icon={FaRegClock}
+                      classNames={{
+                        wrapper: s["t-input-wrapper"],
+                        input: s["t-input"],
+                        icon: s["t-icon"],
+                      }}
+                    />
+                  }
                 />
                 <ErrorMessage
                   name="time"

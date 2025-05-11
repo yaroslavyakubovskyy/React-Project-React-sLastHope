@@ -14,10 +14,10 @@ const MainTransactionsPage = () => {
   useEffect(() => {
     navigate(`/transactions/${selectedType}`);
   }, [selectedType, navigate]);
-  
+
   return (
     <div className={s.wrapper}>
-      <div>
+      <div className={s.wrapper__text}>
         <p className={s.header}>Expense Log</p>
         <p className={s.text}>
           Capture and organize every penny spent with ease! A clear view of your

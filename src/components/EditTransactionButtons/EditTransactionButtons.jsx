@@ -6,17 +6,22 @@ import { FiEdit2 } from "react-icons/fi";
 import { PiTrashLight } from "react-icons/pi";
 import { openDeleteModal } from "../../redux/transactions/slice";
 
-const EditTransactionButtons = ({ transaction }) => {
+const EditTransactionButtons = ({ transaction, onEditClick }) => {
   const { transactionsType } = useParams();
   const dispatch = useDispatch();
+
   const handleDeleteBtn = (_id) => {
     // dispatch(deleteTransaction({ transactionsType, _id }));
     dispatch(openDeleteModal(_id));
   };
-  const handleEditBtn = () => {};
+
   return (
     <div className={s.buttonsWrapper}>
-      <button type="button" className={s.editBtn} onClick={handleEditBtn}>
+      <button
+        type="button"
+        className={s.editBtn}
+        onClick={() => onEditClick(transaction)}
+      >
         <FiEdit2 className={s.editIcon} />
       </button>
       <button

@@ -4,12 +4,6 @@ import {
   updateTransaction,
   getTransactions,
   deleteTransaction,
-
-  fetchIncomes,
-  fetchExpenses,
-  fetchIncomesByDate,
-  fetchExpensesByDate,
-
 } from "./operations";
 
 const initialState = {
@@ -24,7 +18,6 @@ const transactionSlice = createSlice({
   name: "transactions",
   initialState,
   reducers: {
-
     filterTransactions: (state, action) => {
       const filterValue = action.payload?.toLowerCase();
 
@@ -41,16 +34,15 @@ const transactionSlice = createSlice({
                   Object.values(value).some(
                     (item) =>
                       typeof item === "string" &&
-                      item.toLowerCase().includes(filterValue.toLowerCase())
-                  ))
-            )
+                      item.toLowerCase().includes(filterValue.toLowerCase()),
+                  )),
+            ),
           ) ?? [],
       };
-         },  
+    },
 
     setSelectedType(state, action) {
       state.selectedType = action.payload;
-
     },
   },
   extraReducers: (builder) => {
@@ -101,10 +93,10 @@ const transactionSlice = createSlice({
       .addCase(deleteTransaction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.items = state.items.filter(
-          (transaction) => transaction._id !== action.payload
+          (transaction) => transaction._id !== action.payload,
         );
         state.filteredItems = state.filteredItems.filter(
-          (transaction) => transaction._id !== action.payload
+          (transaction) => transaction._id !== action.payload,
         );
       });
   },

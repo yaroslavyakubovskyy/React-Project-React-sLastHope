@@ -7,7 +7,6 @@ import TransactionsList from "../../components/TransactionsList/TransactionsList
 import TransactionsSearchTools from "../../components/TransactionsSearchTools/TransactionsSearchTools";
 
 import {
-  selectIsLoading,
   selectIsRefreshing,
   selectIsToken,
 } from "../../redux/transactions/selectors";
@@ -39,6 +38,7 @@ const TransactionsHistoryPage = () => {
 
   const isValidAdress =
     transactionsType === "incomes" || transactionsType === "expenses";
+
   return (
     <div className={s.mainWrapper}>
       {!isValidAdress && <Navigate to="/transactions/history/incomes" />}

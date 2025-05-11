@@ -93,7 +93,18 @@ export const CategoriesModal = ({
       await dispatch(deleteCategory({ id, type })).unwrap();
       toast.success("Category deleted");
     } catch (error) {
-      toast.error("Failed to delete category");
+      if (error === "Can`t remove! Some transactions depend on this category") {
+        toast("This category is in use", {
+          style: {
+            background: "#fff3cd",
+            color: "#664d03",
+            border: "1px solid #ffeeba",
+          },
+          icon: "⚠️",
+        });
+      } else {
+        toast.error("Failed to delete category");
+      }
     }
   };
 

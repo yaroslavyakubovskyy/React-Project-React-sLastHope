@@ -12,7 +12,7 @@ import { setSelectedType } from "../../redux/transactions/slice";
 import { FiCalendar } from "react-icons/fi";
 import { FaRegClock } from "react-icons/fa6";
 import s from "./TransactionForm.module.css";
-import CustomInput from "./CustomInput";
+import CustomInput from "../CustomInput/CustomInput";
 import { useState } from "react";
 import { CategoriesModal } from "../CategoriesModal/CategoriesModal";
 import { CgClose } from "react-icons/cg";
@@ -23,9 +23,31 @@ const validationSchema = Yup.object({
   type: Yup.string()
     .oneOf(["incomes", "expenses"])
     .required("Type is required"),
-  date: Yup.date().nullable().required("Date is required"),
+
+  date: Yup.date()
+    .nullable()
+    .required("Date is required")
+    .test(
+      "date-time-not-in-future",
+      "Date and time must not be in the future",
+      function (value) {
+        const { time } = this.parent;
+        if (!value || !time) return true;
+
+        const combined = new Date(value);
+        combined.setHours(time.getHours());
+        combined.setMinutes(time.getMinutes());
+        combined.setSeconds(0);
+        combined.setMilliseconds(0);
+
+        return combined <= new Date();
+      }
+    ),
+
   time: Yup.date().nullable().required("Time is required"),
+
   category: Yup.string().required("Category is required"),
+
   sum: Yup.string()
     .required("Sum is required")
     .matches(
@@ -41,6 +63,7 @@ const validationSchema = Yup.object({
         return parsed > 0 && parsed <= 1000000;
       }
     ),
+
   comment: Yup.string()
     .required("Comment is required")
     .max(300, "Max 300 characters")
@@ -199,6 +222,8 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   onChange={(date) => setFieldValue("date", date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="0000-00-00"
+                  maxDate={new Date()}
+                  calendarClassName={s.calendar}
                   customInput={
                     <CustomInput
                       icon={FiCalendar}
@@ -224,10 +249,16 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   onChange={(time) => setFieldValue("time", time)}
                   showTimeSelect
                   showTimeSelectOnly
-                  timeIntervals={15}
+                  timeIntervals={1}
                   timeCaption="Time"
                   dateFormat="HH:mm"
                   placeholderText="00:00"
+                  minTime={new Date(0, 0, 0, 0, 0)}
+                  maxTime={
+                    values.date?.toDateString() === new Date().toDateString()
+                      ? new Date()
+                      : new Date(0, 0, 0, 23, 59)
+                  }
                   customInput={
                     <CustomInput
                       icon={FaRegClock}

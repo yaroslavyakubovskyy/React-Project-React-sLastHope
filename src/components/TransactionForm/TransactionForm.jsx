@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
@@ -15,6 +15,9 @@ import s from "./TransactionForm.module.css";
 import CustomInput from "./CustomInput";
 import { useState } from "react";
 import { CategoriesModal } from "../CategoriesModal/CategoriesModal";
+import { CgClose } from "react-icons/cg";
+import { selectCurrency } from "../../redux/user/selectors";
+import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 
 const validationSchema = Yup.object({
   type: Yup.string()
@@ -23,10 +26,21 @@ const validationSchema = Yup.object({
   date: Yup.date().nullable().required("Date is required"),
   time: Yup.date().nullable().required("Time is required"),
   category: Yup.string().required("Category is required"),
-  sum: Yup.number()
+  sum: Yup.string()
     .required("Sum is required")
-    .moreThan(0, "Sum must be greater than zero")
-    .max(1000000, "Sum must be less than or equal to 1,000,000"),
+    .matches(
+      /^\d+([.,]\d{1,2})?$/,
+      "Invalid format: use digits, optional decimal with max 2 digits"
+    )
+    .test(
+      "is-valid-number",
+      "Sum must be greater than zero and less than or equal to 1,000,000",
+      (value) => {
+        if (!value) return false;
+        const parsed = parseFloat(value.replace(",", "."));
+        return parsed > 0 && parsed <= 1000000;
+      }
+    ),
   comment: Yup.string()
     .required("Comment is required")
     .max(300, "Max 300 characters")
@@ -36,6 +50,7 @@ const validationSchema = Yup.object({
 const TransactionForm = ({ transaction, onClose, isModal = false }) => {
   const dispatch = useDispatch();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const userCurrency = useSelector(selectCurrency);
 
   const initialValues = transaction
     ? {
@@ -57,12 +72,18 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
         comment: "",
       };
 
+  const handleTypeChange = (event, setFieldValue, dispatch) => {
+    const selectedType = event.target.value;
+    setFieldValue("type", selectedType);
+    dispatch(setSelectedType(selectedType));
+  };
+
   const handleSubmit = async (values, { resetForm }) => {
     const transactionData = {
       date: values.date.toISOString().split("T")[0],
       time: values.time.toTimeString().slice(0, 5),
       category: values.category,
-      sum: parseFloat(values.sum),
+      sum: parseFloat(values.sum.toString().replace(",", ".")),
       comment: values.comment.trim(),
     };
 
@@ -94,6 +115,29 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
     onClose();
   };
 
+  const handleKeyDown = (event) => {
+    const allowedKeys = [
+      "Backspace",
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "Delete",
+      "Home",
+      "End",
+    ];
+    const isNumberKey = /^[0-9.,]$/.test(event.key);
+    const value = event.target.value;
+    const hasDotOrComma = value.includes(".") || value.includes(",");
+
+    if (
+      !isNumberKey &&
+      !allowedKeys.includes(event.key) &&
+      !([".", ","].includes(event.key) && !hasDotOrComma)
+    ) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -103,6 +147,17 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
       {({ values, setFieldValue, isSubmitting }) => (
         <>
           <Form className={isModal ? s["edit-form"] : s["add-form"]}>
+            {isModal && (
+              <div className={s["close-btn-container"]}>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className={s["close-btn"]}
+                >
+                  <CgClose className={s["close-icon"]} />
+                </button>
+              </div>
+            )}
             <div className={s["t-radio-group"]}>
               <label className={s["t-radio-label"]}>
                 <Field
@@ -111,10 +166,9 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   value="expenses"
                   checked={values.type === "expenses"}
                   disabled={!!transaction}
-                  onChange={(event) => {
-                    setFieldValue("type", event.target.value);
-                    dispatch(setSelectedType(event.target.value));
-                  }}
+                  onChange={(event) =>
+                    handleTypeChange(event, setFieldValue, dispatch)
+                  }
                   className={s["t-radio-btn"]}
                 />
                 Expense
@@ -126,10 +180,9 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   value="incomes"
                   checked={values.type === "incomes"}
                   disabled={!!transaction}
-                  onChange={(event) => {
-                    setFieldValue("type", event.target.value);
-                    dispatch(setSelectedType(event.target.value));
-                  }}
+                  onChange={(event) =>
+                    handleTypeChange(event, setFieldValue, dispatch)
+                  }
                   className={s["t-radio-btn"]}
                 />
                 Income
@@ -215,12 +268,15 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
               <label className={s["t-label"]}>Sum</label>
               <div className={s["t-input-wrapper"]}>
                 <Field
-                  type="number"
                   name="sum"
+                  inputMode="decimal"
                   placeholder="Enter the sum"
                   className={s["t-input"]}
+                  onKeyDown={handleKeyDown}
                 />
-                <span className={s["t-currency"]}>UAH</span>
+                <span className={s["t-currency"]}>
+                  {getCurrencySymbol(userCurrency)}
+                </span>
               </div>
               <ErrorMessage
                 name="sum"

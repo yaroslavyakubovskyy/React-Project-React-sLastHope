@@ -3,7 +3,6 @@ import s from "./TransactionsList.module.css";
 import {
   selectFilteredTransactions,
   selectIsDeleteModalOpen,
-  selectIsEditModalOpen,
   selectUserCurrecy,
 } from "../../redux/transactions/selectors";
 import clsx from "clsx";
@@ -13,6 +12,8 @@ import { useCallback } from "react";
 
 import { useState } from "react";
 import TransactionModal from "../TransactionForm/TransactionModal";
+import { closeDeleteModal } from "../../redux/transactions/slice";
+import { deleteTransaction } from "../../redux/transactions/operations";
 
 const customStyles = {
   content: {
@@ -30,13 +31,11 @@ const TransactionsList = () => {
   const transactions = useSelector(selectFilteredTransactions);
   const currency = useSelector(selectUserCurrecy);
 
-
   let isDeleteModalOpen = useSelector(selectIsDeleteModalOpen);
-  let isEditModalOpen = useSelector(selectIsEditModalOpen);
 
-  const closeDeleteModal = useCallback(() => {
-    dispatch(closeDeleteModal());
-  }, [dispatch]);
+  let transactionForDelete = transactions.find(
+    (transaction) => transaction._id === isDeleteModalOpen
+  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
@@ -89,16 +88,52 @@ const TransactionsList = () => {
         </table>
       </div>
 
-       <Modal
-        isOpen={isDeleteModalOpen}
-        onRequestClose={closeDeleteModal}
-        style={customStyles}
+      <Modal
+        isOpen={Boolean(isDeleteModalOpen)}
+        onRequestClose={() => dispatch(closeDeleteModal())}
         contentLabel={"Delete Transaction"}
+        className={s.modal}
+        overlayClassName={s.overlay}
       >
-    
-          <button type="button">Delete</button>
-          <button type="button" onClick={closeDeleteModal}>Cancel</button>
-       
+        {transactionForDelete && (
+          <ul className={clsx(s.detailsList, ".container")}>
+            <li className={s.deteilsItem}>Delete trasaction:</li>
+            <li className={s.deteilsItem}>
+              Transaction type: {transactionForDelete.type}
+            </li>
+            <li className={s.deteilsItem}>
+              Category: {transactionForDelete.category.categoryName}
+            </li>
+            <li className={s.deteilsItem}>Date: {transactionForDelete.date}</li>
+            <li className={s.deteilsItem}>Time: {transactionForDelete.time}</li>
+            <li className={s.deteilsItem}>
+              Comment: {transactionForDelete.comment}
+            </li>
+            <li className={s.deteilsItem}>
+              Sum: {transactionForDelete.sum}
+              {" / "}
+              {currency}
+            </li>
+          </ul>
+        )}
+        <div className={s.btnContainer}>
+          <button
+            type="button"
+            className={s.deleteBtn}
+            onClick={() =>
+              dispatch(deleteTransaction({ _id: isDeleteModalOpen }))
+            }
+          >
+            Delete
+          </button>
+          <button
+            type="button"
+            className={s.cancelBtn}
+            onClick={() => dispatch(closeDeleteModal())}
+          >
+            Cancel
+          </button>
+        </div>
       </Modal>
 
       <TransactionModal
@@ -106,7 +141,6 @@ const TransactionsList = () => {
         onClose={() => setIsModalOpen(false)}
         transaction={selectedTransaction}
       />
-
     </div>
   );
 };

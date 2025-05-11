@@ -1,7 +1,7 @@
 import TransactionForm from "../../components/TransactionForm/TransactionForm";
 import { TransactionsTotalAmount } from "../../components/TransactionsTotalAmount/TransactionsTotalAmount";
 import { TransactionsChart } from "../../components/TransactionsChart/TransactionsChart.jsx";
-import s from "./MainTransactionsPage.module.css";
+import s from "./MainTransactionsPage.module.scss";
 
 const MainTransactionsPage = () => {
   return (

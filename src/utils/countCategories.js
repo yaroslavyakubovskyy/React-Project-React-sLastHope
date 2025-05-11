@@ -1,11 +1,19 @@
-import { getColors } from "./getColors.js";
+import { getColors } from "./getColors";
+import { getCurrentMoth } from "./getCurrentMoth";
 
 export function countCategories(data, total) {
-  if (!data.length || !total) return [];
+  if (!data.length) return [];
 
   const categorySum = {};
+  const { firstDayOfMonth, lastDayOfMonth } = getCurrentMoth();
 
-  data.forEach((transaction) => {
+  const currentMonthTransactions = data.filter(
+    (item) => item.date >= firstDayOfMonth && item.date <= lastDayOfMonth
+  );
+
+  if (!currentMonthTransactions.length) return [];
+
+  currentMonthTransactions.forEach((transaction) => {
     const { category, sum } = transaction;
     if (categorySum[category.categoryName]) {
       categorySum[category.categoryName] += sum;

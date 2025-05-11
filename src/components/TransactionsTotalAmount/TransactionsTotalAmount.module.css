@@ -53,6 +53,9 @@
   .listItem {
     padding-right: 104px;
   }
+  & .wrapper {
+    max-height: 121px;
+  }
 }
 
 .amountTitle {

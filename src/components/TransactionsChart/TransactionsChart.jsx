@@ -20,25 +20,23 @@ export const TransactionsChart = () => {
 
   useEffect(() => {
     dispatch(getTransactions({ type: "expenses" }));
+    dispatch(fetchCurrentUser());
   }, [dispatch]);
 
   useEffect(() => {
-    if (transactions === null) return;
+    if (!transactions?.length || !totalExpenses) return;
 
-    dispatch(fetchCurrentUser())
-      .unwrap()
-      .then(() => {
-        const expenses = transactions.filter(
-          (transaction) => transaction.type === "expenses"
-        );
-        setCategoriesData(countCategories(expenses, totalExpenses));
-      })
-      .catch();
-  }, [transactions, totalExpenses, dispatch]);
+    const expenses = transactions.filter(
+      (transaction) => transaction.type === "expenses"
+    );
 
-  if (transactions === null || categoriesData === null) return null;
+    const categories = countCategories(expenses, totalExpenses);
+    setCategoriesData(categories);
+  }, [transactions, totalExpenses]);
 
-  if (!categoriesData.length) {
+  if (transactions === null || categoriesData === null) return;
+
+  if (!categoriesData.length && transactions.length > 0) {
     return (
       <div className={s.warningWrapper}>
         <h2 className={s.warningTitle}>

@@ -1,0 +1,30 @@
+.mainWrapper {
+  flex-direction: column;
+}
+
+.title {
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  color: #fafafa;
+}
+.description {
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: rgba(250, 250, 250, 0.4);
+  margin-bottom: 40px;
+}
+
+.trasactionsWrapper {
+  margin-top: 40px;
+  border-radius: 30px;
+  /* width: 335px;
+  height: 516px; */
+  background: #171719;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -66,7 +66,7 @@ function App() {
             }
           />
           <Route
-            path="transactions/expenses"
+            path="transactions/:transactionType"
             element={
               <PrivateRoute>
                 <MainTransactionsPage />

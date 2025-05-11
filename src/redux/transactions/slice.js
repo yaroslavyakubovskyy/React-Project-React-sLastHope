@@ -4,6 +4,12 @@ import {
   updateTransaction,
   getTransactions,
   deleteTransaction,
+
+  fetchIncomes,
+  fetchExpenses,
+  fetchIncomesByDate,
+  fetchExpensesByDate,
+
 } from "./operations";
 
 const initialState = {
@@ -11,12 +17,14 @@ const initialState = {
   filteredItems: [],
   isLoading: false,
   error: null,
+  selectedType: "expenses",
 };
 
 const transactionSlice = createSlice({
   name: "transactions",
   initialState,
   reducers: {
+
     filterTransactions: (state, action) => {
       const filterValue = action.payload?.toLowerCase();
 
@@ -38,6 +46,11 @@ const transactionSlice = createSlice({
             )
           ) ?? [],
       };
+         },  
+
+    setSelectedType(state, action) {
+      state.selectedType = action.payload;
+
     },
   },
   extraReducers: (builder) => {
@@ -97,5 +110,6 @@ const transactionSlice = createSlice({
   },
 });
 
+export const { setSelectedType } = transactionSlice.actions;
 export default transactionSlice.reducer;
 export const { filterTransactions } = transactionSlice.actions;

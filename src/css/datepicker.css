@@ -1,0 +1,80 @@
+.react-datepicker {
+  background-color: var(--accet-green) !important;
+  border: none !important;
+}
+
+.react-datepicker__header {
+  background-color: var(--accet-green) !important;
+  border-bottom: 1px solid var(--black) !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name,
+.react-datepicker__day {
+  font-size: 16px !important;
+  background-color: var(--accet-green) !important;
+  color: var(--black) !important;
+}
+
+.react-datepicker__day {
+  border-radius: 50% !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: var(--hover-green) !important;
+}
+
+.react-datepicker__day--today {
+  font-weight: bold;
+}
+
+.react-datepicker__day--disabled {
+  color: var(--hover-green) !important;
+  cursor: not-allowed !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  color: var(--white) !important;
+  background-color: var(--black) !important;
+  border-radius: 50% !important;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: var(--hover-green) !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.react-datepicker__navigation:hover .react-datepicker__navigation-icon::before {
+  border-color: var(--black) !important;
+}
+
+.react-datepicker__time-container {
+  background-color: var(--accet-green) !important;
+}
+
+.react-datepicker__time-list-item {
+  background-color: var(--accet-green) !important;
+  color: var(--black) !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.react-datepicker__time-list {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--accet-green) var(--black) !important;
+}
+
+.react-datepicker__time-list-item:hover {
+  background-color: var(--hover-green) !important;
+}
+
+.react-datepicker__time-list-item--disabled {
+  color: var(--hover-green) !important;
+  background-color: var(--accet-green) !important;
+  cursor: not-allowed !important;
+}

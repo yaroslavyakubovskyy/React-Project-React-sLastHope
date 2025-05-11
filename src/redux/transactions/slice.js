@@ -62,6 +62,14 @@ const transactionSlice = createSlice({
       .addCase(getTransactions.fulfilled, (state, { payload }) => {
         state.items = payload;
         state.filteredItems = payload;
+        state.isLoading = false;
+      })
+      .addCase(getTransactions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getTransactions.pending, (state) => {
+        state.isLoading = true;
       })
       .addCase(addTransaction.pending, (state) => {
         state.isLoading = true;

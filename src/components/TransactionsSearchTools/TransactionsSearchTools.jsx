@@ -9,6 +9,7 @@ import { LuCalendar } from "react-icons/lu";
 import { format } from "date-fns";
 import CustomInput from "../TransactionForm/CustomInput";
 import "./datePiker.css";
+import CustomInput from "../CustomInput/CustomInput";
 
 const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());

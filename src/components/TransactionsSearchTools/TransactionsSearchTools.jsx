@@ -41,9 +41,9 @@ const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
           <CustomInput
             icon={LuCalendar}
             classNames={{
-              wrapper: s["t-input-wrapper"],
-              input: s["t-input"],
-              icon: s["t-icon"],
+              wrapper: s["h-input-wrapper"],
+              input: s["h-input"],
+              icon: s["h-icon"],
             }}
           />
         }

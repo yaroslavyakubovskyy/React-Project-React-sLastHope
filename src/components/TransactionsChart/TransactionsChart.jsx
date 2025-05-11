@@ -6,6 +6,7 @@ import { countCategories } from "../../utils/countCategories";
 import { selectTransactions } from "../../redux/transactions/selectors.js";
 import { selectUser } from "../../redux/user/selectors.js";
 import { fetchCurrentUser } from "../../redux/user/operations";
+import { getTransactions } from "../../redux/transactions/operations";
 
 import warningImg from "../../assets/no_data.jpeg";
 import s from "./TransactionsChart.module.css";
@@ -18,22 +19,24 @@ export const TransactionsChart = () => {
   const { totalExpenses } = useSelector(selectUser);
 
   useEffect(() => {
-    if (transactions === null) return;
+    dispatch(getTransactions({ type: "expenses" }));
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
 
-    dispatch(fetchCurrentUser())
-      .unwrap()
-      .then(() => {
-        const expenses = transactions.filter(
-          (transaction) => transaction.type === "expenses",
-        );
-        setCategoriesData(countCategories(expenses, totalExpenses));
-      })
-      .catch();
-  }, [transactions, totalExpenses, dispatch]);
+  useEffect(() => {
+    if (!transactions?.length || !totalExpenses) return;
 
-  if (transactions === null || categoriesData === null) return null;
+    const expenses = transactions.filter(
+      (transaction) => transaction.type === "expenses"
+    );
 
-  if (!categoriesData.length) {
+    const categories = countCategories(expenses, totalExpenses);
+    setCategoriesData(categories);
+  }, [transactions, totalExpenses]);
+
+  if (transactions === null || categoriesData === null) return;
+
+  if (!categoriesData.length && transactions.length > 0) {
     return (
       <div className={s.warningWrapper}>
         <h2 className={s.warningTitle}>

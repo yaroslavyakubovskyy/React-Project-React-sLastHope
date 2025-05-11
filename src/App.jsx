@@ -43,7 +43,10 @@ function App() {
     <div className="container">
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route index element={<WelcomePage />} />
+          <Route
+            index
+            element={<RestrictedRoute component={<WelcomePage />} />}
+          />
           <Route
             path="register"
             element={
@@ -73,9 +76,9 @@ function App() {
           <Route
             path="transactions/history/:transactionsType"
             element={
-              <PrivateRoute>
-                <TransactionsHistoryPage />
-              </PrivateRoute>
+              // <PrivateRoute>
+              <TransactionsHistoryPage />
+              // </PrivateRoute>
             }
           />
           <Route path="*" element={<NotFoundPage />} />

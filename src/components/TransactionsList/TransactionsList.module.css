@@ -1,0 +1,38 @@
+.transactionsList {
+  margin-top: 20px;
+  width: 100%;
+  overflow-x: scroll;
+}
+.tableHeader {
+  height: 53px;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.content {
+  overflow: hidden;
+  display: inline;
+  height: 16px;
+}
+.category {
+  width: 60px;
+}
+.comment {
+  width: 60px;
+}
+.date {
+  width: 60px;
+}
+.time {
+  width: 35px;
+}
+.sum {
+  width: auto;
+}
+.transactionsItem {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  overflow: hidden;
+}

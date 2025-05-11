@@ -3,10 +3,17 @@ import {
   addTransaction,
   updateTransaction,
   getTransactions,
+
+  fetchIncomes,
+  fetchExpenses,
+  fetchIncomesByDate,
+  fetchExpensesByDate,
+
 } from "./operations";
 
 const initialState = {
   items: [],
+  filteredItems: [],
   isLoading: false,
   error: null,
   selectedType: "expenses",
@@ -51,9 +58,68 @@ const transactionSlice = createSlice({
       .addCase(updateTransaction.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
+      })
+
+      //
+      // TransactionsHistoryPage
+      //
+      .addCase(fetchIncomes.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchIncomes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchIncomes.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
+        state.filteredItems = action.payload;
+      })
+      .addCase(fetchExpenses.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchExpenses.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchExpenses.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
+        state.filteredItems = action.payload;
+      })
+
+      //
+      //ByDate
+      .addCase(fetchIncomesByDate.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchIncomesByDate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchIncomesByDate.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
+        state.filteredItems = action.payload;
+      })
+      .addCase(fetchExpensesByDate.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchExpensesByDate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchExpensesByDate.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
       });
   },
 });
 
 export const { setSelectedType } = transactionSlice.actions;
 export default transactionSlice.reducer;
+export const { filterTransactions } = transactionSlice.actions;

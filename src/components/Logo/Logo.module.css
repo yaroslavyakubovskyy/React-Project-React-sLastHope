@@ -1,0 +1,14 @@
+.logo {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+  display: flex;
+  /* margin-right: auto; */
+}
+.logoWrap {
+  margin-right: 8px;
+}
+.bgImageWrapper__iconItem0 {
+}

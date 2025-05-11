@@ -199,3 +199,17 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+.categoriesList::-webkit-scrollbar {
+  width: 8px;
+}
+.categoriesList::-webkit-scrollbar-track {
+  background: transparent;
+}
+.categoriesList::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+}
+.categoriesList::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}

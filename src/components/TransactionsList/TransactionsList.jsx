@@ -2,14 +2,37 @@ import { useDispatch, useSelector } from "react-redux";
 import s from "./TransactionsList.module.css";
 import {
   selectFilteredTransactions,
+  selectIsDeleteModalOpen,
+  selectIsEditModalOpen,
   selectUserCurrecy,
 } from "../../redux/transactions/selectors";
 import clsx from "clsx";
 import EditTransactionButtons from "../EditTransactionButtons/EditTransactionButtons";
+import Modal from "react-modal";
+import { useCallback } from "react";
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 const TransactionsList = () => {
+  const dispatch = useDispatch();
+
   const transactions = useSelector(selectFilteredTransactions);
   const currency = useSelector(selectUserCurrecy);
+
+  let isDeleteModalOpen = useSelector(selectIsDeleteModalOpen);
+  let isEditModalOpen = useSelector(selectIsEditModalOpen);
+
+  const closeDeleteModal = useCallback(() => {
+    dispatch(closeDeleteModal());
+  }, [dispatch]);
   return (
     <div className={s.tableWrapper}>
       {/* <div className={s.tableHeader}>
@@ -51,6 +74,15 @@ const TransactionsList = () => {
           </tbody>
         </table>
       </div>
+      <Modal
+        isOpen={Boolean(isDeleteModalOpen)}
+        onRequestClose={closeDeleteModal}
+        style={customStyles}
+        contentLabel={"transaction._id"}
+      >
+        <button type="button">Delete</button>
+        <button type="button">Cancel</button>
+      </Modal>
     </div>
   );
 };

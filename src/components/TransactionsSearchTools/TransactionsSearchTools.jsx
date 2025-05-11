@@ -15,7 +15,11 @@ const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
 
   const handleDateSelect = (date) => {
     const formattedDate = format(date, "yyyy-MM-dd");
-    dispatch(getTransactions({ type: transactionsType, date: formattedDate }));
+    formattedDate === "1970-01-01"
+      ? dispatch(getTransactions({ type: transactionsType }))
+      : dispatch(
+          getTransactions({ type: transactionsType, date: formattedDate })
+        );
     setSelectedDate(date);
     console.log(formattedDate);
   };

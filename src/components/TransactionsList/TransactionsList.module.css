@@ -82,4 +82,5 @@ td {
 .colActions {
   position: relative;
   overflow: visible;
+  padding: 12px 0;
 }

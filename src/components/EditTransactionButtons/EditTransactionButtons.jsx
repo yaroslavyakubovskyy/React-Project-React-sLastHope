@@ -4,12 +4,14 @@ import { useParams } from "react-router-dom";
 import { deleteTransaction } from "../../redux/transactions/operations";
 import { FiEdit2 } from "react-icons/fi";
 import { PiTrashLight } from "react-icons/pi";
+import { openDeleteModal } from "../../redux/transactions/slice";
 
 const EditTransactionButtons = ({ transaction }) => {
   const { transactionsType } = useParams();
   const dispatch = useDispatch();
   const handleDeleteBtn = (_id) => {
-    dispatch(deleteTransaction({ transactionsType, _id }));
+    // dispatch(deleteTransaction({ transactionsType, _id }));
+    dispatch(openDeleteModal(_id));
   };
   const handleEditBtn = () => {};
   return (

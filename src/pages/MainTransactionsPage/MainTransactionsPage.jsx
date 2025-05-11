@@ -14,9 +14,7 @@ const MainTransactionsPage = () => {
   useEffect(() => {
     navigate(`/transactions/${selectedType}`);
   }, [selectedType, navigate]);
-
-
-const MainTransactionsPage = () => {
+  
   return (
     <div className={s.wrapper}>
       <div>

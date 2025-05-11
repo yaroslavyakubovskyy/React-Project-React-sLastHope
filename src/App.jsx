@@ -39,7 +39,8 @@ function App() {
     dispatch(refreshToken());
   }, [dispatch]);
 
-  return isRefreshing ? null : (
+  if (isRefreshing) return null;
+  return (
     <div className="container">
       <Routes>
         <Route path="/" element={<SharedLayout />}>

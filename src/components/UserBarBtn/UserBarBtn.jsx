@@ -15,7 +15,12 @@ const UserBarBtn = ({ user, onOpenModal }) => {
     <div className={s.userBarBtnContainer} onClick={toggleUserPanel}>
       <button className={s.userBarBtn}>
         {user.avatarUrl ? (
-          <img src={`${avatarUrl}`} alt="user avatar" width={44} />
+          <img
+            className={s.userBarBtnAvatar}
+            src={`${avatarUrl}`}
+            alt="user avatar"
+            width={44}
+          />
         ) : (
           <span className={s.userBarDefAvatar}>{userSelectInfo.name[0]}</span>
         )}

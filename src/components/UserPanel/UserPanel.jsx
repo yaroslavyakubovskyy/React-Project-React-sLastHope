@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { logOut } from "../../redux/auth/slice";
 import UserSetsModal from "../UserSetsModal/UserSetsModal";
 import s from "./UserPanel.module.css";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../Icon/Icon";
+import { logOut } from "../../redux/auth/operations";
 const UserPanel = ({ onOpenModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -12,13 +12,19 @@ const UserPanel = ({ onOpenModal }) => {
     navigate("/");
   };
   return (
-    <div className={s.userPanel}>
-      <button className={s.userPanelBtn} onClick={onOpenModal}>
-        <span>
-          <Icon name="user" className={s.bgImageWrapper__iconItem7} size="16" />
-        </span>
-        Profile settings
-      </button>
+    <ul className={s.userPanel}>
+      <li>
+        <button className={s.userPanelBtn} onClick={onOpenModal}>
+          <span>
+            <Icon
+              name="user"
+              className={s.bgImageWrapper__iconItem7}
+              size="16"
+            />
+          </span>
+          Profile settings
+        </button>
+      </li>
       <button className={s.userPanelBtn} onClick={handleLogout}>
         <span>
           <Icon
@@ -29,7 +35,7 @@ const UserPanel = ({ onOpenModal }) => {
         </span>
         Log out
       </button>
-    </div>
+    </ul>
   );
 };
 

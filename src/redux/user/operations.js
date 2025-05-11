@@ -26,21 +26,7 @@ export const updateUserInfo = createAsyncThunk(
     }
   }
 );
-// export const updateUserAvatar = createAsyncThunk(
-//   "user/updateAvatar",
-//   async (formData, thunkAPI) => {
-//     try {
-//       const { data } = await instance.patch("/users/avatar", formData, {
-//         headers: { "Content-Type": "multipart/form-data" },
-//       });
-//       return data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(
-//         error.response.data.message || error.message
-//       );
-//     }
-//   }
-// );
+
 export const updateUserAvatar = createAsyncThunk(
   "user/updateAvatar",
   async (file, thunkAPI) => {

@@ -49,21 +49,11 @@ function App() {
           />
           <Route
             path="register"
-            element={
-              <RestrictedRoute
-                component={<RegisterPage />}
-                // redirect="transactions/expenses"
-              />
-            }
+            element={<RestrictedRoute component={<RegisterPage />} />}
           />
           <Route
             path="login"
-            element={
-              <RestrictedRoute
-                component={<LoginPage />}
-                // redirect="transactions/expenses"
-              />
-            }
+            element={<RestrictedRoute component={<LoginPage />} />}
           />
           <Route
             path="transactions/:transactionType"

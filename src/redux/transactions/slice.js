@@ -5,6 +5,7 @@ import {
   getTransactions,
   deleteTransaction,
 } from "./operations";
+import { logOut } from "../auth/operations.js";
 
 const initialState = {
   items: [],
@@ -98,7 +99,8 @@ const transactionSlice = createSlice({
         state.filteredItems = state.filteredItems.filter(
           (transaction) => transaction._id !== action.payload,
         );
-      });
+      })
+      .addCase(logOut.fulfilled, (state) => initialState);
   },
 });
 

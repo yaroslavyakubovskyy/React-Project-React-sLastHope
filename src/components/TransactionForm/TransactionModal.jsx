@@ -13,11 +13,13 @@ const TransactionModal = ({ isOpen, onClose, transaction }) => {
       className={s.modal}
       overlayClassName={s.overlay}
     >
-      <TransactionForm
-        transaction={transaction}
-        onClose={onClose}
-        isModal={true}
-      />
+      <div className={s.modalContent}>
+        <TransactionForm
+          transaction={transaction}
+          onClose={onClose}
+          isModal={true}
+        />
+      </div>
     </Modal>
   );
 };

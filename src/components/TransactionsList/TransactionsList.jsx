@@ -89,14 +89,17 @@ const TransactionsList = () => {
         </table>
       </div>
 
-      <Modal
-        isOpen={Boolean(isDeleteModalOpen)}
+       <Modal
+        isOpen={isDeleteModalOpen}
         onRequestClose={closeDeleteModal}
         style={customStyles}
-        contentLabel={"transaction._id"}
+        contentLabel={"Delete Transaction"}
       >
-        <button type="button">Delete</button>
-        <button type="button">Cancel</button>
+    
+          <button type="button">Delete</button>
+          <button type="button" onClick={closeDeleteModal}>Cancel</button>
+       
+      </Modal>
 
       <TransactionModal
         isOpen={isModalOpen}

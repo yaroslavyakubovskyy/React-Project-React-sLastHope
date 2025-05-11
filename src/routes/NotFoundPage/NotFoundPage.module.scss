@@ -1,0 +1,176 @@
+$color1: #0ef387;
+$color2: #f97316;
+$color3: #6b46c1;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  background: transparent;
+  text-align: center;
+
+  &__code {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__codeNumber {
+    font-size: 150px;
+    font-weight: bold;
+    color: transparent;
+    -webkit-text-stroke: 1px $color1;
+    text-shadow:
+      0 0 5px $color1,
+      0 0 10px rgba(14, 243, 135, 0.5);
+  }
+
+  &__loader {
+    width: 150px;
+    height: 150px;
+  }
+
+  &__spinner {
+    width: 100%;
+    fill: none;
+  }
+
+  &__circle--one,
+  &__circle--two,
+  &__circle--three {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 570;
+    stroke-width: 20px;
+    animation: load 1.5s infinite;
+  }
+
+  &__circle--one {
+    stroke: $color3;
+  }
+
+  &__circle--two {
+    stroke: $color2;
+    animation-delay: 0.1s;
+  }
+
+  &__circle--three {
+    stroke: $color1;
+    animation-delay: 0.2s;
+  }
+
+  &__dot--one,
+  &__dot--two,
+  &__dot--three {
+    animation: bounce 1s infinite ease-in-out;
+  }
+
+  &__dot--one {
+    fill: $color1;
+    animation-delay: 0s;
+  }
+
+  &__dot--two {
+    fill: $color2;
+    animation-delay: 0.1s;
+  }
+
+  &__dot--three {
+    fill: $color3;
+    animation-delay: 0.2s;
+  }
+
+  &__title {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 20px 0 10px;
+    color: transparent;
+    -webkit-text-stroke: 0.5px $color1;
+    text-shadow:
+      0 0 5px $color1,
+      0 0 8px rgba(14, 243, 135, 0.4);
+
+    &--glitch {
+      position: relative;
+      animation: glitch 2s infinite;
+    }
+  }
+
+  &__subtitle {
+    font-size: 24px;
+    color: transparent;
+    -webkit-text-stroke: 0.5px $color1;
+    text-shadow:
+      0 0 3px $color1,
+      0 0 6px rgba(14, 243, 135, 0.3);
+
+    &--glitch {
+      position: relative;
+      animation: glitch 2s infinite;
+    }
+  }
+
+  &__button {
+    margin-top: 30px;
+    padding: 12px 24px;
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, $color1, $color2, $color3) 1;
+    background: transparent;
+    font-size: 18px;
+    color: $color1;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(14, 243, 135, 0.3);
+
+    animation: pulse 2s infinite;
+
+    &:hover {
+      background: rgba(14, 243, 135, 0.1);
+      color: white;
+      box-shadow:
+        0 0 15px $color1,
+        0 0 25px $color2;
+      animation: vibrate 0.2s ease-in-out;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 10px rgba(14, 243, 135, 0.3);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(14, 243, 135, 0.6);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 10px rgba(14, 243, 135, 0.3);
+    }
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes load {
+  0% {
+    stroke-dashoffset: 570;
+  }
+  50% {
+    stroke-dashoffset: 530;
+  }
+  100% {
+    stroke-dashoffset: 570;
+    transform: rotate(360deg);
+  }
+}

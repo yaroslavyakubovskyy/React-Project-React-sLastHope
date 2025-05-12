@@ -2,11 +2,13 @@ import { useDispatch } from "react-redux";
 import { loginThunk } from "../../redux/auth/operations";
 import s from "./LoginPage.module.css";
 import AuthForm from "../../components/AuthForm/AuthForm";
+import { toast } from "react-hot-toast";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const onSubmit = (values) => {
-    dispatch(loginThunk(values)).unwrap();
+  const onSubmit = async (values) => {
+    await dispatch(loginThunk(values)).unwrap();
+    toast.success("Login successful");
   };
 
   return (

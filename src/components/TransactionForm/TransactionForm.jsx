@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import toast from "react-hot-toast";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale } from "react-datepicker";
+import { enGB } from "date-fns/locale";
 import {
   addTransaction,
   updateTransaction,
@@ -18,6 +20,8 @@ import { CategoriesModal } from "../CategoriesModal/CategoriesModal";
 import { CgClose } from "react-icons/cg";
 import { selectCurrency } from "../../redux/user/selectors";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
+
+registerLocale("en-GB", enGB);
 
 const validationSchema = Yup.object({
   type: Yup.string()
@@ -66,7 +70,8 @@ const validationSchema = Yup.object({
 
   comment: Yup.string()
     .required("Comment is required")
-    .max(300, "Max 300 characters")
+    .min(3, "Min 3 characters")
+    .max(48, "Max 48 characters")
     .trim(),
 });
 
@@ -233,6 +238,7 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   dateFormat="yyyy-MM-dd"
                   placeholderText="0000-00-00"
                   maxDate={new Date()}
+                  locale="en-GB"
                   calendarClassName={s.calendar}
                   customInput={
                     <CustomInput
@@ -290,14 +296,15 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
 
             <div className={s["t-input-group"]}>
               <label className={s["t-label"]}>Category</label>
-              <Field
-                name="category"
-                value={values.categoryName || ""}
-                readOnly
+              <input
+                type="text"
                 placeholder="Select category"
                 className={s["t-input"]}
+                value={values.categoryName}
                 onClick={() => setIsCategoryModalOpen(true)}
-              ></Field>
+                readOnly
+              />
+              <Field type="hidden" name="category" />
               <ErrorMessage
                 name="category"
                 component="div"
@@ -358,6 +365,10 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                 setFieldValue("categoryName", category.categoryName);
                 setIsCategoryModalOpen(false);
               }}
+              selectedCategoryId={values.category}
+              updateSelectedCategoryName={(newName) =>
+                setFieldValue("categoryName", newName)
+              }
             />
           )}
         </>

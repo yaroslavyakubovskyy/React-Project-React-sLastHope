@@ -9,6 +9,9 @@ export const signUp = createAsyncThunk("signUp", async (userData, thunkAPI) => {
   try {
     const { data } = await instance.post("/auth/register", userData);
     const { email, name } = data;
+    thunkAPI.dispatch(
+      loginThunk({ email: userData.email, password: userData.password }),
+    );
     return { email, name };
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message);

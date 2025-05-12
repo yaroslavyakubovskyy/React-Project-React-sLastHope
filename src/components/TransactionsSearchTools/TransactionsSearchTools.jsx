@@ -45,6 +45,8 @@ const TransactionsSearchTools = ({ handleSearchInput }) => {
         withPortal
         dateFormat="dd/MM/yyyy"
         calendarStartDay={1}
+        locale="en-GB"
+
         customInput={
           <CustomInput
             icon={LuCalendar}

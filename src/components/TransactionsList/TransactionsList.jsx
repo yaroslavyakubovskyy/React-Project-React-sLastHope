@@ -4,6 +4,8 @@ import {
   selectFilter,
   selectFilteredTransactions,
   selectIsDeleteModalOpen,
+  selectIsLoading,
+  selectTransactions,
   selectUserCurrecy,
 } from "../../redux/transactions/selectors";
 import clsx from "clsx";
@@ -14,31 +16,28 @@ import { useState } from "react";
 import TransactionModal from "../TransactionForm/TransactionModal";
 import { closeDeleteModal } from "../../redux/transactions/slice";
 import { deleteTransaction } from "../../redux/transactions/operations";
+import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
+import { Link, useParams } from "react-router-dom";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
 const TransactionsList = () => {
   const dispatch = useDispatch();
+  const { transactionsType } = useParams();
 
   const transactions = useSelector(selectFilteredTransactions);
   const currency = useSelector(selectUserCurrecy);
+  const isLoading = useSelector(selectIsLoading);
+  const isDeleteModalOpen = useSelector(selectIsDeleteModalOpen);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-  let isDeleteModalOpen = useSelector(selectIsDeleteModalOpen);
+  const isTransactionsEmpty =
+    !Boolean(useSelector(selectTransactions)[0]) && !isLoading;
+
+  let emptyTransations = `Yo have not ${transactionsType} transactions yet`;
 
   let transactionForDelete = transactions.find(
     (transaction) => transaction._id === isDeleteModalOpen
   );
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   return (
     <div className={s.tableWrapper}>
@@ -79,6 +78,19 @@ const TransactionsList = () => {
             ))}
           </tbody>
         </table>
+        {isLoading && (
+          <div className={s.loader}>
+            <LoaderSpinner className={s.loader} />
+          </div>
+        )}
+        {isTransactionsEmpty && (
+          <div className={s.transactionEmptyPlug}>
+            {emptyTransations}
+            <Link className={s.addLink} to="/transactions/}">
+              Add {transactionsType}
+            </Link>
+          </div>
+        )}
       </div>
 
       <Modal

@@ -9,12 +9,9 @@ export const selectIsError = (state) => state.transactions.isError;
 //TrasactionsHistoryPage
 //
 
-export const selectAuthToken = (state) => state.auth.token;
-export const selectIsRefreshing = (state) => state.auth.isLoading;
-export const selectIsToken = (state) => Boolean(state.auth.token);
-// export const selectFilteredTransactions = (state) =>
-//   state.transactions.filteredItems;
-export const selectUserCurrecy = (state) => state.user.currency;
+export const selectIsToken = (state) => Boolean(state.auth.token); //move to auth selectors
+
+export const selectUserCurrecy = (state) => state.user.currency; //move to user selectors
 export const selectIsDeleteModalOpen = (state) =>
   state.transactions.deleteModal;
 

@@ -6,14 +6,11 @@ import { TransactionsTotalAmount } from "../../components/TransactionsTotalAmoun
 import TransactionsList from "../../components/TransactionsList/TransactionsList";
 import TransactionsSearchTools from "../../components/TransactionsSearchTools/TransactionsSearchTools";
 
-import {
-  selectFilter,
-  selectIsRefreshing,
-  selectIsToken,
-} from "../../redux/transactions/selectors";
+import { selectIsToken } from "../../redux/transactions/selectors";
 import { getTransactions } from "../../redux/transactions/operations";
 import { fetchCurrentUser } from "../../redux/user/operations";
 import { setFilter } from "../../redux/transactions/slice";
+import { selectIsRefreshing } from "../../redux/auth/selectors";
 
 const TransactionsHistoryPage = () => {
   const dispatch = useDispatch();
@@ -39,35 +36,32 @@ const TransactionsHistoryPage = () => {
 
   const pageDescription = {
     incomes: (
-      <>
+      <div className={s.titleWrapper}>
         <h3 className={s.title}>All Income</h3>
         <p className={s.description}>
           Track and celebrate every bit of earnings effortlessly! Gain insights
           into your total revenue in a snap.
         </p>
-      </>
+      </div>
     ),
     expenses: (
-      <>
+      <div className={s.titleWrapper}>
         <h3 className={s.title}>All Expenses</h3>
         <p className={s.description}>
           View and manage every transaction seamlessly! Your entire financial
           landscape, all in one place.
         </p>
-      </>
+      </div>
     ),
   };
 
   return (
     <div className={s.mainWrapper}>
       {!isValidAdress && <Navigate to="/transactions/history/incomes" />}
-      {pageDescription[transactionsType]}
+      <div className={s.infoWrapper}>{pageDescription[transactionsType]}</div>
       <TransactionsTotalAmount />
       <div className={s.trasactionsWrapper}>
-        <TransactionsSearchTools
-          // searchInput={filter}
-          handleSearchInput={handleSearchInput}
-        />
+        <TransactionsSearchTools handleSearchInput={handleSearchInput} />
         <TransactionsList />
       </div>
     </div>

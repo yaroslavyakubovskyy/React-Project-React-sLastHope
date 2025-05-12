@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Icon } from "../Icon/Icon";
 import { logOut } from "../../redux/auth/operations";
 import clsx from "clsx";
-const UserPanel = ({ onOpenModal }) => {
+const UserPanel = ({ onOpenModal, onOpenLogoutModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -25,7 +25,7 @@ const UserPanel = ({ onOpenModal }) => {
           Profile settings
         </button>
       </li>
-      <button className={s.userPanelBtn} onClick={handleLogout}>
+      <button className={s.userPanelBtn} onClick={onOpenLogoutModal}>
         <span>
           <Icon
             name="logout"

@@ -56,26 +56,18 @@ const UserSetsModal = ({ onClose }) => {
     if (e.target.classList.contains(s.backdrop)) onClose();
   };
 
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
     setAvatar(file);
     const previewURL = URL.createObjectURL(file);
     setAvatarPreview(previewURL);
-  };
-
-  const handleAvatarUpload = async () => {
-    if (!avatar) {
-      fileInputRef.current?.click();
-      return;
-    }
-
     setIsAvatarLoading(true);
     try {
-      await dispatch(updateUserAvatar(avatar)).unwrap();
+      await dispatch(updateUserAvatar(file)).unwrap();
       toast.success("Avatar updated!");
-      setAvatar(null);
       dispatch(fetchCurrentUser());
+      setAvatar(null);
     } catch (err) {
       console.log(err);
       toast.error("Failed to upload avatar");
@@ -83,6 +75,26 @@ const UserSetsModal = ({ onClose }) => {
       setIsAvatarLoading(false);
     }
   };
+
+  // const handleAvatarUpload = async () => {
+  //   if (!avatar) {
+  //     fileInputRef.current?.click();
+  //     return;
+  //   }
+
+  //   setIsAvatarLoading(true);
+  //   try {
+  //     await dispatch(updateUserAvatar(avatar)).unwrap();
+  //     toast.success("Avatar updated!");
+  //     setAvatar(null);
+  //     dispatch(fetchCurrentUser());
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error("Failed to upload avatar");
+  //   } finally {
+  //     setIsAvatarLoading(false);
+  //   }
+  // };
 
   const handleAvatarRemove = async () => {
     const avatarId = getAvatarId(user.avatarUrl);
@@ -123,7 +135,7 @@ const UserSetsModal = ({ onClose }) => {
           <Icon
             name="chevron_down"
             className={s.bgImageWrapper__iconItem21}
-            size="24"
+            size="100%"
           />
         </button>
 
@@ -148,7 +160,7 @@ const UserSetsModal = ({ onClose }) => {
           <button
             className={s.modalUplAvaBtn}
             type="button"
-            onClick={handleAvatarUpload}
+            onClick={() => fileInputRef.current?.click()}
             disabled={isAvatarLoading}
           >
             Upload new photo
@@ -183,12 +195,14 @@ const UserSetsModal = ({ onClose }) => {
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
               >
-                <option value="uah">UAH</option>
-                <option value="usd">USD</option>
-                <option value="eur">EUR</option>
+                <option value="uah">₴ UAH</option>
+                <option value="usd">$ USD</option>
+                <option value="eur">€ EUR</option>
               </select>
+              <span>
+                <Icon className={s.modalOptBtnIcon} name="up" size="100%" />
+              </span>
             </label>
-            <Icon className={s.modalOptBtnIcon} name="up" size="20" />
           </div>
           <label className={s.modalNameChangeLabel}>
             <input

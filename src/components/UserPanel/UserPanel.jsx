@@ -10,7 +10,6 @@ const UserPanel = ({ onOpenModal }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logOut());
-    navigate("/");
   };
   return (
     <ul className={s.userPanel}>

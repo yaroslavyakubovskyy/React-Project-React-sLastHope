@@ -22,7 +22,8 @@ const EditTransactionButtons = ({ transaction, onEditClick }) => {
         className={s.editBtn}
         onClick={() => onEditClick(transaction)}
       >
-        <FiEdit2 className={s.editIcon} />
+        <FiEdit2 className={s.editIcon} />{" "}
+        <span className={s.editText}>Edit</span>
       </button>
       <button
         type="button"
@@ -30,6 +31,7 @@ const EditTransactionButtons = ({ transaction, onEditClick }) => {
         onClick={() => handleDeleteBtn(transaction._id)}
       >
         <PiTrashLight className={s.deletIcon} />
+        <span className={s.deleteText}>Delete</span>
       </button>
     </div>
   );

@@ -22,7 +22,7 @@ const TransactionsSearchTools = ({ handleSearchInput }) => {
     formattedDate === "1970-01-01"
       ? dispatch(getTransactions({ type: transactionsType }))
       : dispatch(
-          getTransactions({ type: transactionsType, date: formattedDate }),
+          getTransactions({ type: transactionsType, date: formattedDate })
         );
     setSelectedDate(date);
   };

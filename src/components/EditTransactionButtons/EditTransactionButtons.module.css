@@ -32,11 +32,15 @@
   fill: #0c0d0d;
   color: var(--black);
 }
-
+.editBtn:hover {
+  background: var(--hover-green);
+}
 .deletetBtn {
   background: #0c0d0d;
 }
-
+.deletetBtn:hover {
+  background-color: var(--error);
+}
 @media screen and (min-width: 1440px) {
   .editBtn,
   .deletetBtn {

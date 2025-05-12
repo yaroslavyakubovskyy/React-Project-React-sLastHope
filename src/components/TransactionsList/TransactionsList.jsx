@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import s from "./TransactionsList.module.css";
 import {
-  selectFilter,
   selectFilteredTransactions,
   selectIsDeleteModalOpen,
   selectIsLoading,
@@ -12,12 +11,17 @@ import clsx from "clsx";
 import EditTransactionButtons from "../EditTransactionButtons/EditTransactionButtons";
 import Modal from "react-modal";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TransactionModal from "../TransactionForm/TransactionModal";
-import { closeDeleteModal } from "../../redux/transactions/slice";
+import {
+  closeDeleteModal,
+  setSelectedType,
+} from "../../redux/transactions/slice";
 import { deleteTransaction } from "../../redux/transactions/operations";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { Link, useParams } from "react-router-dom";
+import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
+import getFormatedDate from "../../utils/getFormatedDate";
 
 const TransactionsList = () => {
   const dispatch = useDispatch();
@@ -29,6 +33,9 @@ const TransactionsList = () => {
   const isDeleteModalOpen = useSelector(selectIsDeleteModalOpen);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  useEffect(() => {
+    dispatch(setSelectedType(transactionsType));
+  }, [dispatch]);
 
   const isTransactionsEmpty =
     !Boolean(useSelector(selectTransactions)[0]) && !isLoading;
@@ -60,10 +67,12 @@ const TransactionsList = () => {
                   {transaction.category.categoryName}
                 </td>
                 <td className={s.colComment}>{transaction.comment}</td>
-                <td className={s.colDate}>{transaction.date}</td>
+                <td className={s.colDate}>
+                  {getFormatedDate(transaction.date)}
+                </td>
                 <td className={s.colTime}>{transaction.time}</td>
                 <td className={s.colSum}>
-                  {transaction.sum}/{currency}
+                  {transaction.sum} {getCurrencySymbol(currency)}
                 </td>
                 <td className={s.colActions}>
                   <EditTransactionButtons
@@ -101,23 +110,25 @@ const TransactionsList = () => {
         overlayClassName={s.overlay}
       >
         {transactionForDelete && (
-          <ul className={clsx(s.detailsList, ".container")}>
-            <li className={s.deteilsItem}>Delete trasaction:</li>
+          <ul className={clsx(s.detailsList)}>
+            <li className={clsx(s.deteilsItem, s.deteilsTitle)}>
+              Delete transaction:
+            </li>
             <li className={s.deteilsItem}>
               Transaction type: {transactionForDelete.type}
             </li>
             <li className={s.deteilsItem}>
               Category: {transactionForDelete.category.categoryName}
             </li>
-            <li className={s.deteilsItem}>Date: {transactionForDelete.date}</li>
+            <li className={s.deteilsItem}>
+              Date: {getFormatedDate(transactionForDelete.date)}
+            </li>
             <li className={s.deteilsItem}>Time: {transactionForDelete.time}</li>
             <li className={s.deteilsItem}>
               Comment: {transactionForDelete.comment}
             </li>
             <li className={s.deteilsItem}>
-              Sum: {transactionForDelete.sum}
-              {" / "}
-              {currency}
+              Sum: {transactionForDelete.sum} {getCurrencySymbol(currency)}
             </li>
           </ul>
         )}

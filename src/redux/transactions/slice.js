@@ -41,7 +41,6 @@ const transactionSlice = createSlice({
     builder
       .addCase(getTransactions.fulfilled, (state, { payload }) => {
         state.items = payload;
-        state.filteredItems = payload;
         state.isLoading = false;
       })
       .addCase(getTransactions.rejected, (state, action) => {

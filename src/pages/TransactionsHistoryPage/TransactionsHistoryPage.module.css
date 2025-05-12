@@ -35,9 +35,11 @@
 @media screen and (min-width: 1440px) {
   .infoWrapper {
     flex-direction: row;
-    /* gap: 20px; */
   }
   .titleWrapper {
     max-width: 50%;
+  }
+  .description {
+    padding: 15px 100px 0 0;
   }
 }

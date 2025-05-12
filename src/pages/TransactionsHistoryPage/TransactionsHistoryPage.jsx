@@ -58,8 +58,10 @@ const TransactionsHistoryPage = () => {
   return (
     <div className={s.mainWrapper}>
       {!isValidAdress && <Navigate to="/transactions/history/incomes" />}
-      <div className={s.infoWrapper}>{pageDescription[transactionsType]}</div>
-      <TransactionsTotalAmount />
+      <div className={s.infoWrapper}>
+        {pageDescription[transactionsType]} <TransactionsTotalAmount />
+      </div>
+
       <div className={s.trasactionsWrapper}>
         <TransactionsSearchTools handleSearchInput={handleSearchInput} />
         <TransactionsList />

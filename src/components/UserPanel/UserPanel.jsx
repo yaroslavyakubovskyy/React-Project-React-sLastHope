@@ -8,7 +8,6 @@ const UserPanel = ({ onOpenModal }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(logOut());
-    navigate("/");
   };
   return (
     <div className={s.userPanel}>

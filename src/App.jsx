@@ -11,29 +11,15 @@ import PrivateRoute from "./routes/PrivateRoute.jsx";
 import RestrictedRoute from "./routes/RestrictedRoute.jsx";
 import { Toaster } from "react-hot-toast";
 
-import {
-  selectIsRefreshing,
-  selectisRegistered,
-  selectUser,
-} from "./redux/auth/selectors.js";
+import { selectIsRefreshing } from "./redux/auth/selectors.js";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk, refreshToken } from "./redux/auth/operations.js";
-import { getPassword } from "./utils/sessionStorage.js";
+
 import { useEffect } from "react";
 
 function App() {
-  const { email } = useSelector(selectUser);
-  const isRegistered = useSelector(selectisRegistered);
   const isRefreshing = useSelector(selectIsRefreshing);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isRegistered) {
-      const password = getPassword();
-      const userData = { email, password };
-      dispatch(loginThunk(userData));
-    }
-  }, [isRegistered, dispatch]);
 
   useEffect(() => {
     dispatch(refreshToken());

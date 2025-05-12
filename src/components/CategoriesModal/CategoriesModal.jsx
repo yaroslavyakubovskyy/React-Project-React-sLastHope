@@ -24,6 +24,8 @@ export const CategoriesModal = ({
   onClose,
   type = "expenses",
   onSelectCategory,
+  selectedCategoryId,
+  updateSelectedCategoryName,
 }) => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategories) || {};
@@ -77,6 +79,9 @@ export const CategoriesModal = ({
           })
         ).unwrap();
         toast.success("Category updated");
+        if (editingCategoryId === selectedCategoryId) {
+          updateSelectedCategoryName(categoryName);
+        }
       } else {
         await dispatch(
           addCategory({ categoryName: categoryName, type: type })

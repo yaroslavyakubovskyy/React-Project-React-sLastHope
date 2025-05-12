@@ -1,54 +1,46 @@
 import { useDispatch, useSelector } from "react-redux";
 import s from "./TransactionsList.module.css";
 import {
+  selectFilter,
   selectFilteredTransactions,
   selectIsDeleteModalOpen,
+  selectIsLoading,
+  selectTransactions,
   selectUserCurrecy,
 } from "../../redux/transactions/selectors";
 import clsx from "clsx";
 import EditTransactionButtons from "../EditTransactionButtons/EditTransactionButtons";
 import Modal from "react-modal";
-import { useCallback } from "react";
 
 import { useState } from "react";
 import TransactionModal from "../TransactionForm/TransactionModal";
 import { closeDeleteModal } from "../../redux/transactions/slice";
 import { deleteTransaction } from "../../redux/transactions/operations";
+import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
+import { Link, useParams } from "react-router-dom";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
 const TransactionsList = () => {
   const dispatch = useDispatch();
+  const { transactionsType } = useParams();
 
   const transactions = useSelector(selectFilteredTransactions);
   const currency = useSelector(selectUserCurrecy);
+  const isLoading = useSelector(selectIsLoading);
+  const isDeleteModalOpen = useSelector(selectIsDeleteModalOpen);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-  let isDeleteModalOpen = useSelector(selectIsDeleteModalOpen);
+  const isTransactionsEmpty =
+    !Boolean(useSelector(selectTransactions)[0]) && !isLoading;
+
+  let emptyTransations = `Yo have not ${transactionsType} transactions yet`;
 
   let transactionForDelete = transactions.find(
     (transaction) => transaction._id === isDeleteModalOpen
   );
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] = useState(null);
-
   return (
     <div className={s.tableWrapper}>
-      {/* <div className={s.tableHeader}>
-        <span className={clsx(s.category, s.title)}>Category</span>
-        <span className={clsx(s.comment, s.title)}>Comment</span>
-        <span className={clsx(s.date, s.title)}>Date</span>
-        <span className={clsx(s.time, s.title)}>Time</span>
-        <span className={clsx(s.sum, s.title)}>Sum</span>
-      </div> */}
       <div className={s.tableInner}>
         <table className={s.table}>
           <thead>
@@ -86,6 +78,19 @@ const TransactionsList = () => {
             ))}
           </tbody>
         </table>
+        {isLoading && (
+          <div className={s.loader}>
+            <LoaderSpinner className={s.loader} />
+          </div>
+        )}
+        {isTransactionsEmpty && (
+          <div className={s.transactionEmptyPlug}>
+            {emptyTransations}
+            <Link className={s.addLink} to="/transactions/}">
+              Add {transactionsType}
+            </Link>
+          </div>
+        )}
       </div>
 
       <Modal
@@ -119,7 +124,7 @@ const TransactionsList = () => {
         <div className={s.btnContainer}>
           <button
             type="button"
-            className={s.deleteBtn}
+            className={clsx(s.deleteBtn, s.modalBtn)}
             onClick={() =>
               dispatch(deleteTransaction({ _id: isDeleteModalOpen }))
             }
@@ -128,7 +133,7 @@ const TransactionsList = () => {
           </button>
           <button
             type="button"
-            className={s.cancelBtn}
+            className={clsx(s.cancelBtn, s.modalBtn)}
             onClick={() => dispatch(closeDeleteModal())}
           >
             Cancel

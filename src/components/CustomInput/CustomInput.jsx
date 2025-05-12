@@ -2,7 +2,15 @@ import React from "react";
 
 const CustomInput = React.forwardRef(
   (
-    { value, onClick, placeholder, icon: IconComponent, classNames = {} },
+    {
+      value,
+      onClick,
+      onChange,
+      placeholder,
+      readOnly,
+      icon: IconComponent,
+      classNames = {},
+    },
     ref
   ) => (
     <div className={classNames.wrapper || ""} onClick={onClick}>
@@ -10,8 +18,9 @@ const CustomInput = React.forwardRef(
         type="text"
         ref={ref}
         value={value || ""}
+        onChange={onChange}
         placeholder={placeholder}
-        readOnly
+        readOnly={readOnly}
         className={classNames.input || ""}
       />
       {IconComponent && <IconComponent className={classNames.icon || ""} />}

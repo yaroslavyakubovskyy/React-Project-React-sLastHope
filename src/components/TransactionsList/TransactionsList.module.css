@@ -1,26 +1,7 @@
 .tableWrapper {
   margin-top: 20px;
 }
-/* .tableHeader {
-  background: rgba(0, 0, 0, 0.2);
-  width: 100%;
-  padding: 12px 15px;
-  font-weight: 400;
-  font-size: 12px;
-  color: rgba(250, 250, 250, 0.4);
-  height: 53px;
-  background: rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-@media screen and (min-width: 768px) {
-  .tableHeader {
-font-weight: 400;
-font-size: 16px;
-color: rgba(250, 250, 250, 0.4);
-  }
-} */
+
 .tableInner {
   max-height: 350px;
   overflow-y: auto;
@@ -172,6 +153,7 @@ td {
   justify-content: center;
   z-index: 999;
 }
+
 .detailsList {
   display: flex;
   flex-direction: column;
@@ -179,20 +161,54 @@ td {
   color: #c9c9c9;
 }
 
-.cancelBtn, .deleteBtn {
-  margin-top: 20px;
-  background: #29292b;
+.modalBtn {
   border-radius: 40px;
-  padding: 14px 44px;
-  width: 114px;
-  height: 44px;
+  width: 133px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   gap: 10px;
 }
-
-.deleteBtn{
+.deleteBtn {
   background: #ff0202;
+}
+.cancelBtn {
+  margin-top: 20px;
+  background: #29292b;
+}
+.modalBtn:hover {
+  filter: drop-shadow(2px 2px 2px var(--black)) brightness(1.5);
+}
+
+.deleteBtn {
+  background: #ff0202;
+}
+.loader {
+  margin-top: 30px;
+}
+.transactionEmptyPlug {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  flex-direction: column;
+}
+@media screen and (min-width: 768px) {
+  .transactionEmptyPlug {
+    flex-direction: row;
+  }
+}
+.addLink {
+  font-size: 14px;
+  color: var(--black);
+  border-radius: 40px;
+  padding: 14px;
+  background-color: var(--accet-green);
+  transition: background-color 0.3s ease;
+}
+.addLink:hover {
+  background-color: var(--hover-green);
 }

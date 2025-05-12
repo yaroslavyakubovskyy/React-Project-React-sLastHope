@@ -2,16 +2,18 @@ import { useState } from "react";
 import s from "./TransactionsSearchTools.module.css";
 import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getTransactions } from "../../redux/transactions/operations";
 import { LuCalendar } from "react-icons/lu";
 import { format } from "date-fns";
 import "./datePiker.css";
 import CustomInput from "../CustomInput/CustomInput";
+import { selectFilter } from "../../redux/transactions/selectors";
 
-const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
+const TransactionsSearchTools = ({ handleSearchInput }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
   const { transactionsType } = useParams();
 
@@ -30,7 +32,7 @@ const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
       <input
         type="text"
         name="search"
-        value={searchInput}
+        value={filter}
         onChange={handleSearchInput}
         className={s.searchInput}
         placeholder="Search for anything.."
@@ -42,6 +44,9 @@ const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
         maxDate={new Date()}
         withPortal
         dateFormat="dd/MM/yyyy"
+        calendarStartDay={1}
+        locale="en-GB"
+
         customInput={
           <CustomInput
             icon={LuCalendar}

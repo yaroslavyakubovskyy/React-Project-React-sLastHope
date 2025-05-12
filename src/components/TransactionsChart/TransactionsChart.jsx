@@ -7,19 +7,22 @@ import {
   selectIsLoading,
   selectTransactions,
 } from "../../redux/transactions/selectors.js";
-import { selectUser } from "../../redux/user/selectors.js";
+import { selectIsLoadingUser, selectUser } from "../../redux/user/selectors.js";
 import { fetchCurrentUser } from "../../redux/user/operations";
 import { getTransactions } from "../../redux/transactions/operations";
 
 import warningImg from "../../assets/no_data.jpeg";
 import s from "./TransactionsChart.module.css";
 import LoaderSpinner from "../LoaderSpinner/LoaderSpinner.jsx";
+import { selectIsLoadingLogin } from "../../redux/auth/selectors.js";
 
 export const TransactionsChart = () => {
   const [categoriesData, setCategoriesData] = useState([]);
   const dispatch = useDispatch();
   const transactions = useSelector(selectTransactions);
   const isLoading = useSelector(selectIsLoading);
+  const isLoadingLogin = useSelector(selectIsLoadingLogin);
+  const isLoadingUser = useSelector(selectIsLoadingUser);
   const { totalExpenses } = useSelector(selectUser);
 
   useEffect(() => {
@@ -38,7 +41,7 @@ export const TransactionsChart = () => {
     setCategoriesData(categories);
   }, [transactions, totalExpenses]);
 
-  if (isLoading) return <LoaderSpinner />;
+  if (isLoading || isLoadingLogin || isLoadingUser) return <LoaderSpinner />;
 
   if (transactions === null || categoriesData === null) return;
 

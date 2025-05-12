@@ -1,6 +1,44 @@
 .userPanel {
+  background-color: #0c0d0d;
   display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px 16px;
   flex-direction: column;
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  border-radius: 15px;
+  width: 217px;
+  height: 86px;
+  position: absolute;
+  margin-top: 8px;
 }
 .userPanelBtn {
+  display: flex;
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(250, 250, 250, 0.5);
+  gap: 12px;
 }
+
+.userPanelIcon {
+  fill: transparent;
+  stroke: rgba(250, 250, 250, 0.4);
+}
+.userPanelBtn:hover,
+.userPanelBtn:focus {
+  color: #fafafa;
+  & .userPanelIcon {
+    stroke: #0ef387;
+  }
+}
+
+/* .userPanelIcon:hover,
+.userPanelIcon:focus {
+} */
+/* .bgImageWrapper__iconItem7 {
+  
+}
+.bgImageWrapper__iconItem8 {
+  fill: transparent;
+  stroke: rgba(250, 250, 250, 0.4);
+} */

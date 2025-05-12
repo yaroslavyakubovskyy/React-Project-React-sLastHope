@@ -135,7 +135,9 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
     }
 
     resetForm();
-    onClose();
+    if (isModal) {
+      onClose();
+    }
   };
 
   const handleKeyDown = (event) => {
@@ -182,7 +184,11 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
               </div>
             )}
             <div className={s["t-radio-group"]}>
-              <label className={s["t-radio-label"]}>
+              <label
+                className={`${s["t-radio-label"]} ${
+                  transaction ? s["t-radio-disabled"] : ""
+                }`}
+              >
                 <Field
                   type="radio"
                   name="type"
@@ -196,7 +202,11 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                 />
                 Expense
               </label>
-              <label className={s["t-radio-label"]}>
+              <label
+                className={`${s["t-radio-label"]} ${
+                  transaction ? s["t-radio-disabled"] : ""
+                }`}
+              >
                 <Field
                   type="radio"
                   name="type"

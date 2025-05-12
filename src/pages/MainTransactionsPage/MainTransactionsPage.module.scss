@@ -1,28 +1,38 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 42px;
   margin-top: 59px;
+}
 
-  @media screen and (min-width: 1440px) {
-    flex-wrap: wrap;
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
     max-height: 600px;
+    grid-template-areas:
+      "child1 child3"
+      "child2 child3"
+      "child4 child3";
+    height: 100%;
+  }
 
-    > :nth-child(1),
-    > :nth-child(2),
-    > :nth-child(4) {
-      order: 1;
-    }
+  .wrapper > :nth-child(1) {
+    grid-area: child1;
+    max-height: 100px;
+  }
 
-    > :nth-child(1) {
-      max-height: 100px;
-    }
+  .wrapper > :nth-child(2) {
+    grid-area: child2;
+  }
 
-    > :nth-child(3) {
-      order: 2;
-      width: 50%;
-      height: 100vh;
-    }
+  .wrapper > :nth-child(3) {
+    grid-area: child3;
+    width: 100%;
+  }
+
+  .wrapper > :nth-child(4) {
+    grid-area: child4;
   }
 }
 
@@ -32,12 +42,12 @@
     flex: 1;
   }
 }
+
 .wrapper__text {
   max-width: 650px;
 }
 
 .header {
-  font-family: var(--font-family);
   font-weight: 400;
   font-size: 32px;
   letter-spacing: -0.02em;
@@ -50,7 +60,6 @@
 }
 
 .text {
-  font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
   letter-spacing: -0.02em;

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../api/api";
+import { fetchCurrentUser } from "../user/operations";
 
 const handleError = (error, thunkAPI) => {
   const message = error.response?.data?.message || "Something went wrong";
@@ -11,6 +12,7 @@ export const addTransaction = createAsyncThunk(
   async (transactionData, thunkAPI) => {
     try {
       const { data } = await instance.post("/transactions", transactionData);
+      await thunkAPI.dispatch(fetchCurrentUser());
       return data;
     } catch (error) {
       return handleError(error, thunkAPI);
@@ -26,6 +28,7 @@ export const updateTransaction = createAsyncThunk(
         `/transactions/${type}/${id}`,
         data
       );
+      await thunkAPI.dispatch(fetchCurrentUser());
       return updatedTransaction;
     } catch (error) {
       return handleError(error, thunkAPI);
@@ -40,6 +43,7 @@ export const getTransactions = createAsyncThunk(
       const params = date ? { date } : {};
 
       const { data } = await instance.get(`/transactions/${type}`, { params });
+      await thunkAPI.dispatch(fetchCurrentUser());
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -55,6 +59,7 @@ export const deleteTransaction = createAsyncThunk(
   async ({ _id }, thunkAPI) => {
     try {
       await instance.delete(`/transactions/${_id}`);
+      await thunkAPI.dispatch(fetchCurrentUser());
       return _id;
     } catch (error) {
       return handleError(error, thunkAPI);

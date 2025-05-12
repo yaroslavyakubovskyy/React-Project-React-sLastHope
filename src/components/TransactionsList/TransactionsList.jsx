@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import s from "./TransactionsList.module.css";
 import {
+  selectFilter,
   selectFilteredTransactions,
   selectIsDeleteModalOpen,
   selectUserCurrecy,
@@ -8,7 +9,6 @@ import {
 import clsx from "clsx";
 import EditTransactionButtons from "../EditTransactionButtons/EditTransactionButtons";
 import Modal from "react-modal";
-import { useCallback } from "react";
 
 import { useState } from "react";
 import TransactionModal from "../TransactionForm/TransactionModal";
@@ -42,13 +42,6 @@ const TransactionsList = () => {
 
   return (
     <div className={s.tableWrapper}>
-      {/* <div className={s.tableHeader}>
-        <span className={clsx(s.category, s.title)}>Category</span>
-        <span className={clsx(s.comment, s.title)}>Comment</span>
-        <span className={clsx(s.date, s.title)}>Date</span>
-        <span className={clsx(s.time, s.title)}>Time</span>
-        <span className={clsx(s.sum, s.title)}>Sum</span>
-      </div> */}
       <div className={s.tableInner}>
         <table className={s.table}>
           <thead>

@@ -7,17 +7,16 @@ import TransactionsList from "../../components/TransactionsList/TransactionsList
 import TransactionsSearchTools from "../../components/TransactionsSearchTools/TransactionsSearchTools";
 
 import {
+  selectFilter,
   selectIsRefreshing,
   selectIsToken,
 } from "../../redux/transactions/selectors";
-import { filterTransactions } from "../../redux/transactions/slice";
-import clsx from "clsx";
 import { getTransactions } from "../../redux/transactions/operations";
 import { fetchCurrentUser } from "../../redux/user/operations";
+import { setFilter } from "../../redux/transactions/slice";
 
 const TransactionsHistoryPage = () => {
   const dispatch = useDispatch();
-  const [searchInput, setSearchInput] = useState("");
   const isRefreshing = useSelector(selectIsRefreshing);
   const isToken = useSelector(selectIsToken);
 
@@ -32,8 +31,7 @@ const TransactionsHistoryPage = () => {
 
   const handleSearchInput = (e) => {
     const value = e.target.value;
-    setSearchInput(value);
-    dispatch(filterTransactions(value));
+    dispatch(setFilter(value));
   };
 
   const isValidAdress =
@@ -67,7 +65,7 @@ const TransactionsHistoryPage = () => {
       <TransactionsTotalAmount />
       <div className={s.trasactionsWrapper}>
         <TransactionsSearchTools
-          searchInput={searchInput}
+          // searchInput={filter}
           handleSearchInput={handleSearchInput}
         />
         <TransactionsList />

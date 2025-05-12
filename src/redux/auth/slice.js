@@ -14,7 +14,6 @@ const initialState = {
   isLoading: false,
   isLoggedIn: false,
   isRefreshing: false,
-  isRegistered: false,
 };
 
 const slice = createSlice({
@@ -27,13 +26,11 @@ const slice = createSlice({
         state.user = action.payload;
         state.isLoading = false;
         state.error = null;
-        state.isRegistered = true;
       })
       .addCase(signUp.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
         toast.error(state.error);
-        state.isRegistered = false;
       })
       .addCase(signUp.pending, (state) => {
         state.isLoading = true;

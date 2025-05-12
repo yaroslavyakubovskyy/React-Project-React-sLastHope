@@ -51,6 +51,7 @@ const transactionSlice = createSlice({
       })
       .addCase(getTransactions.pending, (state) => {
         state.isLoading = true;
+        state.items = [];
       })
       .addCase(addTransaction.pending, (state) => {
         state.isLoading = true;
@@ -95,9 +96,6 @@ const transactionSlice = createSlice({
       .addCase(deleteTransaction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.items = state.items.filter(
-          (transaction) => transaction._id !== action.payload
-        );
-        state.filteredItems = state.filteredItems.filter(
           (transaction) => transaction._id !== action.payload
         );
         state.deleteModal = false;

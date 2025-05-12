@@ -1,7 +1,7 @@
 .tableWrapper {
   margin-top: 20px;
 }
-.tableHeader {
+/* .tableHeader {
   background: rgba(0, 0, 0, 0.2);
   width: 100%;
   padding: 12px 15px;
@@ -14,16 +14,33 @@
   justify-content: space-between;
   align-items: center;
 }
+@media screen and (min-width: 768px) {
+  .tableHeader {
+font-weight: 400;
+font-size: 16px;
+color: rgba(250, 250, 250, 0.4);
+  }
+} */
 .tableInner {
   max-height: 350px;
   overflow-y: auto;
   overflow-x: auto;
   width: 100%;
 }
+@media screen and (min-width: 768px) {
+  .tableInner {
+    max-height: auto;
+  }
+}
 .table {
   table-layout: fixed;
   width: 120%;
   border-collapse: collapse;
+}
+@media screen and (min-width: 768px) {
+  .table {
+    width: 100%;
+  }
 }
 .tableInner::-webkit-scrollbar {
   width: 8px;
@@ -60,7 +77,7 @@ th {
   overflow: hidden;
 }
 td {
-  padding: 12px 8px;
+  padding: 12px 0;
   font-weight: 400;
   font-size: 14px;
   color: #fafafa;
@@ -70,34 +87,67 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+@media screen and (min-width: 768px) {
+  td {
+    font-weight: 400;
+    font-size: 20px;
+  }
+}
 .colCategory,
 .colComment,
 .colDate,
 .colTime {
-  width: 60px;
+  width: 67px;
+  padding-left: 5px;
+}
+@media screen and (min-width: 768px) {
+  .colCategory,
+  .colComment,
+  .colDate,
+  .colTime {
+    width: 110px;
+    padding-left: 5px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .colCategory,
+  .colComment,
+  .colDate,
+  .colTime,
+  .colSum {
+    width: 170px;
+    padding-left: 5px;
+  }
+}
+.colCategory {
+  padding-left: 15px;
+}
+@media screen and (min-width: 768px) {
+  .colCategory {
+    padding-left: 25px;
+  }
 }
 .colSum {
   position: relative;
 }
 .colActions {
   position: relative;
-  overflow: visible;
-  padding: 12px 0;
+  padding-right: 20px;
 }
 .modal {
-  border-radius: 20px;
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  border-radius: 30px;
   padding: 32px;
   max-width: 540px;
   max-height: 95vh;
   overflow-y: auto;
-  box-shadow: 0px 10px 20px rgba(46, 47, 66, 0.7);
   position: relative;
   animation: fadeInScale 0.25s ease-in-out;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgba(46, 47, 66, 0.904);
+  background-color: #171719;
   gap: 40px;
 }
 @keyframes fadeInScale {
@@ -128,32 +178,21 @@ td {
   gap: 15px;
   color: #c9c9c9;
 }
-.deteilsItem {
-}
-.btnContainer {
-}
-.deleteBtn {
-  background: #ff0202;
-  border-radius: 40px;
-  padding: 14px 44px;
-  width: 133px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 10px;
-}
-.cancelBtn {
+
+.cancelBtn, .deleteBtn {
   margin-top: 20px;
   background: #29292b;
   border-radius: 40px;
   padding: 14px 44px;
-  width: 133px;
-  height: 45px;
+  width: 114px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   gap: 10px;
+}
+
+.deleteBtn{
+  background: #ff0202;
 }

@@ -39,14 +39,31 @@ const TransactionsHistoryPage = () => {
   const isValidAdress =
     transactionsType === "incomes" || transactionsType === "expenses";
 
+  const pageDescription = {
+    incomes: (
+      <>
+        <h3 className={s.title}>All Income</h3>
+        <p className={s.description}>
+          Track and celebrate every bit of earnings effortlessly! Gain insights
+          into your total revenue in a snap.
+        </p>
+      </>
+    ),
+    expenses: (
+      <>
+        <h3 className={s.title}>All Expenses</h3>
+        <p className={s.description}>
+          View and manage every transaction seamlessly! Your entire financial
+          landscape, all in one place.
+        </p>
+      </>
+    ),
+  };
+
   return (
     <div className={s.mainWrapper}>
       {!isValidAdress && <Navigate to="/transactions/history/incomes" />}
-      <h3 className={s.title}>All Income</h3>
-      <p className={s.description}>
-        Track and celebrate every bit of earnings effortlessly! Gain insights
-        into your total revenue in a snap.
-      </p>
+      {pageDescription[transactionsType]}
       <TransactionsTotalAmount />
       <div className={s.trasactionsWrapper}>
         <TransactionsSearchTools

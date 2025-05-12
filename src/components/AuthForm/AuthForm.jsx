@@ -21,16 +21,18 @@ const AuthForm = ({ onSubmit, isRegister }) => {
         email: "",
         password: "",
       };
-  const handleSubmit = (values, actions) => {
-    actions.resetForm();
+  const handleSubmit = async (values, actions) => {
     const submitValues = isRegister
       ? values
       : {
           email: values.email,
           password: values.password,
         };
-    onSubmit(submitValues);
+
+    await onSubmit(submitValues);
+    actions.resetForm();
   };
+
   const validationSchema = Yup.object({
     ...(isRegister && {
       name: Yup.string().required("Name is required"),
@@ -57,52 +59,54 @@ const AuthForm = ({ onSubmit, isRegister }) => {
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
-        <Form className={s.form}>
-          <div
-            className={clsx(s.formWrapper, {
-              [s.formWrapperLogin]: !isRegister,
-            })}
-          >
-            {isRegister && (
-              <>
-                <Field
-                  className={s.input}
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                />
-                <ErrorMessage className={s.error} component="p" name="name" />
-              </>
-            )}
+        {({ isSubmitting }) => (
+          <Form className={s.form}>
+            <div
+              className={clsx(s.formWrapper, {
+                [s.formWrapperLogin]: !isRegister,
+              })}
+            >
+              {isRegister && (
+                <>
+                  <Field
+                    className={s.input}
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                  />
+                  <ErrorMessage className={s.error} component="p" name="name" />
+                </>
+              )}
 
-            <Field
-              className={s.input}
-              type="email"
-              name="email"
-              placeholder="Email"
-            />
-            <ErrorMessage className={s.error} component="p" name="email" />
-
-            <div className={s.wrapperIcon}>
               <Field
                 className={s.input}
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="Password"
+                type="email"
+                name="email"
+                placeholder="Email"
               />
-              {showPassword ? (
-                <FiEye className={s.icon} onClick={togglePassword} />
-              ) : (
-                <FiEyeOff className={s.icon} onClick={togglePassword} />
-              )}
-            </div>
+              <ErrorMessage className={s.error} component="p" name="email" />
 
-            <ErrorMessage className={s.error} component="p" name="password" />
-          </div>
-          <button className={s.button} type="submit">
-            {isRegister ? "Sign Up" : "Sign In"}
-          </button>
-        </Form>
+              <div className={s.wrapperIcon}>
+                <Field
+                  className={s.input}
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                />
+                {showPassword ? (
+                  <FiEye className={s.icon} onClick={togglePassword} />
+                ) : (
+                  <FiEyeOff className={s.icon} onClick={togglePassword} />
+                )}
+              </div>
+
+              <ErrorMessage className={s.error} component="p" name="password" />
+            </div>
+            <button className={s.button} type="submit" disabled={isSubmitting}>
+              {isRegister ? "Sign Up" : "Sign In"}
+            </button>
+          </Form>
+        )}
       </Formik>
       <p className={s.text}>
         {isRegister ? (

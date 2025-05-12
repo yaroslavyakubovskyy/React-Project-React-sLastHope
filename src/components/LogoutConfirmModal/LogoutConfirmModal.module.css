@@ -4,8 +4,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* напівпрозорий фон */
-  z-index: 1000; /* перекриття інших елементів */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
 .modal {
@@ -13,11 +13,52 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #171719;
+  opacity: 1;
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 335px;
+  min-height: 260px;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  display: flex;
 }
-.modal {
-  z-index: 1000; /* Додай високий z-index */
+.closeBtn {
+  width: 20px;
+  margin-left: auto;
+  margin-bottom: 40px;
+}
+.bgImageWrapper__iconItem21 {
+  stroke: #fafafa;
+}
+.message {
+  font-size: 14px;
+  color: #fafafa;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+.buttons {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  gap: 8px;
+  & > button {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    padding: 14px 44px;
+  }
+}
+.logoutBtn {
+  color: #0c0d0d;
+  background-color: #0ef387;
+}
+.cancelBtn {
+  background-color: #29292b;
+  color: #fafafa;
 }

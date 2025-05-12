@@ -32,7 +32,6 @@ const transactionSlice = createSlice({
 
     closeDeleteModal: (state, action) => {
       state.deleteModal = false;
-      console.log(state.deleteModal);
     },
     setSelectedType(state, action) {
       state.selectedType = action.payload;

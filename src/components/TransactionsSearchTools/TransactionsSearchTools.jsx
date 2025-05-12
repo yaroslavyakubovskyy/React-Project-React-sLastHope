@@ -25,7 +25,6 @@ const TransactionsSearchTools = ({ handleSearchInput }) => {
           getTransactions({ type: transactionsType, date: formattedDate })
         );
     setSelectedDate(date);
-    console.log(formattedDate);
   };
   return (
     <div className={s.searchWrapper}>
@@ -46,7 +45,6 @@ const TransactionsSearchTools = ({ handleSearchInput }) => {
         dateFormat="dd/MM/yyyy"
         calendarStartDay={1}
         locale="en-GB"
-
         customInput={
           <CustomInput
             icon={LuCalendar}

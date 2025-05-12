@@ -4,18 +4,26 @@ import TransactionsHistoryNav from "../TransactionsHistoryNav/TransactionsHistor
 import UserBarBtn from "../UserBarBtn/UserBarBtn";
 import BurgerMenuBtn from "../BurgerMenuBtn/BurgerMenuBtn";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { Navigate } from "react-router-dom";
 import UserSetsModal from "../UserSetsModal/UserSetsModal";
 import s from "./Header.module.css";
 import clsx from "clsx";
 import { selectUser } from "../../redux/user/selectors";
+import { logOut } from "../../redux/auth/operations";
+import LogoutConfirmModal from "../LogoutConfirmModal/LogoutConfirmModal";
 const Header = () => {
+  //
+  const dispatch = useDispatch();
+  //
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  //
   const user = useSelector(selectUser);
   // const user = useSelector((state) => ({
   //   name: state.auth.name,
@@ -52,6 +60,18 @@ const Header = () => {
     setIsModalOpen(!isModalOpen);
     // setIsModalOpen((prev) => !prev);
   };
+  //
+  const openLogoutModal = () => {
+    setIsBurgerOpen(false);
+    setIsLogoutModalOpen(true);
+  };
+  const closeLogoutModal = () => setIsLogoutModalOpen(false);
+  const confirmLogout = () => {
+    dispatch(logOut());
+    closeLogoutModal();
+  };
+  //
+
   return (
     <div className={s.headerContainer}>
       <header
@@ -66,7 +86,11 @@ const Header = () => {
             {isDesktop && (
               <>
                 <TransactionsHistoryNav />
-                <UserBarBtn user={user} onOpenModal={toggleModal} />
+                <UserBarBtn
+                  user={user}
+                  onOpenModal={toggleModal}
+                  onOpenLogoutModal={openLogoutModal}
+                />
               </>
             )}
             {isLoggedIn && (isMobile || isTablet) && (
@@ -74,8 +98,10 @@ const Header = () => {
                 <BurgerMenuBtn onClick={toggleBurger} />
                 {isBurgerOpen && (
                   <BurgerMenu
+                    isBurgerOpen={isBurgerOpen}
                     onClose={closeBurger}
                     onOpenModal={handleOpenModal}
+                    onOpenLogoutModal={openLogoutModal}
                   />
                 )}
               </div>
@@ -83,6 +109,12 @@ const Header = () => {
           </>
         )}
         {isModalOpen && <UserSetsModal user={user} onClose={toggleModal} />}
+        {isLogoutModalOpen && (
+          <LogoutConfirmModal
+            onConfirm={confirmLogout}
+            onCancel={closeLogoutModal}
+          />
+        )}
       </header>
     </div>
   );

@@ -6,7 +6,7 @@ const BurgerMenuBtn = ({ onClick }) => {
       <Icon
         name="burger-menu"
         className={s.bgImageWrapper__iconItem5}
-        size="44"
+        size="100%"
       />
     </button>
   );

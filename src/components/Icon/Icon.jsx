@@ -230,6 +230,18 @@ export const Icon = ({ name, className, size }) => {
         </Svg>
       );
 
+    case "chevron_down":
+      return (
+        <Svg className={className} size={size}>
+          <path
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2.67"
+            d="M24 8 8 24M8 8l16 16"
+          />
+        </Svg>
+      );
+
     // 0
     default:
       return (

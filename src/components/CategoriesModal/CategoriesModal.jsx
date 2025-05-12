@@ -31,6 +31,7 @@ export const CategoriesModal = ({
   const [categoryName, setCategoryName] = useState("");
   const [editingCategoryId, setEditingCategoryId] = useState(null);
   const [hoveredCategoryId, setHoveredCategoryId] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -54,6 +55,7 @@ export const CategoriesModal = ({
 
     try {
       await categorySchema.validate(categoryName);
+      setErrorMessage("");
 
       const duplicateCategory = filteredCategories.find(
         (category) =>
@@ -84,7 +86,7 @@ export const CategoriesModal = ({
       setCategoryName("");
       setEditingCategoryId(null);
     } catch (error) {
-      toast.error(error.message);
+      setErrorMessage(error.message);
     }
   };
 
@@ -154,13 +156,20 @@ export const CategoriesModal = ({
                 </span>
                 {hoveredCategoryId === category._id && (
                   <div className={styles.categoryActions}>
-                    <button onClick={() => handleCategorySelect(category)}>
+                    <button
+                      type="button"
+                      onClick={() => handleCategorySelect(category)}
+                    >
                       <Icon name="check" size={16} className={styles.icon} />
                     </button>
-                    <button onClick={() => handleEditCategory(category)}>
+                    <button
+                      type="button"
+                      onClick={() => handleEditCategory(category)}
+                    >
                       <Icon name="edit" size={16} className={styles.icon} />
                     </button>
                     <button
+                      type="button"
                       onClick={() =>
                         handleDeleteCategory(category._id, category.type)
                       }
@@ -189,6 +198,7 @@ export const CategoriesModal = ({
               placeholder="Enter the text"
               className={styles.newCategoryInput}
             />
+            {errorMessage && <p className={styles.errorText}>{errorMessage}</p>}
             <button type="submit" className={styles.submitButton}>
               {editingCategoryId ? "Save" : "Add"}
             </button>

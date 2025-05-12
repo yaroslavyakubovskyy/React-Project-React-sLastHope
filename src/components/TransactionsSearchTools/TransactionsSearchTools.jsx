@@ -26,7 +26,7 @@ const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
     console.log(formattedDate);
   };
   return (
-    <div>
+    <div className={s.searchWrapper}>
       <input
         type="text"
         name="search"

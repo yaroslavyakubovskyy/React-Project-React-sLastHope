@@ -7,41 +7,64 @@
   justify-content: flex-start;
   flex-direction: row;
   gap: 8px;
-  /* position: absolute;
-  top: 0;
-  right: 0; */
+}
+@media screen and (min-width: 1440) {
+  .buttonsWrapper {
+    width: 300px;
+  }
+}
+
+.editBtn,
+.deletetBtn {
+  border-radius: 40px;
+  padding: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 10px;
+  overflow: hidden;
 }
 .editBtn {
   background: #0ef387;
-  border-radius: 40px;
-  padding: 14px;
-  /* width: 44px;
-  height: 44px; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 10px;
+
   fill: #0c0d0d;
+  color: var(--black);
 }
+
 .deletetBtn {
   background: #0c0d0d;
-  border-radius: 40px;
-  padding: 14px;
-  /* width: 44px;
-  height: 44px; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 10px;
 }
+
+@media screen and (min-width: 1440px) {
+  .editBtn,
+  .deletetBtn {
+    min-width: 90px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  .deletetBtn {
+    min-width: 110px;
+  }
+}
+
 .editIcon {
   stroke-width: 1.5px;
   stroke: #0c0d0d;
 }
-deletIcon {
+.deletIcon {
   stroke-width: 1.5px;
   stroke: #fafafa;
-  width: 100px;
+}
+.deleteText,
+.editText {
+  display: none;
+}
+@media screen and (min-width: 1440px) {
+  .deleteText,
+  .editText {
+    display: inline;
+  }
 }

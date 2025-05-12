@@ -1,12 +1,13 @@
 import { useState } from "react";
 import s from "./TransactionsSearchTools.module.css";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getTransactions } from "../../redux/transactions/operations";
 import { LuCalendar } from "react-icons/lu";
 import { format } from "date-fns";
+import "./datePiker.css";
 import CustomInput from "../CustomInput/CustomInput";
 
 const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
@@ -25,7 +26,7 @@ const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
     console.log(formattedDate);
   };
   return (
-    <div>
+    <div className={s.searchWrapper}>
       <input
         type="text"
         name="search"

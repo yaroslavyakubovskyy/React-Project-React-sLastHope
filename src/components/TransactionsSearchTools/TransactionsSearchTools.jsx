@@ -44,6 +44,7 @@ const TransactionsSearchTools = ({ handleSearchInput }) => {
         maxDate={new Date()}
         withPortal
         dateFormat="dd/MM/yyyy"
+        calendarStartDay={1}
         customInput={
           <CustomInput
             icon={LuCalendar}

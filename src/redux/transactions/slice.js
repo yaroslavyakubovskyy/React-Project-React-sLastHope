@@ -10,7 +10,7 @@ import { logOut } from "../auth/operations.js";
 
 const initialState = {
   items: [],
-  filteredItems: [],
+  filter: "",
   isLoading: false,
   error: null,
   selectedType: "expenses",
@@ -22,27 +22,8 @@ const transactionSlice = createSlice({
   name: "transactions",
   initialState,
   reducers: {
-    filterTransactions: (state, action) => {
-      const filterValue = action.payload?.toLowerCase();
-
-      return {
-        ...state,
-        filteredItems:
-          state.items?.filter((transaction) =>
-            Object.values(transaction).some(
-              (value) =>
-                (typeof value === "string" &&
-                  value.toLowerCase().includes(filterValue.toLowerCase())) ||
-                (typeof value === "object" &&
-                  value !== null &&
-                  Object.values(value).some(
-                    (item) =>
-                      typeof item === "string" &&
-                      item.toLowerCase().includes(filterValue.toLowerCase())
-                  ))
-            )
-          ) ?? [],
-      };
+    setFilter: (state, action) => {
+      state.filter = action.payload;
     },
 
     openDeleteModal: (state, action) => {
@@ -128,5 +109,5 @@ const transactionSlice = createSlice({
 
 export const { setSelectedType } = transactionSlice.actions;
 export default transactionSlice.reducer;
-export const { filterTransactions, openDeleteModal, closeDeleteModal } =
+export const { setFilter, openDeleteModal, closeDeleteModal } =
   transactionSlice.actions;

@@ -11,7 +11,6 @@ const EditTransactionButtons = ({ transaction, onEditClick }) => {
   const dispatch = useDispatch();
 
   const handleDeleteBtn = (_id) => {
-    // dispatch(deleteTransaction({ transactionsType, _id }));
     dispatch(openDeleteModal(_id));
   };
 

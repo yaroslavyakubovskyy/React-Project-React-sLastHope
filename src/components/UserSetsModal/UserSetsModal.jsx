@@ -56,26 +56,18 @@ const UserSetsModal = ({ onClose }) => {
     if (e.target.classList.contains(s.backdrop)) onClose();
   };
 
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
     setAvatar(file);
     const previewURL = URL.createObjectURL(file);
     setAvatarPreview(previewURL);
-  };
-
-  const handleAvatarUpload = async () => {
-    if (!avatar) {
-      fileInputRef.current?.click();
-      return;
-    }
-
     setIsAvatarLoading(true);
     try {
-      await dispatch(updateUserAvatar(avatar)).unwrap();
+      await dispatch(updateUserAvatar(file)).unwrap();
       toast.success("Avatar updated!");
-      setAvatar(null);
       dispatch(fetchCurrentUser());
+      setAvatar(null);
     } catch (err) {
       console.log(err);
       toast.error("Failed to upload avatar");
@@ -83,6 +75,26 @@ const UserSetsModal = ({ onClose }) => {
       setIsAvatarLoading(false);
     }
   };
+
+  // const handleAvatarUpload = async () => {
+  //   if (!avatar) {
+  //     fileInputRef.current?.click();
+  //     return;
+  //   }
+
+  //   setIsAvatarLoading(true);
+  //   try {
+  //     await dispatch(updateUserAvatar(avatar)).unwrap();
+  //     toast.success("Avatar updated!");
+  //     setAvatar(null);
+  //     dispatch(fetchCurrentUser());
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error("Failed to upload avatar");
+  //   } finally {
+  //     setIsAvatarLoading(false);
+  //   }
+  // };
 
   const handleAvatarRemove = async () => {
     const avatarId = getAvatarId(user.avatarUrl);
@@ -148,7 +160,7 @@ const UserSetsModal = ({ onClose }) => {
           <button
             className={s.modalUplAvaBtn}
             type="button"
-            onClick={handleAvatarUpload}
+            onClick={() => fileInputRef.current?.click()}
             disabled={isAvatarLoading}
           >
             Upload new photo

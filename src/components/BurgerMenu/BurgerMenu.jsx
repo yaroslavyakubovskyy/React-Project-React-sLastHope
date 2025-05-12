@@ -4,7 +4,12 @@ import UserBarBtn from "../UserBarBtn/UserBarBtn";
 import s from "./BurgerMenu.module.css";
 import clsx from "clsx";
 import { Icon } from "../Icon/Icon";
-const BurgerMenu = ({ onOpenModal, onClose, isBurgerOpen }) => {
+const BurgerMenu = ({
+  onOpenModal,
+  onClose,
+  isBurgerOpen,
+  onOpenLogoutModal,
+}) => {
   const user = useSelector((state) => state.auth.user);
   const handleOpenModal = () => {
     onOpenModal();
@@ -23,7 +28,11 @@ const BurgerMenu = ({ onOpenModal, onClose, isBurgerOpen }) => {
           <button onClick={onClose} className={s.closeBtn}>
             <Icon name="close" className={s.burgerClose} size="100%" />
           </button>
-          <UserBarBtn user={user} onOpenModal={handleOpenModal} />
+          <UserBarBtn
+            user={user}
+            onOpenModal={handleOpenModal}
+            onOpenLogoutModal={onOpenLogoutModal}
+          />
         </div>
         <div className={s.transactionsHistoryNavCont}>
           <TransactionsHistoryNav onNavigate={onClose} />

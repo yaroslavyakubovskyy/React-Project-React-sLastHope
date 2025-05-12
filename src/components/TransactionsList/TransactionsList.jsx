@@ -119,7 +119,7 @@ const TransactionsList = () => {
         <div className={s.btnContainer}>
           <button
             type="button"
-            className={s.deleteBtn}
+            className={clsx(s.deleteBtn, s.modalBtn)}
             onClick={() =>
               dispatch(deleteTransaction({ _id: isDeleteModalOpen }))
             }
@@ -128,7 +128,7 @@ const TransactionsList = () => {
           </button>
           <button
             type="button"
-            className={s.cancelBtn}
+            className={clsx(s.cancelBtn, s.modalBtn)}
             onClick={() => dispatch(closeDeleteModal())}
           >
             Cancel

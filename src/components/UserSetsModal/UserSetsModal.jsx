@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CustomSelect from "./CustomSelect/CustomSelect";
 import s from "./UserSetsModal.module.css";
 import {
   updateUserInfo,
@@ -189,16 +190,9 @@ const UserSetsModal = ({ onClose }) => {
         <div className={s.modalNameCurrWrap}>
           <div className={s.selectWrap}>
             <label className={s.modalCurrChangeLabel} htmlFor="currSelect">
-              <select
-                className={s.modalCurrChangeSelect}
-                name="currSelect"
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
-              >
-                <option value="uah">₴ UAH</option>
-                <option value="usd">$ USD</option>
-                <option value="eur">€ EUR</option>
-              </select>
+              <label className={s.modalCurrChangeLabel}>
+                <CustomSelect value={currency} onChange={setCurrency} />
+              </label>
               <span>
                 <Icon className={s.modalOptBtnIcon} name="up" size="100%" />
               </span>

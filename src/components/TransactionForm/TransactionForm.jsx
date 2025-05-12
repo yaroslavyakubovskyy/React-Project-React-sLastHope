@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
@@ -12,21 +12,58 @@ import { setSelectedType } from "../../redux/transactions/slice";
 import { FiCalendar } from "react-icons/fi";
 import { FaRegClock } from "react-icons/fa6";
 import s from "./TransactionForm.module.css";
-import CustomInput from "./CustomInput";
+import CustomInput from "../CustomInput/CustomInput";
 import { useState } from "react";
 import { CategoriesModal } from "../CategoriesModal/CategoriesModal";
+import { CgClose } from "react-icons/cg";
+import { selectCurrency } from "../../redux/user/selectors";
+import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 
 const validationSchema = Yup.object({
   type: Yup.string()
     .oneOf(["incomes", "expenses"])
     .required("Type is required"),
-  date: Yup.date().nullable().required("Date is required"),
+
+  date: Yup.date()
+    .nullable()
+    .required("Date is required")
+    .test(
+      "date-time-not-in-future",
+      "Date and time must not be in the future",
+      function (value) {
+        const { time } = this.parent;
+        if (!value || !time) return true;
+
+        const combined = new Date(value);
+        combined.setHours(time.getHours());
+        combined.setMinutes(time.getMinutes());
+        combined.setSeconds(0);
+        combined.setMilliseconds(0);
+
+        return combined <= new Date();
+      }
+    ),
+
   time: Yup.date().nullable().required("Time is required"),
+
   category: Yup.string().required("Category is required"),
-  sum: Yup.number()
+
+  sum: Yup.string()
     .required("Sum is required")
-    .moreThan(0, "Sum must be greater than zero")
-    .max(1000000, "Sum must be less than or equal to 1,000,000"),
+    .matches(
+      /^\d+([.,]\d{1,2})?$/,
+      "Invalid format: use digits, optional decimal with max 2 digits"
+    )
+    .test(
+      "is-valid-number",
+      "Sum must be greater than zero and less than or equal to 1,000,000",
+      (value) => {
+        if (!value) return false;
+        const parsed = parseFloat(value.replace(",", "."));
+        return parsed > 0 && parsed <= 1000000;
+      }
+    ),
+
   comment: Yup.string()
     .required("Comment is required")
     .max(300, "Max 300 characters")
@@ -36,13 +73,15 @@ const validationSchema = Yup.object({
 const TransactionForm = ({ transaction, onClose, isModal = false }) => {
   const dispatch = useDispatch();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const userCurrency = useSelector(selectCurrency);
 
   const initialValues = transaction
     ? {
         type: transaction.type,
         date: new Date(transaction.date),
         time: new Date(`1970-01-01T${transaction.time}:00`),
-        category: transaction.category,
+        category: transaction.category._id,
+        categoryName: transaction.category.categoryName,
         sum: transaction.sum,
         comment: transaction.comment,
       }
@@ -51,21 +90,34 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
         date: null,
         time: null,
         category: "",
+        categoryName: "",
         sum: "",
         comment: "",
       };
 
+  const handleTypeChange = (event, setFieldValue, dispatch) => {
+    const selectedType = event.target.value;
+    setFieldValue("type", selectedType);
+    dispatch(setSelectedType(selectedType));
+  };
+
   const handleSubmit = async (values, { resetForm }) => {
     const transactionData = {
-      type: values.type,
       date: values.date.toISOString().split("T")[0],
       time: values.time.toTimeString().slice(0, 5),
       category: values.category,
-      sum: parseFloat(values.sum),
+      sum: parseFloat(values.sum.toString().replace(",", ".")),
       comment: values.comment.trim(),
     };
 
-    if (transaction) {
+    if (!transaction) {
+      transactionData.type = values.type;
+      await toast.promise(dispatch(addTransaction(transactionData)).unwrap(), {
+        loading: "Adding transaction...",
+        success: "Transaction successfully added!",
+        error: (error) => error?.message || "Error adding transaction",
+      });
+    } else {
       await toast.promise(
         dispatch(
           updateTransaction({
@@ -80,16 +132,33 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
           error: (error) => error?.message || "Error updating transaction",
         }
       );
-    } else {
-      await toast.promise(dispatch(addTransaction(transactionData)).unwrap(), {
-        loading: "Adding transaction...",
-        success: "Transaction successfully added!",
-        error: (error) => error?.message || "Error adding transaction",
-      });
     }
 
     resetForm();
     onClose();
+  };
+
+  const handleKeyDown = (event) => {
+    const allowedKeys = [
+      "Backspace",
+      "Tab",
+      "ArrowLeft",
+      "ArrowRight",
+      "Delete",
+      "Home",
+      "End",
+    ];
+    const isNumberKey = /^[0-9.,]$/.test(event.key);
+    const value = event.target.value;
+    const hasDotOrComma = value.includes(".") || value.includes(",");
+
+    if (
+      !isNumberKey &&
+      !allowedKeys.includes(event.key) &&
+      !([".", ","].includes(event.key) && !hasDotOrComma)
+    ) {
+      event.preventDefault();
+    }
   };
 
   return (
@@ -101,6 +170,17 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
       {({ values, setFieldValue, isSubmitting }) => (
         <>
           <Form className={isModal ? s["edit-form"] : s["add-form"]}>
+            {isModal && (
+              <div className={s["close-btn-container"]}>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className={s["close-btn"]}
+                >
+                  <CgClose className={s["close-icon"]} />
+                </button>
+              </div>
+            )}
             <div className={s["t-radio-group"]}>
               <label className={s["t-radio-label"]}>
                 <Field
@@ -109,10 +189,9 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   value="expenses"
                   checked={values.type === "expenses"}
                   disabled={!!transaction}
-                  onChange={(event) => {
-                    setFieldValue("type", event.target.value);
-                    dispatch(setSelectedType(event.target.value));
-                  }}
+                  onChange={(event) =>
+                    handleTypeChange(event, setFieldValue, dispatch)
+                  }
                   className={s["t-radio-btn"]}
                 />
                 Expense
@@ -124,10 +203,9 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   value="incomes"
                   checked={values.type === "incomes"}
                   disabled={!!transaction}
-                  onChange={(event) => {
-                    setFieldValue("type", event.target.value);
-                    dispatch(setSelectedType(event.target.value));
-                  }}
+                  onChange={(event) =>
+                    handleTypeChange(event, setFieldValue, dispatch)
+                  }
                   className={s["t-radio-btn"]}
                 />
                 Income
@@ -144,6 +222,8 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   onChange={(date) => setFieldValue("date", date)}
                   dateFormat="yyyy-MM-dd"
                   placeholderText="0000-00-00"
+                  maxDate={new Date()}
+                  calendarClassName={s.calendar}
                   customInput={
                     <CustomInput
                       icon={FiCalendar}
@@ -169,10 +249,16 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   onChange={(time) => setFieldValue("time", time)}
                   showTimeSelect
                   showTimeSelectOnly
-                  timeIntervals={15}
+                  timeIntervals={1}
                   timeCaption="Time"
                   dateFormat="HH:mm"
                   placeholderText="00:00"
+                  minTime={new Date(0, 0, 0, 0, 0)}
+                  maxTime={
+                    values.date?.toDateString() === new Date().toDateString()
+                      ? new Date()
+                      : new Date(0, 0, 0, 23, 59)
+                  }
                   customInput={
                     <CustomInput
                       icon={FaRegClock}
@@ -213,12 +299,15 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
               <label className={s["t-label"]}>Sum</label>
               <div className={s["t-input-wrapper"]}>
                 <Field
-                  type="number"
                   name="sum"
+                  inputMode="decimal"
                   placeholder="Enter the sum"
                   className={s["t-input"]}
+                  onKeyDown={handleKeyDown}
                 />
-                <span className={s["t-currency"]}>UAH</span>
+                <span className={s["t-currency"]}>
+                  {getCurrencySymbol(userCurrency)}
+                </span>
               </div>
               <ErrorMessage
                 name="sum"

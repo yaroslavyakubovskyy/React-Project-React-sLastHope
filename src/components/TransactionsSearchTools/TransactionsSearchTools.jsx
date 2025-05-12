@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { getTransactions } from "../../redux/transactions/operations";
 import { LuCalendar } from "react-icons/lu";
 import { format } from "date-fns";
-import CustomInput from "../TransactionForm/CustomInput";
+import CustomInput from "../CustomInput/CustomInput";
 
 const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -16,7 +16,11 @@ const TransactionsSearchTools = ({ searchInput, handleSearchInput }) => {
 
   const handleDateSelect = (date) => {
     const formattedDate = format(date, "yyyy-MM-dd");
-    dispatch(getTransactions({ type: transactionsType, date: formattedDate }));
+    formattedDate === "1970-01-01"
+      ? dispatch(getTransactions({ type: transactionsType }))
+      : dispatch(
+          getTransactions({ type: transactionsType, date: formattedDate })
+        );
     setSelectedDate(date);
     console.log(formattedDate);
   };

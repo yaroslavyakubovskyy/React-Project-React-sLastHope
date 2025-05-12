@@ -6,10 +6,11 @@ import s from "./MainTransactionsPage.module.scss";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { selectSelectedType } from "../../redux/transactions/selectors.js";
 
 const MainTransactionsPage = () => {
   const navigate = useNavigate();
-  const selectedType = useSelector((state) => state.transactions.selectedType);
+  const selectedType = useSelector(selectSelectedType);
 
   useEffect(() => {
     navigate(`/transactions/${selectedType}`);

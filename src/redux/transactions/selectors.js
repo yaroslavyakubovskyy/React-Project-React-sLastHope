@@ -1,4 +1,5 @@
 export const selectTransactions = (state) => state.transactions.items;
+export const selectSelectedType = (state) => state.transactions.selectedType;
 export const selectIsLoading = (state) => state.transactions.isLoading;
 export const selectIsError = (state) => state.transactions.isError;
 
@@ -12,3 +13,5 @@ export const selectIsToken = (state) => Boolean(state.auth.token);
 export const selectFilteredTransactions = (state) =>
   state.transactions.filteredItems;
 export const selectUserCurrecy = (state) => state.user.currency;
+export const selectIsDeleteModalOpen = (state) =>
+  state.transactions.deleteModal;

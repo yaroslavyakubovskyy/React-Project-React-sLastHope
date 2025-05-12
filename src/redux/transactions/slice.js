@@ -13,6 +13,8 @@ const initialState = {
   isLoading: false,
   error: null,
   selectedType: "expenses",
+  editModal: false,
+  deleteModal: false,
 };
 
 const transactionSlice = createSlice({
@@ -35,13 +37,21 @@ const transactionSlice = createSlice({
                   Object.values(value).some(
                     (item) =>
                       typeof item === "string" &&
-                      item.toLowerCase().includes(filterValue.toLowerCase()),
-                  )),
-            ),
+                      item.toLowerCase().includes(filterValue.toLowerCase())
+                  ))
+            )
           ) ?? [],
       };
     },
 
+    openDeleteModal: (state, action) => {
+      state.deleteModal = action.payload;
+    },
+
+    closeDeleteModal: (state, action) => {
+      state.deleteModal = false;
+      console.log(state.deleteModal);
+    },
     setSelectedType(state, action) {
       state.selectedType = action.payload;
     },
@@ -51,6 +61,14 @@ const transactionSlice = createSlice({
       .addCase(getTransactions.fulfilled, (state, { payload }) => {
         state.items = payload;
         state.filteredItems = payload;
+        state.isLoading = false;
+      })
+      .addCase(getTransactions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(getTransactions.pending, (state) => {
+        state.isLoading = true;
       })
       .addCase(addTransaction.pending, (state) => {
         state.isLoading = true;
@@ -94,11 +112,12 @@ const transactionSlice = createSlice({
       .addCase(deleteTransaction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.items = state.items.filter(
-          (transaction) => transaction._id !== action.payload,
+          (transaction) => transaction._id !== action.payload
         );
         state.filteredItems = state.filteredItems.filter(
-          (transaction) => transaction._id !== action.payload,
+          (transaction) => transaction._id !== action.payload
         );
+        state.deleteModal = false;
       })
       .addCase(logOut.fulfilled, (state) => initialState);
   },
@@ -106,4 +125,5 @@ const transactionSlice = createSlice({
 
 export const { setSelectedType } = transactionSlice.actions;
 export default transactionSlice.reducer;
-export const { filterTransactions } = transactionSlice.actions;
+export const { filterTransactions, openDeleteModal, closeDeleteModal } =
+  transactionSlice.actions;

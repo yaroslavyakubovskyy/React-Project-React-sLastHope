@@ -2,7 +2,6 @@ import { Icon } from "../Icon/Icon";
 import s from "./LogoutConfirmModal.module.css";
 
 const LogoutConfirmModal = ({ onConfirm, onCancel }) => {
-  console.log("LogoutConfirmModal rendered");
   const handleBackdropClick = (e) => {
     if (e.target.classList.contains(s.backdrop)) onCancel();
   };

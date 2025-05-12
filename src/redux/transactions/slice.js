@@ -32,7 +32,6 @@ const transactionSlice = createSlice({
 
     closeDeleteModal: (state, action) => {
       state.deleteModal = false;
-      console.log(state.deleteModal);
     },
     setSelectedType(state, action) {
       state.selectedType = action.payload;
@@ -96,7 +95,7 @@ const transactionSlice = createSlice({
       .addCase(deleteTransaction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.items = state.items.filter(
-          (transaction) => transaction._id !== action.payload
+          (transaction) => transaction._id !== action.payload,
         );
         state.deleteModal = false;
         toast.success("Delete transaction successfully!");

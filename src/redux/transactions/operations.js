@@ -43,7 +43,7 @@ export const getTransactions = createAsyncThunk(
       const params = date ? { date } : {};
 
       const { data } = await instance.get(`/transactions/${type}`, { params });
-      await thunkAPI.dispatch(fetchCurrentUser());
+      
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

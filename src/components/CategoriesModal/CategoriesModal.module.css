@@ -213,3 +213,8 @@
 .categoriesList::-webkit-scrollbar-thumb:hover {
   background-color: rgba(88, 88, 90, 1);
 }
+.errorText {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 4px;
+}

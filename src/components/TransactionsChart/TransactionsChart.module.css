@@ -1,16 +1,19 @@
 .chartContainer {
   background-color: #171719;
-  padding: 28px 20px 40px 20px;
+  padding: 28px 20px 40px;
   border-radius: 30px;
   margin-bottom: 80px;
-
 }
 
 @media screen and (min-width: 768px) {
   .chartContainer {
-    padding-top: 40px;
-    padding-inline: 40px;
-    padding-bottom: 60px;
+    padding: 40px 40px 60px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .chartContainer {
+    margin-bottom: 0;
   }
 }
 
@@ -39,17 +42,13 @@
   .statsWrapper {
     gap: 42px;
   }
-  .chartContainer {
-    margin-bottom: 0;
-  }
 }
 
 .pieChartWrapper {
   position: relative;
   height: 150px;
   width: 292px;
-  margin-inline: auto;
-  margin-bottom: 60px;
+  margin: 0 auto 60px;
 }
 
 @media screen and (min-width: 768px) {
@@ -79,7 +78,9 @@
   color: rgba(250, 250, 250, 0.5);
   max-height: 126px;
   padding-right: 28px;
-  overflow: auto;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -88,6 +89,24 @@
     margin-top: 4px;
     padding-right: 18px;
   }
+}
+
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #2a2a2e;
+  border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background: #777;
 }
 
 .listItem {
@@ -120,4 +139,19 @@
   font-weight: 700;
   font-size: 16px;
   color: #fafafa;
+}
+
+.warningWrapper {
+  text-align: center;
+}
+
+.warningTitle {
+  font-size: 16px;
+  color: #fafafa;
+  margin-bottom: 20px;
+}
+
+.imgNoTransactions {
+  max-width: 100%;
+  height: auto;
 }

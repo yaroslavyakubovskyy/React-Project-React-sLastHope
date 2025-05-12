@@ -15,6 +15,7 @@ export const Chart = ({ data }) => {
         innerRadius={95}
         outerRadius={145}
         paddingAngle={-10}
+        cornerRadius={15}
         fill="#15151b"
         stroke="none"
       >

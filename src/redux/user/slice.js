@@ -5,6 +5,7 @@ import {
   updateUserAvatar,
   updateUserInfo,
 } from "./operations";
+import { logOut } from "../auth/operations";
 
 const initialState = {
   name: "",
@@ -45,7 +46,8 @@ const userSlice = createSlice({
 
       .addCase(deleteUserAvatar.fulfilled, (state) => {
         state.avatarUrl = null;
-      });
+      })
+      .addCase(logOut.fulfilled, (state) => initialState);
   },
 });
 

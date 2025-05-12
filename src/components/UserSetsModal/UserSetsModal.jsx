@@ -123,7 +123,7 @@ const UserSetsModal = ({ onClose }) => {
           <Icon
             name="chevron_down"
             className={s.bgImageWrapper__iconItem21}
-            size="24"
+            size="100%"
           />
         </button>
 
@@ -183,12 +183,14 @@ const UserSetsModal = ({ onClose }) => {
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
               >
-                <option value="uah">UAH</option>
-                <option value="usd">USD</option>
-                <option value="eur">EUR</option>
+                <option value="uah">₴ UAH</option>
+                <option value="usd">$ USD</option>
+                <option value="eur">€ EUR</option>
               </select>
+              <span>
+                <Icon className={s.modalOptBtnIcon} name="up" size="100%" />
+              </span>
             </label>
-            <Icon className={s.modalOptBtnIcon} name="up" size="20" />
           </div>
           <label className={s.modalNameChangeLabel}>
             <input

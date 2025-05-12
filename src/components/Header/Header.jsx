@@ -74,6 +74,7 @@ const Header = () => {
                 <BurgerMenuBtn onClick={toggleBurger} />
                 {isBurgerOpen && (
                   <BurgerMenu
+                    isBurgerOpen={isBurgerOpen}
                     onClose={closeBurger}
                     onOpenModal={handleOpenModal}
                   />

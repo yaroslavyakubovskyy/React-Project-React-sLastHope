@@ -1,14 +1,29 @@
 .logo {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--white);
   display: flex;
-  /* margin-right: auto; */
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
 }
 .logoWrap {
+  width: 27px;
   margin-right: 8px;
 }
 .bgImageWrapper__iconItem0 {
+}
+
+@media screen and (min-width: 768px) {
+  .logo {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .logo {
+    font-size: 20px;
+    margin-right: 0;
+  }
 }

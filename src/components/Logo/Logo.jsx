@@ -11,7 +11,7 @@ const Logo = () => {
         <Icon
           name="default"
           className={s.bgImageWrapper__iconItem0}
-          size="27"
+          size="100%"
         />
       </span>
       ExpenseTracker

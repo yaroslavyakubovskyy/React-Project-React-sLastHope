@@ -19,7 +19,7 @@ const UserBarBtn = ({ user, onOpenModal }) => {
             className={s.userBarBtnAvatar}
             src={`${avatarUrl}`}
             alt="user avatar"
-            width={44}
+            width="100%"
           />
         ) : (
           <span className={s.userBarDefAvatar}>{userSelectInfo.name[0]}</span>

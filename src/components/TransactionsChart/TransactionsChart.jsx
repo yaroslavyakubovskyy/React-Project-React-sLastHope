@@ -41,7 +41,12 @@ export const TransactionsChart = () => {
     setCategoriesData(categories);
   }, [transactions, totalExpenses]);
 
-  if (isLoading || isLoadingLogin || isLoadingUser) return <LoaderSpinner />;
+  if (isLoading || isLoadingLogin || isLoadingUser)
+    return (
+      <div className={s.loaderWrapper}>
+        <LoaderSpinner />
+      </div>
+    );
 
   if (transactions === null || categoriesData === null) return;
 

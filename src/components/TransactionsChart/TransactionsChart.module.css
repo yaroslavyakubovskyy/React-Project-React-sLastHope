@@ -155,3 +155,23 @@
   max-width: 100%;
   height: auto;
 }
+
+.loaderWrapper{
+  height: 471px;
+  width: 335px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 768px) {
+  .loaderWrapper{
+    height: 302px;
+    width: 704px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .loaderWrapper{
+    width: 630px;
+  }
+}

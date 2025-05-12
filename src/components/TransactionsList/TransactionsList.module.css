@@ -172,17 +172,15 @@ td {
   justify-content: center;
   z-index: 999;
 }
+
 .detailsList {
   display: flex;
   flex-direction: column;
   gap: 15px;
   color: #c9c9c9;
 }
-
-.deleteBtn {
-  background: #ff0202;
+.modalBtn {
   border-radius: 40px;
-  padding: 14px 44px;
   width: 133px;
   height: 45px;
   display: flex;
@@ -191,16 +189,13 @@ td {
   flex-direction: row;
   gap: 10px;
 }
+.deleteBtn {
+  background: #ff0202;
+}
 .cancelBtn {
   margin-top: 20px;
   background: #29292b;
-  border-radius: 40px;
-  padding: 14px 44px;
-  width: 133px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 10px;
+}
+.modalBtn:hover {
+  filter: drop-shadow(2px 2px 2px var(--black)) brightness(1.5);
 }

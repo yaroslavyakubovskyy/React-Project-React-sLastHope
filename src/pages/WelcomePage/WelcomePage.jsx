@@ -223,6 +223,15 @@ const WelcomePage = () => {
         </span>
         <br />
         <span>
+          20__
+          <Icon
+            name="chevron_down"
+            className={s.bgImageWrapper__iconItem21}
+            size="28"
+          />
+        </span>
+        <br />
+        <span>
           0__
           <Icon
             name="default"

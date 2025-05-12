@@ -121,8 +121,8 @@ const UserSetsModal = ({ onClose }) => {
         <h3 className={s.modalTitle}>Profile settings</h3>
         <button className={s.modalCloseBtn} onClick={onClose}>
           <Icon
-            name="close"
-            className={s.bgImageWrapper__iconItem20}
+            name="chevron_down"
+            className={s.bgImageWrapper__iconItem21}
             size="24"
           />
         </button>
@@ -175,17 +175,21 @@ const UserSetsModal = ({ onClose }) => {
         </div>
 
         <div className={s.modalNameCurrWrap}>
-          <label className={s.modalCurrChangeLabel}>
-            <select
-              className={s.modalCurrChangeSelect}
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
-            >
-              <option value="uah">UAH</option>
-              <option value="usd">USD</option>
-              <option value="eur">EUR</option>
-            </select>
-          </label>
+          <div className={s.selectWrap}>
+            <label className={s.modalCurrChangeLabel} htmlFor="currSelect">
+              <select
+                className={s.modalCurrChangeSelect}
+                name="currSelect"
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+              >
+                <option value="uah">UAH</option>
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+              </select>
+            </label>
+            <Icon className={s.modalOptBtnIcon} name="up" size="20" />
+          </div>
           <label className={s.modalNameChangeLabel}>
             <input
               className={s.modalNameChangeInput}

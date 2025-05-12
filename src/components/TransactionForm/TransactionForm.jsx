@@ -277,6 +277,7 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
                   }
                   customInput={
                     <CustomInput
+                      readOnly={false}
                       icon={FaRegClock}
                       classNames={{
                         wrapper: s["t-input-wrapper"],

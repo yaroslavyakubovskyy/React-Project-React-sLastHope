@@ -176,7 +176,7 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ values, setFieldValue, isSubmitting }) => (
+      {({ values, setFieldValue, isSubmitting, dirty }) => (
         <>
           <Form className={isModal ? s["edit-form"] : s["add-form"]}>
             {isModal && (
@@ -353,10 +353,10 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
 
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || !dirty}
               className={s["t-send-btn"]}
             >
-              {transaction ? "Save" : "Add"}
+              {isSubmitting ? "Sending..." : transaction ? "Save" : "Add"}
             </button>
           </Form>
           {isCategoryModalOpen && (

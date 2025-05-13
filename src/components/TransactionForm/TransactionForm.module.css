@@ -116,8 +116,6 @@
   font-size: 14px;
 }
 
-
-
 .t-input:hover,
 .t-input:focus,
 .t-textarea:hover,
@@ -184,6 +182,13 @@
 
 .t-send-btn:hover {
   background-color: var(--hover-green);
+}
+
+.t-send-btn:disabled {
+  background-color: gray;
+  color: var(--grey);
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .close-btn-container {

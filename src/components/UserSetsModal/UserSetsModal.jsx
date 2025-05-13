@@ -22,19 +22,13 @@ const UserSetsModal = ({ onClose }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
-  const [name, setName] = useState("");
-  const [currency, setCurrency] = useState("USD");
-  const [avatar, setAvatar] = useState(null);
-  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [name, setName] = useState(user.name || "");
+  const [currency, setCurrency] = useState(user.currency || "USD");
+  const [avatarPreview, setAvatarPreview] = useState(user.avatarUrl || null);
   const [isAvatarLoading, setIsAvatarLoading] = useState(false);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   const fileInputRef = useRef(null);
-
-  useEffect(() => {
-    setName(user.name || "");
-    setCurrency(user.currency || "USD");
-    setAvatarPreview(user.avatarUrl || null);
-  }, [user]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -60,15 +54,15 @@ const UserSetsModal = ({ onClose }) => {
   const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    setAvatar(file);
+
     const previewURL = URL.createObjectURL(file);
     setAvatarPreview(previewURL);
     setIsAvatarLoading(true);
+
     try {
       await dispatch(updateUserAvatar(file)).unwrap();
       toast.success("Avatar updated!");
       dispatch(fetchCurrentUser());
-      setAvatar(null);
     } catch (err) {
       console.log(err);
       toast.error("Failed to upload avatar");
@@ -76,26 +70,6 @@ const UserSetsModal = ({ onClose }) => {
       setIsAvatarLoading(false);
     }
   };
-
-  // const handleAvatarUpload = async () => {
-  //   if (!avatar) {
-  //     fileInputRef.current?.click();
-  //     return;
-  //   }
-
-  //   setIsAvatarLoading(true);
-  //   try {
-  //     await dispatch(updateUserAvatar(avatar)).unwrap();
-  //     toast.success("Avatar updated!");
-  //     setAvatar(null);
-  //     dispatch(fetchCurrentUser());
-  //   } catch (err) {
-  //     console.log(err);
-  //     toast.error("Failed to upload avatar");
-  //   } finally {
-  //     setIsAvatarLoading(false);
-  //   }
-  // };
 
   const handleAvatarRemove = async () => {
     const avatarId = getAvatarId(user.avatarUrl);
@@ -117,6 +91,7 @@ const UserSetsModal = ({ onClose }) => {
 
   const handleSave = async (e) => {
     e.preventDefault();
+
     try {
       await dispatch(updateUserInfo({ name, currency })).unwrap();
       toast.success("User info updated!");
@@ -190,11 +165,17 @@ const UserSetsModal = ({ onClose }) => {
         <div className={s.modalNameCurrWrap}>
           <div className={s.selectWrap}>
             <label className={s.modalCurrChangeLabel} htmlFor="currSelect">
-              <label className={s.modalCurrChangeLabel}>
-                <CustomSelect value={currency} onChange={setCurrency} />
-              </label>
+              <CustomSelect
+                value={currency}
+                onChange={setCurrency}
+                onToggle={setIsSelectOpen}
+              />
               <span>
-                <Icon className={s.modalOptBtnIcon} name="up" size="100%" />
+                <Icon
+                  className={`${s.modalOptBtnIcon} ${isSelectOpen ? s.iconRotated : ""}`}
+                  name="up"
+                  size="100%"
+                />
               </span>
             </label>
           </div>

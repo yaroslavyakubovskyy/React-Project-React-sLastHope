@@ -46,12 +46,15 @@
     gap: 22px;
     flex-basis: calc((100% - 24px) / 2);
     border-radius: 20px;
+    height: 121px;
+    width: 340px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .listItem {
     padding-right: 104px;
+    width: 303px;
   }
   & .wrapper {
     max-height: 121px;

@@ -70,7 +70,6 @@ const UserSetsModal = ({ onClose }) => {
       dispatch(fetchCurrentUser());
       setAvatar(null);
     } catch (err) {
-      console.log(err);
       toast.error("Failed to upload avatar");
     } finally {
       setIsAvatarLoading(false);
@@ -90,7 +89,6 @@ const UserSetsModal = ({ onClose }) => {
   //     setAvatar(null);
   //     dispatch(fetchCurrentUser());
   //   } catch (err) {
-  //     console.log(err);
   //     toast.error("Failed to upload avatar");
   //   } finally {
   //     setIsAvatarLoading(false);
@@ -108,7 +106,6 @@ const UserSetsModal = ({ onClose }) => {
       setAvatarPreview(null);
       dispatch(fetchCurrentUser());
     } catch (err) {
-      console.log(err);
       toast.error("Failed to delete avatar");
     } finally {
       setIsAvatarLoading(false);
@@ -123,7 +120,6 @@ const UserSetsModal = ({ onClose }) => {
       dispatch(fetchCurrentUser());
       onClose();
     } catch (err) {
-      console.error(err);
       toast.error("Failed to update user info");
     }
   };

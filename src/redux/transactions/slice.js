@@ -78,10 +78,6 @@ const transactionSlice = createSlice({
         state.isLoading = false;
         state.error = payload;
       })
-
-      //
-      // TransactionsHistoryPage
-      //
       .addCase(deleteTransaction.pending, (state, action) => {
         state.isLoading = true;
         state.error = null;

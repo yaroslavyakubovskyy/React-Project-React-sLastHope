@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import s from "./TransactionsHistoryPage.module.css";
 import { Navigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TransactionsTotalAmount } from "../../components/TransactionsTotalAmount/TransactionsTotalAmount";
 import TransactionsList from "../../components/TransactionsList/TransactionsList";
 import TransactionsSearchTools from "../../components/TransactionsSearchTools/TransactionsSearchTools";
 
-import { selectIsToken } from "../../redux/transactions/selectors";
 import { getTransactions } from "../../redux/transactions/operations";
 import { fetchCurrentUser } from "../../redux/user/operations";
 import { setFilter } from "../../redux/transactions/slice";
@@ -15,16 +14,15 @@ import { selectIsRefreshing } from "../../redux/auth/selectors";
 const TransactionsHistoryPage = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
-  const isToken = useSelector(selectIsToken);
 
   const { transactionsType } = useParams();
 
   useEffect(() => {
-    if (isRefreshing || !isToken) return;
+    if (isRefreshing) return;
 
     dispatch(getTransactions({ type: transactionsType }));
     dispatch(fetchCurrentUser());
-  }, [dispatch, isRefreshing, isToken, transactionsType]);
+  }, [dispatch, isRefreshing, transactionsType]);
 
   const handleSearchInput = (e) => {
     const value = e.target.value;

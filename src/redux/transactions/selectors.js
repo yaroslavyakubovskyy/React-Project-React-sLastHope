@@ -5,13 +5,6 @@ export const selectSelectedType = (state) => state.transactions.selectedType;
 export const selectIsLoading = (state) => state.transactions.isLoading;
 export const selectIsError = (state) => state.transactions.isError;
 
-//
-//TrasactionsHistoryPage
-//
-
-export const selectIsToken = (state) => Boolean(state.auth.token); //move to auth selectors
-
-export const selectUserCurrecy = (state) => state.user.currency; //move to user selectors
 export const selectIsDeleteModalOpen = (state) =>
   state.transactions.deleteModal;
 

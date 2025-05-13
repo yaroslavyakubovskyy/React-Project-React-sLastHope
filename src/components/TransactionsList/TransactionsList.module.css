@@ -154,6 +154,17 @@ td {
   gap: 15px;
   color: #999999;
 }
+.detailsList > li {
+  display: flex;
+}
+
+.deleteTitle {
+  width: 63%;
+}
+
+.deleteContent {
+  width: 37%;
+}
 .deteilsTitle {
   font-size: 30px;
   margin-bottom: 15px;

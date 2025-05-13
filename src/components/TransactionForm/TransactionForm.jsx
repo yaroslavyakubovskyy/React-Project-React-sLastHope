@@ -20,6 +20,7 @@ import { CategoriesModal } from "../CategoriesModal/CategoriesModal";
 import { CgClose } from "react-icons/cg";
 import { selectCurrency } from "../../redux/user/selectors";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
+import { selectSelectedType } from "../../redux/transactions/selectors";
 
 registerLocale("en-GB", enGB);
 
@@ -79,6 +80,7 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
   const dispatch = useDispatch();
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
   const userCurrency = useSelector(selectCurrency);
+  const selectedType = useSelector(selectSelectedType);
 
   const initialValues = transaction
     ? {
@@ -91,7 +93,7 @@ const TransactionForm = ({ transaction, onClose, isModal = false }) => {
         comment: transaction.comment,
       }
     : {
-        type: "expenses",
+        type: selectedType || "expenses",
         date: null,
         time: null,
         category: "",

@@ -8,7 +8,7 @@
   flex-direction: row;
   gap: 8px;
 }
-@media screen and (min-width: 1440) {
+@media screen and (min-width: 1440px) {
   .buttonsWrapper {
     width: 300px;
   }
@@ -46,8 +46,10 @@
   .deletetBtn {
     min-width: 90px;
     display: flex;
-    justify-content: flex-start;
-    gap: 20px;
+    justify-content:center;
+    align-items: center;
+
+
   }
   .deletetBtn {
     min-width: 110px;
@@ -66,10 +68,19 @@
 .editText {
   display: none;
 }
+
+@media screen and (min-width: 768px) {
+  .editIcon, .deletIcon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 @media screen and (min-width: 1440px) {
   .deleteText,
   .editText {
     display: inline;
     font-size: 16px;
   }
+
 }

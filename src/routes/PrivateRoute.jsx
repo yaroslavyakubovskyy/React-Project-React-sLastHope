@@ -7,7 +7,6 @@ const PrivateRoute = ({ children }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isToken = useSelector(selectIsToken);
   if (!isLoggedIn && !isToken) return <Navigate to="/"/>;
-
   return children;
 };
 

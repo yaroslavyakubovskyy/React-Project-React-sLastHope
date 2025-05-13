@@ -9,15 +9,22 @@ import s from "./SharedLayout.module.scss";
 
 const SharedLayout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const currentPath = location.pathname;
+
+  const availablePaths = ["/", "/register", "/login"];
+
+  const pathExists = availablePaths.includes(currentPath);
+
   return (
     <>
       <Header />
       <div className={s.wrapper}>
-        {!isLoggedIn && (
+        {!isLoggedIn && pathExists && (
           <Media query="(min-width: 1440px)">
             {(matches) => matches && <BgImageWrapper />}
           </Media>
         )}
+
         <Outlet />
       </div>
     </>

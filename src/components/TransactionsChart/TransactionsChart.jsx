@@ -53,9 +53,9 @@ export const TransactionsChart = () => {
   if (!categoriesData.length) {
     return (
       <div className={s.warningWrapper}>
-        <h2 className={s.warningTitle}>
+        <p className={s.warningTitle}>
           You don't have any expenses in this month.
-        </h2>
+        </p>
         <img className={s.imgNoTransactions} src={warningImg} alt="No data" />
       </div>
     );

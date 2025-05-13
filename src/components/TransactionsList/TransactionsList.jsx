@@ -5,7 +5,6 @@ import {
   selectIsDeleteModalOpen,
   selectIsLoading,
   selectTransactions,
-  selectUserCurrecy,
 } from "../../redux/transactions/selectors";
 import clsx from "clsx";
 import EditTransactionButtons from "../EditTransactionButtons/EditTransactionButtons";
@@ -22,13 +21,14 @@ import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 import { Link, useParams } from "react-router-dom";
 import { getCurrencySymbol } from "../../utils/getCurrencySymbol";
 import getFormatedDate from "../../utils/getFormatedDate";
+import { selectCurrency } from "../../redux/user/selectors";
 
 const TransactionsList = () => {
   const dispatch = useDispatch();
   const { transactionsType } = useParams();
 
   const transactions = useSelector(selectFilteredTransactions);
-  const currency = useSelector(selectUserCurrecy);
+  const currency = useSelector(selectCurrency);
   const isLoading = useSelector(selectIsLoading);
   const isDeleteModalOpen = useSelector(selectIsDeleteModalOpen);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -115,20 +115,41 @@ const TransactionsList = () => {
               Delete transaction:
             </li>
             <li className={s.deteilsItem}>
-              Transaction type: {transactionForDelete.type}
+              <span className={s.deleteTitle}>Transaction type: </span>
+              <span className={s.deleteContent}>
+                {transactionForDelete.type}
+              </span>
             </li>
             <li className={s.deteilsItem}>
-              Category: {transactionForDelete.category.categoryName}
+              <span className={s.deleteTitle}>Category: </span>
+              <span className={s.deleteContent}>
+                {transactionForDelete.category.categoryName}
+              </span>
             </li>
             <li className={s.deteilsItem}>
-              Date: {getFormatedDate(transactionForDelete.date)}
+              <span className={s.deleteTitle}>Date: </span>
+              <span className={s.deleteContent}>
+                {getFormatedDate(transactionForDelete.date)}
+              </span>
             </li>
-            <li className={s.deteilsItem}>Time: {transactionForDelete.time}</li>
+
             <li className={s.deteilsItem}>
-              Comment: {transactionForDelete.comment}
+              <span className={s.deleteTitle}>Time:</span>
+              <span className={s.deleteContent}>
+                {transactionForDelete.time}
+              </span>
             </li>
             <li className={s.deteilsItem}>
-              Sum: {transactionForDelete.sum} {getCurrencySymbol(currency)}
+              <span className={s.deleteTitle}>Comment:</span>
+              <span className={s.deleteContent}>
+                {transactionForDelete.comment}
+              </span>
+            </li>
+            <li className={s.deteilsItem}>
+              <span className={s.deleteTitle}>Sum:</span>
+              <span className={s.deleteContent}>
+                {transactionForDelete.sum} {getCurrencySymbol(currency)}
+              </span>
             </li>
           </ul>
         )}

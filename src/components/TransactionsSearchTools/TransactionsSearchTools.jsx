@@ -1,7 +1,6 @@
 import { useState } from "react";
 import s from "./TransactionsSearchTools.module.css";
 import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getTransactions } from "../../redux/transactions/operations";

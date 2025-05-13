@@ -32,12 +32,6 @@
   transition: color 0.3s ease;
 }
 
-/* @media screen and (min-width: 768px) {
-  .h-icon {
-    right: 140px;
-  }
-} */
-
 .h-input-wrapper:hover .h-icon,
 .h-input-wrapper:focus-within .h-icon {
   color: var(--hover-green);

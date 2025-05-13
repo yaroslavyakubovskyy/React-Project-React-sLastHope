@@ -12,6 +12,7 @@ import { selectCategories } from "../../redux/category/selectors";
 import toast from "react-hot-toast";
 import { Icon } from "../Icon/Icon";
 import styles from "./CategoriesModal.module.css";
+import { getTransactions } from "../../redux/transactions/operations";
 
 const categorySchema = yup
   .string()
@@ -88,6 +89,7 @@ export const CategoriesModal = ({
         ).unwrap();
         toast.success("Category created");
       }
+      await dispatch(getTransactions({ type }));
       setCategoryName("");
       setEditingCategoryId(null);
     } catch (error) {

@@ -2,8 +2,14 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 42px;
-  margin-top: 59px;
+  margin-top: 25px;
 }
+@media screen and (min-width: 768px) {
+  .wrapper {
+    margin-top: 18px;
+  }
+}
+
 
 @media screen and (min-width: 1440px) {
   .wrapper {

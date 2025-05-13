@@ -4,6 +4,7 @@ import UserBarBtn from "../UserBarBtn/UserBarBtn";
 import s from "./BurgerMenu.module.css";
 import clsx from "clsx";
 import { Icon } from "../Icon/Icon";
+
 const BurgerMenu = ({
   onOpenModal,
   onClose,
@@ -11,10 +12,12 @@ const BurgerMenu = ({
   onOpenLogoutModal,
 }) => {
   const user = useSelector((state) => state.auth.user);
+
   const handleOpenModal = () => {
     onOpenModal();
     onClose();
   };
+
   return (
     <div
       className={clsx(

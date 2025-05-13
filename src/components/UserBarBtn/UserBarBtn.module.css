@@ -21,8 +21,8 @@
   width: 44px;
   height: 44px;
   display: block;
-  object-fit: contain; /* замощує повністю */
-  object-position: center; /* центрує */
+  object-fit: cover;
+  object-position: center;
 }
 .userBarDefAvatar {
   font-weight: 700;
@@ -51,10 +51,12 @@
   /* color: transparent; */
   fill: transparent;
   stroke: #0ef387;
-  outline: transparent;
   overflow: hidden;
+  transition: transform 300ms ease;
 }
-
+.userBarBtn.open .userBarBtnIcon {
+  transform: rotate(180deg);
+}
 /* .userBarBtnContainer {
   position: relative;
   width: 217px;

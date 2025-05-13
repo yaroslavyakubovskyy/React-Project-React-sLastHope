@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
-import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { useSelector } from "react-redux";
-import s from "./Logo.module.css";
-import { Icon } from "../Icon/Icon";
 import clsx from "clsx";
+
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
+import { Icon } from "../Icon/Icon";
+import s from "./Logo.module.css";
+
 const Logo = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
+
   return (
     <Link
       to={isLoggedIn ? "/transactions/expenses" : "/"}

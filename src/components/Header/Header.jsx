@@ -1,41 +1,36 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import clsx from "clsx";
+
 import Logo from "../Logo/Logo";
 import TransactionsHistoryNav from "../TransactionsHistoryNav/TransactionsHistoryNav";
 import UserBarBtn from "../UserBarBtn/UserBarBtn";
 import BurgerMenuBtn from "../BurgerMenuBtn/BurgerMenuBtn";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoggedIn } from "../../redux/auth/selectors";
-import { Navigate } from "react-router-dom";
 import UserSetsModal from "../UserSetsModal/UserSetsModal";
-import s from "./Header.module.css";
-import clsx from "clsx";
+import LogoutConfirmModal from "../LogoutConfirmModal/LogoutConfirmModal";
+
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { selectUser } from "../../redux/user/selectors";
 import { logOut } from "../../redux/auth/operations";
-import LogoutConfirmModal from "../LogoutConfirmModal/LogoutConfirmModal";
+
+import s from "./Header.module.css";
+
 const Header = () => {
-  //
   const dispatch = useDispatch();
-  //
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  //
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  //
   const user = useSelector(selectUser);
-  // const user = useSelector((state) => ({
-  //   name: state.auth.name,
-  //   avatarUrl: state.auth.avatarUrl,
-  // }));
-  //
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const isMobile = windowWidth < 768;
   const isTablet = windowWidth >= 768 && windowWidth < 1440;
   const isDesktop = windowWidth >= 1440;
-  const handleOpenModal = () => setIsModalOpen(true);
-  // const handleCloseModal = () => setIsModalOpen(false);
+
   useEffect(() => {
     const handleResize = () => {
       const currentWidth = window.innerWidth;
@@ -47,30 +42,33 @@ const Header = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   const toggleBurger = () => {
-    if (isModalOpen) return;
-    setIsBurgerOpen(!isBurgerOpen);
+    if (!isModalOpen) {
+      setIsBurgerOpen((prev) => !prev);
+    }
   };
+
   const closeBurger = () => setIsBurgerOpen(false);
 
   const toggleModal = () => {
-    if (isBurgerOpen) {
-      setIsBurgerOpen(false);
-    }
-    setIsModalOpen(!isModalOpen);
-    // setIsModalOpen((prev) => !prev);
+    if (isBurgerOpen) closeBurger();
+    setIsModalOpen((prev) => !prev);
   };
-  //
+
+  const handleOpenModal = () => setIsModalOpen(true);
+
   const openLogoutModal = () => {
-    setIsBurgerOpen(false);
+    closeBurger();
     setIsLogoutModalOpen(true);
   };
+
   const closeLogoutModal = () => setIsLogoutModalOpen(false);
+
   const confirmLogout = () => {
     dispatch(logOut());
     closeLogoutModal();
   };
-  //
 
   return (
     <div className={s.headerContainer}>
@@ -93,7 +91,7 @@ const Header = () => {
                 />
               </>
             )}
-            {isLoggedIn && (isMobile || isTablet) && (
+            {(isMobile || isTablet) && (
               <div>
                 <BurgerMenuBtn onClick={toggleBurger} />
                 {isBurgerOpen && (

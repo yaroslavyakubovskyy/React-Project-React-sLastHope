@@ -5,7 +5,7 @@ import React, { Fragment } from "react";
 import Media from "react-media";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
-import s from "./SharedLayout.module.css";
+import s from "./SharedLayout.module.scss";
 
 const SharedLayout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);

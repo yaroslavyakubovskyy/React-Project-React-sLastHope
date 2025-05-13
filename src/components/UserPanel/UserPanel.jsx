@@ -1,16 +1,8 @@
-import { useDispatch } from "react-redux";
 import UserSetsModal from "../UserSetsModal/UserSetsModal";
 import s from "./UserPanel.module.css";
-import { useNavigate } from "react-router-dom";
 import { Icon } from "../Icon/Icon";
-import { logOut } from "../../redux/auth/operations";
 import clsx from "clsx";
 const UserPanel = ({ onOpenModal, onOpenLogoutModal }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    dispatch(logOut());
-  };
   return (
     <ul className={s.userPanel}>
       <li>

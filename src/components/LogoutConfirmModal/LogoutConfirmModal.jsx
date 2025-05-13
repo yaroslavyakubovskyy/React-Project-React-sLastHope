@@ -21,7 +21,7 @@ const LogoutConfirmModal = ({ onConfirm, onCancel }) => {
           <button className={s.logoutBtn} onClick={onConfirm}>
             Log out
           </button>
-          <button className={s.cancelBtn} onClick={onCancel}>
+          <button className={s.cancelBtn2} onClick={onCancel}>
             Cancel
           </button>
         </div>

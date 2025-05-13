@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  margin-top: 60px;
 
   &__home {
     display: flex;
@@ -159,7 +158,6 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 74px;
 
     &__text {
       width: 575px;
@@ -199,7 +197,7 @@
     }
 
     &__buttons {
-      margin-bottom: 166px;
+      margin-bottom: 156px;
     }
   }
 }

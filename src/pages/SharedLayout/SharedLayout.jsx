@@ -11,15 +11,15 @@ const SharedLayout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const currentPath = location.pathname;
 
-  const availablePaths = ["/", "/register", "/login"];
-
-  const pathExists = availablePaths.includes(currentPath);
+  // const availablePaths = ["/", "/register", "/login"];
+  //
+  // const pathExists = availablePaths.includes(currentPath);
 
   return (
     <>
       <Header />
       <div className={s.wrapper}>
-        {!isLoggedIn && pathExists && (
+        {!isLoggedIn && (
           <Media query="(min-width: 1440px)">
             {(matches) => matches && <BgImageWrapper />}
           </Media>

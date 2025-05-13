@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import s from "./EditTransactionButtons.module.css";
 import { useParams } from "react-router-dom";
-import { deleteTransaction } from "../../redux/transactions/operations";
 import { FiEdit2 } from "react-icons/fi";
 import { PiTrashLight } from "react-icons/pi";
 import { openDeleteModal } from "../../redux/transactions/slice";

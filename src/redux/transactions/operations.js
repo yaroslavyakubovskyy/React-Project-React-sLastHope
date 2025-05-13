@@ -43,7 +43,7 @@ export const getTransactions = createAsyncThunk(
       const params = date ? { date } : {};
 
       const { data } = await instance.get(`/transactions/${type}`, { params });
-      
+
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -51,9 +51,6 @@ export const getTransactions = createAsyncThunk(
   }
 );
 
-//
-//TransactionHistoryPage
-//
 export const deleteTransaction = createAsyncThunk(
   "transactions/deleteTransaction",
   async ({ _id }, thunkAPI) => {

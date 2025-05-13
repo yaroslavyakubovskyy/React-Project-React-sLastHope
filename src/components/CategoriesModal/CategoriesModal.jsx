@@ -101,6 +101,10 @@ export const CategoriesModal = ({
     try {
       await dispatch(deleteCategory({ id, type })).unwrap();
       toast.success("Category deleted");
+      if (id === editingCategoryId) {
+        setCategoryName("");
+        setEditingCategoryId(null);
+      }
     } catch (error) {
       if (error === "Can`t remove! Some transactions depend on this category") {
         toast("This category is in use", {

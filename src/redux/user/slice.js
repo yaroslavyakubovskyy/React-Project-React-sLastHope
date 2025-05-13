@@ -11,7 +11,7 @@ const initialState = {
   name: "",
   email: "",
   currency: "",
-  iaLoading: false,
+  isLoading: false,
   avatarUrl: "",
   totalIncomes: 0,
   totalExpenses: 0,
@@ -26,7 +26,7 @@ const userSlice = createSlice({
         fetchCurrentUser.fulfilled,
         (
           state,
-          { payload: { name, email, currency, avatarUrl, transactionsTotal } },
+          { payload: { name, email, currency, avatarUrl, transactionsTotal } }
         ) => {
           state.name = name;
           state.email = email;
@@ -35,7 +35,7 @@ const userSlice = createSlice({
           state.totalIncomes = transactionsTotal.incomes;
           state.totalExpenses = transactionsTotal.expenses;
           state.isLoading = false;
-        },
+        }
       )
       .addCase(fetchCurrentUser.pending, (state, { payload }) => {
         state.isLoading = true;
